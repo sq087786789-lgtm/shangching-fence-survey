@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 9219,
-      "sha256": "a51cf45eaf41e637ff2859ae9c920b7784eec4ccffcf8af843b30479e92b2388",
+      "bytes": 10383,
+      "sha256": "056a4cea042e24080a4c96143e97f20ccab6729e5553b6a2f640e4912995fbaf",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 21672,
-      "sha256": "e78ed4277fd75acda9a542881b9da2f40d5ef9ca910658338971240d6a91d589",
+      "bytes": 21741,
+      "sha256": "8a198749863f5044d4396b46654ea2b213e0d03f1620fab88fc5953a75a3873a",
       "url": "app.js"
     },
     {
@@ -23,6 +23,12 @@
       "bytes": 9001,
       "sha256": "056f7b9f2abfc08df03af473fc7b0f3bafc5598ca5aaad2e7edfbf4f744bb438",
       "url": "photos.js"
+    },
+    {
+      "path": "confirmation.js",
+      "bytes": 7317,
+      "sha256": "9f949d3d4679def224e04e46a4fa837d9d64237d1cb367ecafd7a4181b516cf4",
+      "url": "confirmation.js"
     },
     {
       "path": "drive.js",
@@ -50,8 +56,8 @@
     },
     {
       "path": "style.css",
-      "bytes": 6711,
-      "sha256": "37db043f77b2a1ccc098e7fe4442f462768ab0c80e336e20f9cfb9563b65bc59",
+      "bytes": 7088,
+      "sha256": "ec0cc9cf52a52a483b4c80ef1a70d365650b2dbe916b39c0d080c4d32b27ded8",
       "url": "style.css"
     },
     {
@@ -62,14 +68,14 @@
     },
     {
       "path": "README.md",
-      "bytes": 8290,
-      "sha256": "d204bf9e3c0d58b002a1a50f85e234977384cbe0fee337459a4db8565037a7f0",
+      "bytes": 8955,
+      "sha256": "9c2c2f8a1089440d7b6f0725e20a963ca6266db17f8c2636376c9b47d16889b1",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 11148,
-      "sha256": "63f756b88d72fbdf18f60c9d5c12b513c535fa4521b4853532212432ca923c35",
+      "bytes": 11813,
+      "sha256": "8e9ed8b13909fe3af72f0ffc1c6b16fe756efb1b149f41d1eb342f1ec9be0f77",
       "url": "AI_README.md"
     },
     {
@@ -80,14 +86,14 @@
     },
     {
       "path": "test.cjs",
-      "bytes": 8032,
-      "sha256": "b052605e23351c5938b7b138a55c361e1c1cd2f357a871f8a1b23ef456d4a347",
+      "bytes": 9385,
+      "sha256": "df7c80619184450d89d2e1f42f8727585ba20bc03156ff3f461ada68506c15fb",
       "url": "test.cjs"
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 1087,
-      "sha256": "5f9d6320dcf7928174eb76a255e806e7470b44b70c25c5165b086dae50d537c7",
+      "bytes": 1105,
+      "sha256": "aa105d5b9cabd6ec0c0fce31823b474580e17bf5ee65b15d0b8b46878e2e23d2",
       "url": "build-handoff.cjs"
     },
     {
