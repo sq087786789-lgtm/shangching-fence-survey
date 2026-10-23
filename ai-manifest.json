@@ -8,8 +8,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 9142,
-      "sha256": "c55f30bc638e82f15f11b84aa6637bf847610f18255cafebf0411d13ff047a16",
+      "bytes": 9152,
+      "sha256": "3d78a101ca5b869e659ea66c4e64ac28553b62b16464fe66fe2dd3ff6ada2cc9",
       "url": "index.html"
     },
     {
@@ -50,8 +50,8 @@
     },
     {
       "path": "style.css",
-      "bytes": 6322,
-      "sha256": "ce43af52bbbb058bda0b32bdf1c1aaec1b90921f44e8dcde5c0089858f3f616b",
+      "bytes": 6711,
+      "sha256": "37db043f77b2a1ccc098e7fe4442f462768ab0c80e336e20f9cfb9563b65bc59",
       "url": "style.css"
     },
     {

@@ -10,3 +10,5 @@ dialog{border:1px solid #dbe4dc;border-radius:14px;max-width:460px;width:calc(10
 .studioActions{display:flex;flex-wrap:wrap;gap:10px}.studioActions button{flex:1;min-width:160px}
 
 #cloudCases{scroll-margin-top:12px}#driveMessage{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}#driveCases{height:240px}button:disabled{cursor:default;opacity:.5}@media print{#cloudCases,#driveDialog{display:none!important}}
+
+.picker-dialog{position:fixed!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;max-width:calc(100vw - 24px)!important;max-height:85dvh!important;z-index:2001!important}.picker-dialog-bg{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;z-index:2000!important}.picker-dialog-frame{max-height:85dvh!important}
