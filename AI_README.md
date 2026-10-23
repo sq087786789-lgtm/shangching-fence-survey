@@ -40,7 +40,7 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 GitHub Pages main/root，所有資源採相對路徑，支援 /shangching-fence-survey/ 子路徑。不需 npm install。先測試再生成AI索引並提交；確認 Pages 成功後回報。不要把私人 Sites manifest 或 Git 憑證加入專案。
 
 ## 路線與新案操作
-每段備註下方的 data-insert-fence 按鈕呼叫 insertSegment('fence',目前索引)，直接在該段後插入圍籬，render 後 showSegment 捲到新段，沿用即時預覽與自動儲存；後續段落及穩定 ID 不變。insertSegment(type,after) 可末尾或指定段後插入圍籬／門，沿用最後圍籬規格，門預設4m且柱徑至少89.1mm；不自動切割前一段，若要保持總長須自行調整。removeSegment/restoreSegment 保留最近刪除段的位置與規格，復原時不覆蓋後續表單編輯。blankDesign 一段10m圍籬；backupAndReplace 先成功寫入 sq-field-survey-previous 再換案，resetScene 清除確認狀態，由即時預覽更新新案圖面；取回上一案會與目前案交換。新設計自動顯示預覽，確認狀態重置。角度輸入支援0.1°，常用選單左右15～150°與180°。
+每段備註下方的 data-insert-fence 按鈕呼叫 insertSegment('fence',目前索引)，直接在該段後插入圍籬，render 後 showSegment 捲到新段，沿用即時預覽與自動儲存；後續段落及穩定 ID 不變。insertSegment(type,after) 可末尾或指定段後插入圍籬／門，新增 fence 用目前第一個 type=fence 的段落作範本（沒有時用 seg()），連 length 也帶入；高度、柱距、柱徑、線徑、網目、材質、橫桿、基礎、埋深及怪手需求一併複製。每次插入使用獨立資料與新 ID，turn=0、note留白，不回寫既有段落；第一段修改只影響之後新增的圍籬。門仍沿用最後圍籬規格，預設4m且柱徑至少89.1mm；不自動切割前一段，若要保持總長須自行調整。removeSegment/restoreSegment 保留最近刪除段的位置與規格，復原時不覆蓋後續表單編輯。blankDesign 一段10m圍籬；backupAndReplace 先成功寫入 sq-field-survey-previous 再換案，resetScene 清除確認狀態，由即時預覽更新新案圖面；取回上一案會與目前案交換。新設計自動顯示預覽，確認狀態重置。角度輸入支援0.1°，常用選單左右15～150°與180°。
 
 ## 勘場照片
 photos.js（先於app.js載入）管理window.photoLibrary，IndexedDB sq-field-photos / images存 id→JPEG dataURL。data.photos保存{id,name,caption,segmentId,width,height,addedAt}，segments.id為穩定ID，插門不重用ID，刪除路段不刪照片。migrate為舊案補photos=[]與segment ID。JSON匯出expand會嵌入dataUrl；匯入先validatePhotos限制類型／20張／文字及dataURL上限，再原子IDB寫入，以新image id避免覆蓋其他案圖片，成功後才換目前資料。15MB匯入上限。新案／上一案保留照片索引；移除照片只移除目前案參照，保留影像供復原和上一案，暫無孤兒資料清理。不得把真實照片提交GitHub。壓縮使用Canvas，最長1600px，JPEG最多480000字元base64，無法讀取HEIC時請轉JPEG。照片只是現場參照，不自動定位、測量或改變3D幾何。列印含照片與文字備註；CSV及純3D設計檔不含照片。
