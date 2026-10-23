@@ -38,3 +38,6 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 
 ## 部署
 GitHub Pages main/root，所有資源採相對路徑，支援 /shangching-fence-survey/ 子路徑。不需 npm install。先測試再生成AI索引並提交；確認 Pages 成功後回報。不要把私人 Sites manifest 或 Git 憑證加入專案。
+
+## 路線與新案操作
+insertSegment(type,after) 可末尾或指定段後插門，沿用最後圍籬規格，門預設4m且柱徑至少89.1mm；不自動切割前一段，若要保持總長須自行調整。removeSegment/restoreSegment 保留最近刪除段的位置與規格，復原時不覆蓋後續表單編輯。blankDesign 一段10m圍籬；backupAndReplace 先成功寫入 sq-field-survey-previous 再換案，resetScene 清除已套入圖面；取回上一案會與目前案交換。新設計不自動套入。角度輸入支援0.1°，常用選單左右15～150°與180°。
