@@ -25,7 +25,7 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 每段跨數 ceil(length/spacing)，接點共享端柱；門段只有兩端柱，不生中間柱。網量=sum(非門段 length)，絕不能乘 height。橫桿=sum(length*railCount)。單獨埋入／混凝土／底板按接點計處；工法交界採先出現段，需人工覆核。
 單價尚未按規格拆分，怪手施工費=excavatorShifts*excavatorRate，進退場費=excavatorTransport，各自列在lines；quote()計算小計、折讓、稅與總額，JSON/CSV/列印均含這兩項。全案估價不按需求段數倍乘，舊檔由migrate補0，保留原extra避免丟失，固定扣件及耗損另列。正2英吋與2英吋名稱必須區分，但圖面mm僅近似；不要推定供應商規範。
 200段、單段5000m、總長20000m上限是試算工具效能限制。大案3D可能很細小，不是結構設計圖。
-安全：表單插入HTML先經esc，匯入有大小與格式限制，postMessage只接受同源父頁，沒有雲端同步。
+安全：表單插入HTML先經esc，匯入有大小與格式限制，postMessage只接受同源父頁，雲端僅由 drive.js 手動觸發，授權範圍為 drive.file。
 
 ## 接手驗收
 1. 長150m高1.8m的網量=150m，改高3m仍150m。
@@ -54,3 +54,11 @@ openStudio 按鈕先 validate 表單及埋深，將 design() 去除段落內部�
 新案件／新圍籬與3D工作室新增構件預設使用單獨埋入（direct），埋深50cm；後續圍籬沿用第一段設定。已儲存或匯入的案件保留原工法，不自動改寫。
 
 新圍籬立柱外徑預設48.6mm，後續新增沿用第一段；門柱維持獨立規格（新門預設至少89.1mm）。已儲存／匯入案件保留原柱徑，不自動改寫。
+
+## Drive 整合接手
+- drive.js：GIS token client + Google Picker + Drive REST v3；createStore 可在 Node 用模擬 fetch 測試。drive-config.js 僅公開瀏覽器設定；任何 client secret／token 禁止寫入來源及 AI manifest。
+- app.js fullSnapshot() 在 await 前複製表單並計算衍生資料，再透過 photoLibrary.expand 嵌入照片；restoreSnapshot() 先移轉並驗證、原子寫入照片，backupAndReplace 成功備份目前案才換案。JSON 匯入與雲端載入共用此路徑。
+- 只按儲存時上傳。每次新資料夾 appProperties={sqKind:survey-case,sqComplete:no}；完整JSON、去除內部段備註的3D設計JSON、影像子資料夾及照片說明全部成功後才 PATCH sqComplete=yes。載入清單只查成功版本，支援下一頁。中斷不刪檔、不覆寫舊案，可手動整理殘留未完成資料夾。
+- 權杖只在記憶體，Google操作只用 https://www.googleapis.com 的固定路徑與 Bearer header，雲端ID限制字元避免路徑／查詢注入。照片及JSON延用20張/15MB限制，載入後由表單validate覆核，雲端衍生小計不可信。
+- 根資料夾不硬編碼：使用者以相同帳號從Picker選取，才授予該網站drive.file的存取權。聊天插件的Drive連線不能代替網站授權。只顯示網站建立且完成的案件，不任意掃描整顆Drive。
+- 檢查：node --check drive.js、node test.cjs、node drive-test.cjs、node build-handoff.cjs。模擬測試不是Google實際連線證明，發布後仍需實際登入、選資料夾、儲存含照片合成案並載入覆核。

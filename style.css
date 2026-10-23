@@ -8,3 +8,5 @@ dialog{border:1px solid #dbe4dc;border-radius:14px;max-width:460px;width:calc(10
 .segmentActions{display:flex;flex-direction:column;gap:8px;margin:8px 0 16px}.segmentActions button{width:100%}
 
 .studioActions{display:flex;flex-wrap:wrap;gap:10px}.studioActions button{flex:1;min-width:160px}
+
+#cloudCases{scroll-margin-top:12px}#driveMessage{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}#driveCases{height:240px}button:disabled{cursor:default;opacity:.5}@media print{#cloudCases,#driveDialog{display:none!important}}

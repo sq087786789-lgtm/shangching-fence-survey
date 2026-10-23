@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 7448,
-      "sha256": "f746a4b6fe37018d3658c569fb31ec45e914fcee2e1e2c937ceb431fc3949bdb",
+      "bytes": 9142,
+      "sha256": "c55f30bc638e82f15f11b84aa6637bf847610f18255cafebf0411d13ff047a16",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 21399,
-      "sha256": "68d5271bbb343a42ce6da3085f5589e426ea1e7b8d83cc8cdb2d0cde55dd3dd5",
+      "bytes": 21672,
+      "sha256": "e78ed4277fd75acda9a542881b9da2f40d5ef9ca910658338971240d6a91d589",
       "url": "app.js"
     },
     {
@@ -25,6 +25,24 @@
       "url": "photos.js"
     },
     {
+      "path": "drive.js",
+      "bytes": 11205,
+      "sha256": "34cce6fd3890ba99287d02d5d15c74b837aa97a2f6ae62832fd32b58eb294283",
+      "url": "drive.js"
+    },
+    {
+      "path": "drive-config.js",
+      "bytes": 266,
+      "sha256": "96fbc54a3340c7100d4c132e3da1376bb1c1c4b055737db0da93475a21a1b842",
+      "url": "drive-config.js"
+    },
+    {
+      "path": "drive-test.cjs",
+      "bytes": 3118,
+      "sha256": "079a39c29772ba2c01adf28c3deabe04a4224f7d46aac19bea71e7dc0a65c29d",
+      "url": "drive-test.cjs"
+    },
+    {
       "path": "studio-bridge.js",
       "bytes": 1245,
       "sha256": "66d29dfc0a4909c405d8350efd377ab003c88a2f23cd3cb0a171f27809b62daa",
@@ -32,8 +50,8 @@
     },
     {
       "path": "style.css",
-      "bytes": 6076,
-      "sha256": "e59c9eed0847f6f651acc98b4acdeb2c8b8ec3da3454e398e82f2a4baecaf47d",
+      "bytes": 6322,
+      "sha256": "ce43af52bbbb058bda0b32bdf1c1aaec1b90921f44e8dcde5c0089858f3f616b",
       "url": "style.css"
     },
     {
@@ -44,20 +62,20 @@
     },
     {
       "path": "README.md",
-      "bytes": 5942,
-      "sha256": "d10b97d3bd4470c6bd264401000c07de16f71e2ba67044d521005ca8745afc38",
+      "bytes": 7612,
+      "sha256": "0bbe4f9d507a765a83d67b6594fa38c39fa2bf8386d3cc58ed8798cfb22efe36",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 8145,
-      "sha256": "f2eea6b60bd8f070ee33d202015ebabdd284d9b631df6cf8e75a0e4c5c2b2854",
+      "bytes": 9810,
+      "sha256": "704c918deea3ffeb47a8301b04256bc0296aedc2da42cf50047aee4424b83eaf",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 1471,
-      "sha256": "8af9c5532d26168414b5887242c46b4cbd12a0481f9d98af5dad984c1385d119",
+      "bytes": 1734,
+      "sha256": "7ee4024ee35ac20c600a9e231ecba009bcda78ca5e7db4134d566de0c2de429a",
       "url": "AGENTS.md"
     },
     {
@@ -68,8 +86,8 @@
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 1041,
-      "sha256": "87920b62f3e197ab1e63b8952e476c6ed710fd8406cd37c07ae06a07f01b1805",
+      "bytes": 1087,
+      "sha256": "5f9d6320dcf7928174eb76a255e806e7470b44b70c25c5165b086dae50d537c7",
       "url": "build-handoff.cjs"
     },
     {
