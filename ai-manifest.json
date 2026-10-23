@@ -14,8 +14,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 21728,
-      "sha256": "b69d476bb770638068905e43c5b91acd08038aac84a84329c020c5a316b9f795",
+      "bytes": 21386,
+      "sha256": "d3e90ea146ed2d802f93aa474eba0f5c9330ea4b5a640c424f7d11f72bcd724f",
       "url": "app.js"
     },
     {
@@ -44,20 +44,20 @@
     },
     {
       "path": "README.md",
-      "bytes": 5372,
-      "sha256": "966b752fbff286038cb3c9696c77aadbcd677f039ae953e0230a3e98cb052319",
+      "bytes": 5557,
+      "sha256": "67170117ca6392278e83e4fdd4fe20783857425e094ad86ea28bb3bdf9a6fe73",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 7584,
-      "sha256": "6e03c672108b3b1d3bd14a4f09918f0878b0031d9da7e997383da5af86fd999e",
+      "bytes": 7760,
+      "sha256": "c72e7d441d6d8baeb2e42e48a64ff2624d4b14c68914748ab80dcb6a6a380113",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 868,
-      "sha256": "726a5615547fb467cb112d6c4560305413b5ef97c6cb31c467de29f02c349be4",
+      "bytes": 1082,
+      "sha256": "dbaced76de404c5e4ea5b7b1b2c4d6c5b44180289b5425fcb93af58fe0934f34",
       "url": "AGENTS.md"
     },
     {
