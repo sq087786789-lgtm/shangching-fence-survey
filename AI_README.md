@@ -1,0 +1,40 @@
+# AI 接手文件
+
+這是完整可執行的手機圍籬勘查工具，不只是展示畫面。從 ai.html 讀取 README、原始碼索引、單一檔案及完整原始碼 JSON 即可重建。
+
+## 架構與資料流
+index.html + style.css → app.js 編輯勘查草稿 → estimate()/lines() 試算 → 使用者按套入 → structuredClone(design()) 保留已套入快照 → 同源 iframe studio.html 驗證 origin/source 及幾何資料後顯示。
+後續表單修改會標示待重新套入，但不覆寫圖面。完整配置工作室另開後的編輯不反寫勘查表。
+
+## 檔案與函式
+- app.js：fresh/seg 預設；migrate 舊資料補欄位；validate 範圍檢查；render 表單；design 幾何資料；estimate 材料；lines 報價；update 儲存及摘要；sendApplied/按鈕事件處理套入。
+- studio.html：既有單檔 Canvas 工作室。window.fenceStudio 暴露 getState、validate、stats 等；父頁訊息 type=sq-survey-design。
+- test.cjs 透過 VM 載入計算部分，測實際數量與資料；非完整 UI 測試。
+
+## 儲存與匯出契約
+localStorage key：sq-field-survey-v1。
+完整資料 format=sq-field-survey，version=1，meshQuantityUnit=m。
+project：name/client/phone/address/date；conditions：ground/access/slope/demolition/boundary/utilities；notes 自由備註。
+segments[]：length(m)、turn(相對前段角度；第一段絕對方向)、height(m)、spacing(m)、wire(mm)、mesh(圖面近似mm)、meshChoice(採購名稱)、meshMat、base、depth(m)、railCount、postDia(mm)、type、gate、angle、excavator、note。
+base：plate 底板、buried 混凝土埋入、direct 單獨埋入；excavator：待確認／需要怪手／不需怪手。
+rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pricing：extra/discount/tax。
+完整匯出另外含 design/estimate/quoteLines，均可由來源重新計算，不要把舊匯出的小計當作真實來源。
+幾何 format=sq-fence-design，version=1；nodes x/z公尺，edges a/b端點索引。朝向0°東、90°北，z減少為北。
+
+## 核心算法與限制
+每段跨數 ceil(length/spacing)，接點共享端柱；門段只有兩端柱，不生中間柱。網量=sum(非門段 length)，絕不能乘 height。橫桿=sum(length*railCount)。單獨埋入／混凝土／底板按接點計處；工法交界採先出現段，需人工覆核。
+單價尚未按規格拆分，怪手未自動估價，固定扣件及耗損另列。正2英吋與2英吋名稱必須區分，但圖面mm僅近似；不要推定供應商規範。
+200段、單段5000m、總長20000m上限是試算工具效能限制。大案3D可能很細小，不是結構設計圖。
+安全：表單插入HTML先經esc，匯入有大小與格式限制，postMessage只接受同源父頁，沒有雲端同步。
+
+## 接手驗收
+1. 長150m高1.8m的網量=150m，改高3m仍150m。
+2. 門段不算菱形網長度。直線連段共用柱。
+3. 表單填寫或載入檔案不自動套入；按鈕套入後修改表單圖面不變。
+4. 150m以上可套入；多段任意左右彎折保留。
+5. 50cm埋深、四種網目、怪手與direct匯出後載入不丟失。
+6. 390px寬度無整頁橫向溢出，底部切換與表單操作可用。
+7. 修改原始碼後重新執行 build-handoff.cjs，保持 ai-source.json 與 ai-manifest.json 的hash同步。
+
+## 部署
+GitHub Pages main/root，所有資源採相對路徑，支援 /shangching-fence-survey/ 子路徑。不需 npm install。先測試再生成AI索引並提交；確認 Pages 成功後回報。不要把私人 Sites manifest 或 Git 憑證加入專案。

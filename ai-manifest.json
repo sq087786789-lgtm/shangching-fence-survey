@@ -1,0 +1,82 @@
+{
+  "format": "sq-fence-source-manifest",
+  "version": 1,
+  "entry": "index.html",
+  "handoff": "AI_README.md",
+  "source": "ai-source.json",
+  "repository": "https://github.com/sq087786789-lgtm/shangching-fence-survey",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 4639,
+      "sha256": "97e32acf964bf1b8a2b98b71d6cb811e082a151f871da4bc3a8a60e6759d8a5d",
+      "url": "index.html"
+    },
+    {
+      "path": "app.js",
+      "bytes": 13181,
+      "sha256": "5a05c319f4631cb821ed5a4b80cbddea89d915a45525aab016a427414da649d7",
+      "url": "app.js"
+    },
+    {
+      "path": "style.css",
+      "bytes": 4241,
+      "sha256": "1ae2dc60d5d28207b5bf13223515bb8465176dc987419f7b6a76f1d3fbedceae",
+      "url": "style.css"
+    },
+    {
+      "path": "studio.html",
+      "bytes": 84921,
+      "sha256": "9b0439af6ea6aad8d317366c4488cc79cb4739c3e45680c932e7fbef817a5af6",
+      "url": "studio.html"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3051,
+      "sha256": "802907ed506277e820e6d76f2ac05293b49ff4e83b331ee7478600d739da91e1",
+      "url": "README.md"
+    },
+    {
+      "path": "AI_README.md",
+      "bytes": 3654,
+      "sha256": "e54f81bd7c6f8daa72ddfc8bf99c5610b18ed86d0032ba4d350d94e9a6a0e76f",
+      "url": "AI_README.md"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 767,
+      "sha256": "ece67b07f1c985dfd4bee5879c814b1cf2ea713b0ddebb5f62b7db890a6996ee",
+      "url": "AGENTS.md"
+    },
+    {
+      "path": "test.cjs",
+      "bytes": 1840,
+      "sha256": "b6f5618a06ec1e584a3154d3e70b7650385f4579b8d6cf3886f15789a825b1b8",
+      "url": "test.cjs"
+    },
+    {
+      "path": "build-handoff.cjs",
+      "bytes": 1010,
+      "sha256": "0224fcc8b1569e6e7a09f6c1a90a1959998713c052c0f1304e6b6c96a5a3ed85",
+      "url": "build-handoff.cjs"
+    },
+    {
+      "path": "ai.html",
+      "bytes": 1351,
+      "sha256": "43be051b96dd3e69afa897c7d0aa98d7136593e688f460862b7b76331597f63a",
+      "url": "ai.html"
+    },
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "url": ".nojekyll"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 62,
+      "sha256": "97ae977b18a557eb721424efd5eea58bc5069673db4dd697b985eab5eb12acf9",
+      "url": ".gitignore"
+    }
+  ]
+}
