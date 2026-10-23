@@ -63,3 +63,5 @@ Google 登入目前使用測試模式，上慶帳號已列入測試使用者。�
 設定檔 drive-config.js 只有公開用戶端ID、專案號與受限瀏覽器API Key；不得放 client secret、access token、refresh token。Drive 與 Picker API 必須啟用。OAuth JavaScript 來源為 https://sq087786789-lgtm.github.io（不帶子路徑），Picker Key 限制此網站來源與 Google Picker API。範圍僅 drive.file，透過 Google Picker 明確選取案件根資料夾。複製專案到其他網域時必須自行設定 Google Cloud，不可直接沿用原網站的識別設定。
 
 「選取雲端 JSON 載入」可從 Google Picker 明確選取先前手動上傳的完整勘查JSON，不必由此網站建立。選檔後只讀取該檔，驗證大小、內容與照片，先備份目前案才換案；不改寫雲端來源檔。
+
+2026-10-23 雲端實測：上慶帳號已成功完成 Google 登入、Picker 選資料夾、儲存完整案件；獨立合成案含1張照片，已驗證從雲端JSON載入、另存新版本、照片JPEG與照片說明分檔、3D設計參數、從版本清單載回及恢復原案件。公開網站原始碼雜湊已核對。390px頁面寬度檢查無橫向溢出；實體手機的Google授權與選檔仍需實機覆核。

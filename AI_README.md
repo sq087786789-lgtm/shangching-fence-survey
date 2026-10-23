@@ -64,3 +64,7 @@ openStudio 按鈕先 validate 表單及埋深，將 design() 去除段落內部�
 - 檢查：node --check drive.js、node test.cjs、node drive-test.cjs、node build-handoff.cjs。模擬測試不是Google實際連線證明，發布後仍需實際登入、選資料夾、儲存含照片合成案並載入覆核。
 
 「選取雲端 JSON 載入」可從 Google Picker 明確選取先前手動上傳的完整勘查JSON，不必由此網站建立。選檔後只讀取該檔，驗證大小、內容與照片，先備份目前案才換案；不改寫雲端來源檔。
+
+### 已完成的雲端驗證（2026-10-23）
+Google Cloud專案 shangching-fence-survey，Drive及Picker API已啟用；OAuth為外部測試模式，上慶帳號可登入。瀏覽器公開設定已限制來源；Picker Key限制該來源與Picker API。Google登入、選根資料夾、完整JSON雲端儲存均有實際成功結果。獨立合成JSON含1張測試照片：經Picker明確選檔載入，再由網站另存新版本，Drive確認完整JSON、3D JSON、勘場照片子資料夾、JPEG與照片說明均存在且未公開；已從網站版本清單載回含照片案，最後恢復測試前原案。模擬測試另覆蓋中斷上傳不標完成、分頁、無權杖及非法ID。
+Google Picker視窗須用fixed置中，避免頁面捲動後視窗跑出畫面；樣式在style.css。不要把全域iframe樣式改到影響Picker。QA時Chrome擴充功能未開本機檔案存取，不能以代理工具上傳照片；以獨立雲端合成檔驗證載入、再存與還原，沒有覆寫既有雲端案件。手機390px無溢出，實體手機Google授權仍待覆核。
