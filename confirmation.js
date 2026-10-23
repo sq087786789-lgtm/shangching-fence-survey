@@ -1,29 +1,75 @@
-/* Standalone confirmation documents: customer output is an explicit whitelist. */
+/* A shared report model drives HTML, PNG pages and image-based PDF. No uploads. */
 (function(root){
 'use strict';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const base={direct:'單獨埋入',buried:'埋入／混凝土',plate:'底板固定'},mat={galv:'鍍鋅',highgalv:'高鍍鋅',pvc:'PVC包覆（綠）'};
-function build(source,internal=false,note=''){
- const p=source.project,segments=source.segments,d=source.design;
- const nodes=d.nodes,xs=nodes.map(n=>n.x),zs=nodes.map(n=>n.z),minX=Math.min(...xs),minZ=Math.min(...zs),scale=Math.min(680/Math.max(1,Math.max(...xs)-minX),280/Math.max(1,Math.max(...zs)-minZ));
- const point=n=>[30+(n.x-minX)*scale,30+(n.z-minZ)*scale];
- const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" role="img" aria-label="圍籬平面配置示意">'+d.edges.map((e,i)=>{const a=point(nodes[e.a]),b=point(nodes[e.b]);return `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${e.type==='gate'?'#a65a11':'#12694f'}" stroke-width="4" ${e.type==='gate'?'stroke-dasharray="8 5"':''}/><text x="${(a[0]+b[0])/2}" y="${(a[1]+b[1])/2-9}" text-anchor="middle" font-size="12">${i+1} · ${Number(e.length).toFixed(1)}m</text>`}).join('')+'</svg>';
- const total=segments.reduce((n,s)=>n+s.length,0),mesh=segments.filter(s=>s.type==='fence').reduce((n,s)=>n+s.length,0);
- const rows=segments.map((s,i)=>`<tr><td>${i+1}<br>${s.type==='gate'?(s.gate==='single'?'單開大門':'雙開大門'):'圍籬'}</td><td>${s.length} m<br>${i?'轉角':'起向'} ${s.turn}°</td><td>高 ${s.height} m／柱距 ${s.spacing} m<br>立柱 ${s.postDia} mm／橫桿 ${s.railCount} 排<br>${esc(mat[s.meshMat]||s.meshMat)}／線徑 ${s.wire} mm／網目 ${esc(s.meshChoice)}<br>${esc(base[s.base])}${s.base==='plate'?'':'／埋深 '+Number((s.depth*100).toFixed(2))+' cm'}${internal&&s.note?'<p>內部段落備註：'+esc(s.note)+'</p>':''}</td></tr>`).join('');
- const conditions=Object.entries({ground:'地面',access:'進場',slope:'地形',demolition:'拆除',boundary:'界址',utilities:'地下管線'}).map(([k,l])=>esc(l)+'：'+esc(source.conditions[k])).join('；');
- const photos=(source.photos||[]).map((p,i)=>{if(!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(p.dataUrl||''))throw Error('照片未完整載入，請重新輸出');const index=segments.findIndex(s=>s.id===p.segmentId);return `<figure><img src="${p.dataUrl}" alt="勘場參照照片 ${i+1}"><figcaption>照片 ${i+1} · ${index<0?'全場／未指定路段':'第 '+(index+1)+' 段'}${internal?' · '+esc(p.caption):''}</figcaption></figure>`}).join('');
- const price=internal?`<h2>內部報價試算</h2><table><tr><th>項目</th><th>數量</th><th>單價</th><th>小計</th></tr>${source.quoteLines.map(l=>`<tr><td>${esc(l.name)}</td><td>${l.qty.toFixed(2)} ${esc(l.unit)}</td><td>${l.rate}</td><td>${Math.round(l.qty*l.rate).toLocaleString('zh-TW')}</td></tr>`).join('')}</table><p>雜項 ${source.pricing.extra}／折讓 ${source.pricing.discount}／稅額 ${source.quoteSummary.tax}</p><p><b>試算合計 NT$ ${Math.round(source.quoteSummary.total).toLocaleString('zh-TW')}</b></p><h2>內部現場補充</h2><p class="pre">${esc(source.notes)||'無'}</p>`:'';
- const title=internal?'內部勘查確認單':'客戶施工內容確認單';
- return `<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(p.name)}｜${title}</title><style>body{font:15px/1.7 system-ui,"Microsoft JhengHei",sans-serif;color:#173c35;max-width:900px;margin:24px auto;padding:0 18px}h1{font-size:25px}h2{font-size:18px;border-bottom:1px solid #ccd8cf;padding-top:15px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #ccd8cf;padding:9px;text-align:left;overflow-wrap:anywhere}tr,figure{break-inside:avoid}th{background:#edf3ee}svg{width:100%;max-height:340px;background:#f6f8f4}figure{margin:10px 0;display:inline-block;vertical-align:top;width:47%;padding:1%}figure img{width:100%;max-height:260px;object-fit:contain}figcaption{font-size:12px}.pre{white-space:pre-wrap}.draft{background:#fff3d6;padding:10px}button{padding:12px;font:inherit}@media(max-width:600px){figure{width:98%}td,th{padding:5px;font-size:12px}}@media print{body{margin:0;max-width:none}button{display:none}@page{size:A4;margin:14mm}}</style><body><button onclick="window.print()">列印／另存 PDF</button><p>上慶企業社 · 待確認草稿</p><h1>${title}</h1><p class="draft">供內容核對，尚未確認；本單不是正式報價、合約或結構施工圖。</p><h2>${esc(p.name)}</h2><p>客戶：${esc(p.client)||'未填'}<br>電話：${esc(p.phone)||'未填'}<br>施工地址：${esc(p.address)||'未填'}<br>勘查日期：${esc(p.date)}<br>輸出時間：${esc(new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}))}</p><p>總長（含門）${total.toFixed(1)} m／菱形網長度 ${mesh.toFixed(1)} m／大門 ${segments.filter(s=>s.type==='gate').length} 組</p><h2>路線平面示意</h2>${svg}<p>依施工順序編號；深綠實線為圍籬，橘色虛線為大門。0°向東、90°向北；上方為北。標籤密集時請對照下表。</p><h2>逐段尺寸與規格</h2><table><tr><th>路段</th><th>長度／方向</th><th>規格與工法</th></tr>${rows}</table><h2>施工條件</h2><p>${conditions}</p><h2>本次確認補充</h2><p class="pre">${esc(note)||'無'}</p>${photos?'<h2>勘場參照照片</h2>'+photos:''}${price}<h2>待核對事項</h2><p>□ 路線、轉角與界址　□ 長度、高度與柱距　□ 網目、材質與工法　□ 大門位置、寬度與門型</p><p>確認意見：________________________________________________</p><p>客戶／核對人：________________　日期：________________</p></body></html>`;
+const bases={direct:'單獨埋入',buried:'埋入／混凝土',plate:'底板固定'},mats={galv:'鍍鋅',highgalv:'高鍍鋅',pvc:'PVC包覆（綠）'};
+const createReference=typeof module==='object'&&module.exports?require('./reference-drawing.js'):root.createFenceReference;
+const reference=createReference({length:(e,s)=>Math.hypot(s.nodes[e.b].x-s.nodes[e.a].x,s.nodes[e.b].z-s.nodes[e.a].z),outputEnabled:(s,k)=>s.outputFields?.[k]!==false,spanCount:(l,p)=>Math.max(1,Math.ceil((l-1e-8)/p)),railLevels:e=>e.railCount===0?[]:e.railCount===1?[e.height-.025]:Array.from({length:e.railCount??2},(_,i)=>.05+(e.height-.075)*i/((e.railCount??2)-1)),customerReport:()=>({columns:[],rows:[]})});
+const num=n=>Number(n.toFixed(2)).toLocaleString('zh-TW');
+function model(s,internal=false){
+ const groups=new Map(),posts=new Map();
+ function add(name,qty,unit){if(!qty)return;const key=name+'|'+unit;if(!groups.has(key))groups.set(key,{name,qty:0,unit});groups.get(key).qty+=qty}
+ for(const [i,e]of s.segments.entries()){
+  const mesh=`${mats[e.meshMat]}菱形網，高 ${e.height}m／線徑 ${e.wire}mm／網目 ${e.meshChoice}`;
+  if(e.type==='fence'){add(mesh,e.length,'m');add('橫桿（外徑依實際採購確認）',e.length*e.railCount,'m')}
+  else add(`${e.gate==='single'?'單開':'雙開'}大門，寬 ${e.length}m × 高 ${e.height}m`,1,'組');
+  const a=s.design.nodes[i],b=s.design.nodes[i+1],spans=e.type==='gate'?1:Math.ceil((e.length-1e-8)/e.spacing);
+  for(let j=0;j<=spans;j++){const x=a.x+(b.x-a.x)*j/spans,z=a.z+(b.z-a.z)*j/spans,key=x.toFixed(4)+','+z.toFixed(4),dia=e.type==='gate'?Math.max(89.1,e.postDia):e.postDia;
+   if(!posts.has(key))posts.set(key,{...e,postDia:dia});else if(e.type==='gate')posts.get(key).postDia=Math.max(posts.get(key).postDia,dia);
+  }
+ }
+ for(const e of posts.values()){add(`立柱 Ø${e.postDia}mm／高 ${e.height}m${e.base==='plate'?'':'／埋深 '+num(e.depth*100)+'cm'}`,1,'支');add(bases[e.base]+(e.base==='plate'?'':'／埋深 '+num(e.depth*100)+'cm'),1,'處')}
+ const methods=new Map();for(const e of s.segments){const key=`${bases[e.base]}${e.base==='plate'?'':'，埋深 '+num(e.depth*100)+'cm'}／${e.type==='gate'?'門柱':`最大柱距 ${e.spacing}m、橫桿 ${e.railCount}排`}`;methods.set(key,(methods.get(key)||0)+e.length)}
+ const notices=[s.notes,...s.segments.map((e,i)=>e.note?'第 '+(i+1)+' 段：'+e.note:'')].filter(Boolean);
+ const conditions=Object.entries({ground:'地面',access:'進場',slope:'地形',demolition:'拆除',boundary:'界址',utilities:'地下管線'}).map(([k,l])=>l+'：'+(s.conditions[k]||'待確認'));
+ return {title:internal?'內部勘查彙整單':'圍籬工程內容確認單',project:{name:s.project.name,client:s.project.client,address:s.project.address,date:s.project.date},time:new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}),summary:`總長（含門）${num(s.segments.reduce((n,e)=>n+e.length,0))} m　菱形網 ${num(s.segments.filter(e=>e.type==='fence').reduce((n,e)=>n+e.length,0))} m　大門 ${s.segments.filter(e=>e.type==='gate').length} 組`,materials:[...groups.values()],methods:[...methods].map(([name,length])=>name+'；合計 '+num(length)+' m'),conditions,notices: notices.length?notices:['尚無補充注意事項'],design:{name:s.project.name,nodes:s.design.nodes.map(n=>({x:n.x,z:n.z})),edges:s.design.edges.map(e=>({...e})),outputFields:{railDia:false,'part-tail':false,'part-through':false,'part-ring':false}},prices:internal?[...s.quoteLines.map(l=>`${l.name}：${num(l.qty)} ${l.unit} × ${l.rate} = ${Math.round(l.qty*l.rate)}`),`雜項 ${s.pricing.extra}／折讓 ${s.pricing.discount}／稅額 ${s.quoteSummary.tax}`,`試算合計 NT$ ${Math.round(s.quoteSummary.total).toLocaleString('zh-TW')}`]:[]};
 }
-if(typeof module==='object'&&module.exports)module.exports={build};
+function drawings(d){
+ const groups=new Map();for(const [i,e]of d.edges.entries()){const key=JSON.stringify([e.style,e.height,e.spacing,e.postDia,e.depth,e.base,e.railCount,e.gateType,e.meshChoice,e.wire,e.meshMat,e.style==='gate'?e.length:0]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(i)}
+ return [...groups.values()].map((indices,i)=>({label:'第 '+indices.slice(0,6).map(n=>n+1).join('、')+(indices.length>6?' 等 '+indices.length:'')+' 段'+(d.edges[indices[0]].style==='gate'?'大門':'圍籬')+'參照',svg:reference.cadSVG(d,indices[0],{front:true,plan:i===0,mesh:true,specifications:false})}));
+}
+function build(s,internal=false){const m=model(s,internal);return `<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(m.title)}</title><style>body{font:16px/1.7 system-ui,sans-serif;color:#173c35;max-width:900px;margin:20px auto;padding:0 16px}h1{font-size:26px}h2{font-size:20px;border-bottom:1px solid #ccd8cf}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid #ccd8cf;padding:9px;text-align:left}tr,figure{break-inside:avoid}svg,img{max-width:100%;height:auto}figure{margin:12px 0}figure img{max-height:320px}p,li,td{overflow-wrap:anywhere;white-space:pre-wrap}@media print{body{margin:0}@page{size:A4;margin:14mm}}</style><body><p>上慶企業社 · 待確認草稿</p><h1>${m.title}</h1><h2>${esc(m.project.name)}</h2><p>客戶：${esc(m.project.client)||'未填'}　勘查日期：${esc(m.project.date)}<br>地址：${esc(m.project.address)||'未填'}<br>輸出：${esc(m.time)}</p><p><b>${m.summary}</b></p><h2>參照線稿與全案平面配置</h2>${drawings(m.design).map(d=>`<figure><figcaption>${esc(d.label)}</figcaption>${d.svg}</figure>`).join('')}<p>與圍籬工具共用黑白參照線稿；同規格合併展示，長段正面顯示局部2跨。尺寸為mm、總長為m，圖面非固定比例。</p><h2>材料規格與數量加總</h2><table><tr><th>材料規格</th><th>合計</th></tr>${m.materials.map(r=>`<tr><td>${esc(r.name)}</td><td>${num(r.qty)} ${r.unit}</td></tr>`).join('')}</table>${[['工法彙整',m.methods],['地形與施工條件',m.conditions],['現場注意事項',m.notices],...(m.prices.length?[['內部報價試算',m.prices]]:[])].map(([h,items])=>`<h2>${h}</h2>${items.map(t=>'<p>'+esc(t)+'</p>').join('')}`).join('')}<p>供現場內容核對，非正式報價或結構施工圖；材料未含耗損及零星配件，接點工法、門柱與標籤密集處需覆核。</p></body></html>`}
+function image(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(Error('無法產生圖片，請重試'));img.src=src})}
+async function renderPages(m,{createCanvas=()=>document.createElement('canvas'),loadImage=image,fontFamily='system-ui, sans-serif'}={}){
+ const W=1120,H=1584,M=62,limit=H-90,pages=[];let c,ctx,y;
+ function finish(){if(!c)return;ctx.font='20px '+fontFamily;ctx.fillStyle='#61756a';ctx.fillText('上慶企業社　｜　第 '+(pages.length+1)+' 頁',M,H-40);pages.push({png:c.toDataURL('image/png'),jpeg:c.toDataURL('image/jpeg',.92)});c.width=c.height=1}
+ function fresh(){finish();c=createCanvas();c.width=W;c.height=H;ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);ctx.fillStyle='#12694f';ctx.fillRect(0,0,W,15);y=60;}
+ function space(height){if(y+height>limit)fresh()}
+ function text(value,size=24,bold=false){ctx.font=(bold?'bold ':'')+size+'px '+fontFamily;const lines=[];for(const para of String(value).split('\n')){let line='';for(const ch of para){if(ctx.measureText(line+ch).width>W-2*M){lines.push(line);line=ch}else line+=ch}lines.push(line)}for(const line of lines){space(size*1.55);ctx.font=(bold?'bold ':'')+size+'px '+fontFamily;ctx.fillStyle='#173c35';ctx.fillText(line,M,y+size);y+=size*1.55}}
+ function heading(h){space(95);y+=16;text(h,29,true);ctx.strokeStyle='#ccd8cf';ctx.beginPath();ctx.moveTo(M,y+3);ctx.lineTo(W-M,y+3);ctx.stroke();y+=18}
+ fresh();text('上慶企業社 · 待確認草稿',24,true);text(m.title,36,true);text(m.project.name,30,true);text(`客戶：${m.project.client||'未填'}　勘查日期：${m.project.date}`,23);text('地址：'+(m.project.address||'未填'),23);text('輸出：'+m.time,20);text(m.summary,25,true);heading('參照線稿與全案平面配置');
+ for(const drawing of drawings(m.design)){let svg=drawing.svg.replace('Microsoft JhengHei,Arial,sans-serif',fontFamily.replaceAll('"',"'"));const img=await loadImage('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)),w=W-2*M,h=img.height*w/img.width;space(h+65);text(drawing.label,23,true);ctx.drawImage(img,M,y,w,h);y+=h+12}
+ text('同規格合併參照；長段正面顯示局部2跨。尺寸mm／總長m，非固定比例。',20);
+ heading('材料規格與數量加總');for(const r of m.materials){space(150);text(r.name,24,true);text('合計 '+num(r.qty)+' '+r.unit,23);y+=12}
+ for(const [h,items]of [['工法彙整',m.methods],['地形與施工條件',m.conditions],['現場注意事項',m.notices],...(m.prices.length?[['內部報價試算',m.prices]]:[])]){heading(h);for(const line of items){text(line,24);y+=10}}
+ text('待確認：供現場核對，非正式報價或結構施工圖。材料未含耗損及零星配件；接點工法與門柱需覆核。',20);
+ finish();return pages;
+}
+function pdfFromJpegs(images,width=1120,height=1584){
+ const enc=new TextEncoder(),parts=[],offsets=[0];let length=0;const put=x=>{const b=typeof x==='string'?enc.encode(x):x;parts.push(b);length+=b.length};
+ const obj=(id,body)=>{offsets[id]=length;put(id+' 0 obj\n');put(body);put('\nendobj\n')};
+ put('%PDF-1.4\n');obj(1,'<< /Type /Catalog /Pages 2 0 R >>');obj(2,'<< /Type /Pages /Count '+images.length+' /Kids ['+images.map((_,i)=>(3+i*3)+' 0 R').join(' ')+'] >>');
+ for(const [i,jpeg]of images.entries()){const page=3+i*3,im=page+1,stream=page+2;obj(page,`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Img ${im} 0 R >> >> /Contents ${stream} 0 R >>`);offsets[im]=length;put(`${im} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`);put(jpeg);put('\nendstream\nendobj\n');const commands='q\n595.28 0 0 841.89 0 0 cm\n/Img Do\nQ\n';obj(stream,`<< /Length ${enc.encode(commands).length} >>\nstream\n${commands}endstream`)}
+ const count=2+images.length*3,start=length;put('xref\n0 '+(count+1)+'\n0000000000 65535 f \n');for(let i=1;i<=count;i++)put(String(offsets[i]).padStart(10,'0')+' 00000 n \n');put(`trailer\n<< /Size ${count+1} /Root 1 0 R >>\nstartxref\n${start}\n%%EOF`);return new Blob(parts,{type:'application/pdf'});
+}
+if(typeof module==='object'&&module.exports)module.exports={build,model,drawings,pdfFromJpegs,renderPages};
 root.surveyConfirmation={start({snapshot,notice}){
- const $=id=>document.getElementById(id);let html='',revision=0;
- async function refresh(){const current=++revision;$('confirmPrint').disabled=$('confirmDownload').disabled=true;try{const data=await snapshot();const next=build(data,$('confirmAudience').value==='internal',$('confirmNote').value);if(current!==revision)return;html=next;$('confirmFrame').srcdoc=html;$('confirmPrint').disabled=$('confirmDownload').disabled=false}catch(e){if(current===revision)notice('尚未產生確認單：'+e.message)}}
- $('confirmation').onclick=()=>{$('confirmAudience').value='customer';$('confirmNote').value='';$('confirmDialog').showModal();refresh()};
- $('confirmAudience').onchange=refresh;$('confirmNote').onchange=refresh;$('confirmRefresh').onclick=refresh;
- $('confirmClose').onclick=()=>{$('confirmDialog').close();revision++};
- $('confirmPrint').onclick=()=>{$('confirmFrame').contentWindow.focus();$('confirmFrame').contentWindow.print()};
- $('confirmDownload').onclick=()=>{const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=($('confirmAudience').value==='internal'?'上慶內部確認單':'上慶客戶確認單不含價格')+'.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ const $=id=>document.getElementById(id);let revision=0,html='',files=[],pdf=null,urls=[];
+ const actions=['confirmPrint','confirmDownload','confirmImages','confirmPdf','confirmShareImages','confirmSharePdf'];
+ const status=t=>$('confirmStatus').textContent=t;
+ function clear(){for(const url of urls)URL.revokeObjectURL(url);urls=[];$('confirmImagesList').replaceChildren();files=[];pdf=null}
+ async function refresh(){const rev=++revision;for(const k of actions)$(k).disabled=true;clear();status('正在繪製參照線稿並彙整材料與工法，產生圖片和PDF…');try{
+  const data=await snapshot(),internal=$('confirmAudience').value==='internal',next=build(data,internal),m=model(data,internal);if(rev!==revision)return;html=next;$('confirmFrame').srcdoc=html;
+  const pages=await renderPages(m),pngs=[],jpegs=[];const bytes=url=>Uint8Array.from(atob(url.split(',')[1]),c=>c.charCodeAt(0));for(const page of pages){pngs.push(new Blob([bytes(page.png)],{type:'image/png'}));jpegs.push(bytes(page.jpeg))}if(rev!==revision)return;
+  const prefix=(internal?'內部':'客戶')+'確認單-'+String(m.project.name).replace(/[\\/:*?"<>|]/g,'_').slice(0,60);files=pngs.map((b,i)=>new File([b],prefix+'-'+(i+1)+'.png',{type:'image/png'}));pdf=new File([pdfFromJpegs(jpegs)],prefix+'.pdf',{type:'application/pdf'});
+  files.forEach((f,i)=>{const u=URL.createObjectURL(f);urls.push(u);const figure=document.createElement('figure'),img=document.createElement('img'),caption=document.createElement('figcaption'),link=document.createElement('a');img.src=u;img.alt='確認單第 '+(i+1)+' 頁';caption.textContent='第 '+(i+1)+' / '+files.length+' 頁（iPhone可長按圖片儲存）';link.href=u;link.download=f.name;link.textContent='下載第 '+(i+1)+' 頁圖片';figure.append(img,caption,link);$('confirmImagesList').append(figure)});
+  for(const k of actions)$(k).disabled=false;status('已產生 '+files.length+' 頁圖片及PDF。內容直接彙整現場表單，不需重新填寫。');
+ }catch(e){if(rev===revision)status('尚未產生：'+e.message)}}
+ function download(file){const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=file.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),60000)}
+ async function share(list){if(!list.length)return;try{if(navigator.share&&navigator.canShare?.({files:list})){await navigator.share({files:list});status('已交由系統分享，請在分享面板選LINE與收件人。')}else{status('此瀏覽器未提供檔案分享。請下載PDF，或展開圖片後長按儲存，再從LINE附加傳送。');$('confirmImagesList').hidden=false}}catch(e){if(e.name!=='AbortError')status('未能分享。請先下載PDF或長按圖片儲存，再用LINE傳送。')}}
+ $('confirmation').onclick=()=>{$('confirmAudience').value='customer';$('confirmDialog').showModal();refresh()};$('confirmAudience').onchange=refresh;$('confirmRefresh').onclick=refresh;
+ $('confirmClose').onclick=()=>{$('confirmDialog').close();revision++;clear()};$('confirmDialog').addEventListener('cancel',()=>{revision++;clear()});
+ $('confirmPrint').onclick=()=>{$('confirmFrame').contentWindow.focus();$('confirmFrame').contentWindow.print()};$('confirmDownload').onclick=()=>download(new File([html],'確認單.html',{type:'text/html;charset=utf-8'}));
+ $('confirmImages').onclick=()=>{$('confirmImagesList').hidden=false;$('confirmImagesList').scrollIntoView({behavior:'smooth',block:'start'});status('圖片已在下方展開，可長按儲存或逐頁下載。')};$('confirmPdf').onclick=()=>pdf&&download(pdf);$('confirmShareImages').onclick=()=>share(files);$('confirmSharePdf').onclick=()=>share(pdf?[pdf]:[]);
 }};
 })(typeof window==='undefined'?globalThis:window);
