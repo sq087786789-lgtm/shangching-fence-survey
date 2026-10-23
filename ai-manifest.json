@@ -8,8 +8,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 9152,
-      "sha256": "3d78a101ca5b869e659ea66c4e64ac28553b62b16464fe66fe2dd3ff6ada2cc9",
+      "bytes": 9219,
+      "sha256": "a51cf45eaf41e637ff2859ae9c920b7784eec4ccffcf8af843b30479e92b2388",
       "url": "index.html"
     },
     {
@@ -26,8 +26,8 @@
     },
     {
       "path": "drive.js",
-      "bytes": 11205,
-      "sha256": "34cce6fd3890ba99287d02d5d15c74b837aa97a2f6ae62832fd32b58eb294283",
+      "bytes": 11744,
+      "sha256": "8092ddf6f1dee0c259215e8a59277650157fbbf675b507cea2945c1763061cb2",
       "url": "drive.js"
     },
     {
@@ -62,14 +62,14 @@
     },
     {
       "path": "README.md",
-      "bytes": 7612,
-      "sha256": "0bbe4f9d507a765a83d67b6594fa38c39fa2bf8386d3cc58ed8798cfb22efe36",
+      "bytes": 7863,
+      "sha256": "eaca2d35adc70a9cb6d736eba10e2a620ee8e203e07b023dd0a6f4356ea018b6",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 9810,
-      "sha256": "704c918deea3ffeb47a8301b04256bc0296aedc2da42cf50047aee4424b83eaf",
+      "bytes": 10061,
+      "sha256": "fd0afce0755ca98449c2baba36aced7945969d8ad2183a17d16acc7b7e52d62e",
       "url": "AI_README.md"
     },
     {

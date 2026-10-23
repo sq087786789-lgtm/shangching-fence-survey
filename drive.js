@@ -10,7 +10,7 @@ function createStore({fetch:fetcher,getToken}){
   if(!response.ok)throw Error(response.status===401?'Google 登入已逾時，請重新連線':response.status===403?'Google 尚未允許存取，請確認帳號、API 設定及重新選擇資料夾':'雲端操作失敗（'+response.status+'），請檢查網路後重試');
   return response;
  }
- async function metadata(fileId){return (await request('drive/v3/files/'+id(fileId)+'?fields=id,name,mimeType,trashed,capabilities(canAddChildren)')).json()}
+ async function metadata(fileId){return (await request('drive/v3/files/'+id(fileId)+'?fields=id,name,mimeType,size,trashed,capabilities(canAddChildren)')).json()}
  async function createFolder(name,parent,extra={}){return (await request('drive/v3/files?fields=id,name',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,mimeType:FOLDER,parents:[id(parent)],...extra})})).json()}
  async function upload(name,parent,blob){
   const boundary='sq_'+Math.random().toString(36).slice(2)+Date.now();
@@ -49,18 +49,21 @@ function createStore({fetch:fetcher,getToken}){
   const q="'"+id(folderId)+"' in parents and trashed = false and name = '完整勘查資料.json'";
   const result=await (await request('drive/v3/files?'+new URLSearchParams({q,fields:'files(id,name,size)',pageSize:'2'}))).json();
   if(result.files?.length!==1)throw Error('找不到唯一的完整勘查資料，請選擇其他案件');
-  const file=result.files[0];if(Number(file.size)>MAX)throw Error('雲端案件超過15MB');
+  return readFile(result.files[0]);
+ }
+ async function readFile(file){
+  if(Number(file.size)>MAX)throw Error('雲端案件超過15MB');
   const response=await request('drive/v3/files/'+id(file.id)+'?alt=media');
   const text=await response.text();if(new Blob([text]).size>MAX)throw Error('雲端案件超過15MB');return JSON.parse(text);
  }
- return {save,list,load,metadata};
+ return {save,list,load,metadata,loadFile:async fileId=>readFile(await metadata(fileId))};
 }
 if(typeof module==='object'&&module.exports)module.exports={createStore};
 root.surveyDrive={start({snapshot,restore}){
  const $=key=>document.getElementById(key),config=root.SQ_DRIVE_CONFIG||{};
  let token='',expires=0,busy=false,folder=null,store=createStore({fetch:(...a)=>fetch(...a),getToken:()=>Date.now()<expires?token:''}),client;
  const message=text=>{$('driveMessage').textContent=text};
- const controls=()=>{for(const key of ['driveConnect','driveFolder','driveSave','driveLoad','driveDisconnect'])$(key).disabled=busy||(key!=='driveConnect'&&!token);$('driveSave').disabled=busy||!token||!folder;$('driveLoad').disabled=busy||!token||!folder};
+ const controls=()=>{for(const key of ['driveConnect','driveFolder','driveSave','driveLoad','driveImport','driveDisconnect'])$(key).disabled=busy||(key!=='driveConnect'&&!token);$('driveSave').disabled=busy||!token||!folder;$('driveLoad').disabled=busy||!token||!folder};
  const work=async fn=>{if(busy)return;busy=true;controls();try{await fn()}catch(error){message(error.message)}finally{busy=false;controls()}};
  function script(src,ready){if(ready())return Promise.resolve();return new Promise((resolve,reject)=>{let el=document.querySelector('script[src="'+src+'"]');if(el)el.remove();el=document.createElement('script');el.src=src;el.onload=resolve;el.onerror=()=>{el.remove();reject(Error('Google 元件載入失敗，請檢查網路再重試'))};document.head.append(el)})}
  async function sdk(){
@@ -68,10 +71,10 @@ root.surveyDrive={start({snapshot,restore}){
   await Promise.all([script('https://accounts.google.com/gsi/client',()=>root.google?.accounts?.oauth2),script('https://apis.google.com/js/api.js',()=>root.gapi)]);
   if(!root.google?.picker)await new Promise((resolve,reject)=>root.gapi.load('picker',{callback:resolve,onerror:()=>reject(Error('Google 資料夾選擇器載入失敗'))}));
  }
- function chooseFolder(){return new Promise((resolve,reject)=>{
+ function chooseFile(folderOnly){return new Promise((resolve,reject)=>{
   if(Date.now()>=expires)return reject(Error('Google 登入已逾時，請重新連線'));
-  const picker=root.google.picker,view=new picker.DocsView(picker.ViewId.FOLDERS).setIncludeFolders(true).setSelectFolderEnabled(true).setMimeTypes(FOLDER);
-  new picker.PickerBuilder().addView(view).setOAuthToken(token).setDeveloperKey(config.apiKey).setAppId(config.appId).setOrigin(location.origin).setTitle('選擇「上慶圍籬勘查案件」資料夾').setLocale('zh-TW').setCallback(event=>{
+  const picker=root.google.picker,view=folderOnly?new picker.DocsView(picker.ViewId.FOLDERS).setIncludeFolders(true).setSelectFolderEnabled(true).setMimeTypes(FOLDER):new picker.DocsView(picker.ViewId.DOCS).setMimeTypes('application/json,text/plain');
+  new picker.PickerBuilder().addView(view).setOAuthToken(token).setDeveloperKey(config.apiKey).setAppId(config.appId).setOrigin(location.origin).setTitle(folderOnly?'選擇「上慶圍籬勘查案件」資料夾':'選取完整勘查 JSON 檔案').setLocale('zh-TW').setCallback(event=>{
    if(event.action===picker.Action.PICKED)resolve(event.docs[0]);else if(event.action===picker.Action.CANCEL)resolve(null);
   }).build().setVisible(true);
  })}
@@ -84,7 +87,8 @@ root.surveyDrive={start({snapshot,restore}){
   });
   folder=null;$('driveFolderName').textContent='尚未選擇資料夾';message('已連線 Google，請選擇「上慶圍籬勘查案件」資料夾。');
  });
- $('driveFolder').onclick=()=>work(async()=>{const selected=await chooseFolder();if(!selected)return;const info=await store.metadata(selected.id);if(info.mimeType!==FOLDER||info.trashed||!info.capabilities?.canAddChildren)throw Error('請選擇可新增案件的資料夾');folder={id:info.id,name:info.name};$('driveFolderName').textContent=info.name;message('已選好資料夾。儲存會新增一份含日期的版本，保留舊案件。')});
+ $('driveFolder').onclick=()=>work(async()=>{const selected=await chooseFile(true);if(!selected)return;const info=await store.metadata(selected.id);if(info.mimeType!==FOLDER||info.trashed||!info.capabilities?.canAddChildren)throw Error('請選擇可新增案件的資料夾');folder={id:info.id,name:info.name};$('driveFolderName').textContent=info.name;message('已選好資料夾。儲存會新增一份含日期的版本，保留舊案件。')});
+ $('driveImport').onclick=()=>work(async()=>{const selected=await chooseFile(false);if(!selected)return;message('下載並驗證雲端 JSON…');await restore(await store.loadFile(selected.id));message('已載入雲端 JSON，原案件已備份為本機上一案。')});
  $('driveSave').onclick=()=>work(async()=>{message('準備完整案件與照片…');const current=await snapshot();const saved=await store.save(current,folder.id,message);message('已儲存至「'+folder.name+'」：'+saved.name);const link=$('driveResult');link.href='https://drive.google.com/drive/folders/'+saved.id;link.hidden=false;link.textContent='查看本次案件資料夾 ↗'});
  let nextPage='',choices=[];
  async function refresh(more=false){message('讀取雲端案件清單…');const result=await store.list(folder.id,more?nextPage:'');choices=more?choices.concat(result.files||[]):result.files||[];nextPage=result.nextPageToken||'';const list=$('driveCases');list.replaceChildren();for(const item of choices){const option=document.createElement('option');option.value=item.id;option.textContent=item.name;list.append(option)}$('driveMore').hidden=!nextPage;$('driveRestore').disabled=!choices.length;$('driveDialog').showModal();message(choices.length?'請選擇要載入的案件版本。':'此資料夾尚無本網站完整儲存的案件。')}

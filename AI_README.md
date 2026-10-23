@@ -62,3 +62,5 @@ openStudio 按鈕先 validate 表單及埋深，將 design() 去除段落內部�
 - 權杖只在記憶體，Google操作只用 https://www.googleapis.com 的固定路徑與 Bearer header，雲端ID限制字元避免路徑／查詢注入。照片及JSON延用20張/15MB限制，載入後由表單validate覆核，雲端衍生小計不可信。
 - 根資料夾不硬編碼：使用者以相同帳號從Picker選取，才授予該網站drive.file的存取權。聊天插件的Drive連線不能代替網站授權。只顯示網站建立且完成的案件，不任意掃描整顆Drive。
 - 檢查：node --check drive.js、node test.cjs、node drive-test.cjs、node build-handoff.cjs。模擬測試不是Google實際連線證明，發布後仍需實際登入、選資料夾、儲存含照片合成案並載入覆核。
+
+「選取雲端 JSON 載入」可從 Google Picker 明確選取先前手動上傳的完整勘查JSON，不必由此網站建立。選檔後只讀取該檔，驗證大小、內容與照片，先備份目前案才換案；不改寫雲端來源檔。

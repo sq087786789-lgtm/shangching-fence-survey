@@ -61,3 +61,5 @@ GitHub Pages 使用 main 分支的根目錄。提交修改後由 Pages 發布；
 Google 登入目前使用測試模式，上慶帳號已列入測試使用者。其他員工須在 Cloud 目標對象加入測試帳號並取得資料夾權限；此版本尚未實作多人合併編輯。換裝置需重新登入並選擇相同資料夾。Google 登入短期逾時可重新連線，網站不保存權杖。雲端功能需網路，照片為本站縮圖，原圖仍需自行留存。
 
 設定檔 drive-config.js 只有公開用戶端ID、專案號與受限瀏覽器API Key；不得放 client secret、access token、refresh token。Drive 與 Picker API 必須啟用。OAuth JavaScript 來源為 https://sq087786789-lgtm.github.io（不帶子路徑），Picker Key 限制此網站來源與 Google Picker API。範圍僅 drive.file，透過 Google Picker 明確選取案件根資料夾。複製專案到其他網域時必須自行設定 Google Cloud，不可直接沿用原網站的識別設定。
+
+「選取雲端 JSON 載入」可從 Google Picker 明確選取先前手動上傳的完整勘查JSON，不必由此網站建立。選檔後只讀取該檔，驗證大小、內容與照片，先備份目前案才換案；不改寫雲端來源檔。
