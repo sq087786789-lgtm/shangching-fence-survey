@@ -16,3 +16,5 @@ dialog{border:1px solid #dbe4dc;border-radius:14px;max-width:460px;width:calc(10
 #confirmDialog{max-width:1100px;width:calc(100vw - 24px);max-height:94dvh;overflow:auto}#confirmFrame{height:65dvh;width:100%;background:white;margin-top:12px;border:1px solid #dbe4dc}@media print{#confirmDialog{display:none}}
 
 #confirmDialog .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}@media(max-width:600px){#confirmDialog .grid{grid-template-columns:1fr}}
+
+#confirmImagesList figure{margin:20px 0;padding:8px;border:1px solid #dbe4dc}#confirmImagesList img{display:block;width:100%;height:auto;user-select:auto;-webkit-touch-callout:default}#confirmImagesList figcaption{padding:8px 0}#confirmStatus{line-height:1.7;white-space:pre-wrap}#confirmDialog>.routeActions{margin-top:14px}
