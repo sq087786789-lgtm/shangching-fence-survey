@@ -3,11 +3,11 @@
 這是完整可執行的手機圍籬勘查工具，不只是展示畫面。從 ai.html 讀取 README、原始碼索引、單一檔案及完整原始碼 JSON 即可重建。
 
 ## 架構與資料流
-index.html + style.css → app.js 編輯勘查草稿 → estimate()/lines() 試算 → 使用者按套入 → structuredClone(design()) 保留已套入快照 → 同源 iframe studio.html 驗證 origin/source 及幾何資料後顯示。
-後續表單修改會標示待重新套入，但不覆寫圖面。完整配置工作室另開後的編輯不反寫勘查表。
+index.html + style.css → app.js 編輯勘查草稿 → estimate()/lines() 試算 → schedulePreview以250ms合併更新 → 同源 iframe studio.html 驗證 origin/source 及幾何資料後顯示；首次開啟自動載入圖面。按確認保留design與表單快照標記為已確認。
+後續表單修改自動更新預覽並標示尚未重新確認。完整配置工作室另開後的編輯不反寫勘查表。
 
 ## 檔案與函式
-- app.js：fresh/seg 預設；migrate 舊資料補欄位；validate 範圍檢查；render 表單；design 幾何資料；estimate 材料；lines 報價項目；quote 總額計算；update 儲存及摘要；sendApplied/按鈕事件處理套入。
+- app.js：fresh/seg 預設；migrate 舊資料補欄位；validate 範圍檢查；render 表單；design 幾何資料；estimate 材料；lines 報價項目；quote 總額計算；update 儲存及摘要；sendPreview/schedulePreview 與確認按鈕處理即時圖面。
 - studio.html：既有單檔 Canvas 工作室。window.fenceStudio 暴露 getState、validate、stats 等；父頁訊息 type=sq-survey-design。
 - test.cjs 透過 VM 載入計算部分，測實際數量與資料；非完整 UI 測試。
 
@@ -30,7 +30,7 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 ## 接手驗收
 1. 長150m高1.8m的網量=150m，改高3m仍150m。
 2. 門段不算菱形網長度。直線連段共用柱。
-3. 表單填寫或載入檔案不自動套入；按鈕套入後修改表單圖面不變。
+3. 開啟或載入表單即有示意圖；修改後自動更新，確認狀態失效。
 4. 150m以上可套入；多段任意左右彎折保留。
 5. 50cm埋深、四種網目、怪手與direct匯出後載入不丟失。
 6. 390px寬度無整頁橫向溢出，底部切換與表單操作可用。
@@ -40,4 +40,4 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 GitHub Pages main/root，所有資源採相對路徑，支援 /shangching-fence-survey/ 子路徑。不需 npm install。先測試再生成AI索引並提交；確認 Pages 成功後回報。不要把私人 Sites manifest 或 Git 憑證加入專案。
 
 ## 路線與新案操作
-insertSegment(type,after) 可末尾或指定段後插門，沿用最後圍籬規格，門預設4m且柱徑至少89.1mm；不自動切割前一段，若要保持總長須自行調整。removeSegment/restoreSegment 保留最近刪除段的位置與規格，復原時不覆蓋後續表單編輯。blankDesign 一段10m圍籬；backupAndReplace 先成功寫入 sq-field-survey-previous 再換案，resetScene 清除已套入圖面；取回上一案會與目前案交換。新設計不自動套入。角度輸入支援0.1°，常用選單左右15～150°與180°。
+insertSegment(type,after) 可末尾或指定段後插門，沿用最後圍籬規格，門預設4m且柱徑至少89.1mm；不自動切割前一段，若要保持總長須自行調整。removeSegment/restoreSegment 保留最近刪除段的位置與規格，復原時不覆蓋後續表單編輯。blankDesign 一段10m圍籬；backupAndReplace 先成功寫入 sq-field-survey-previous 再換案，resetScene 清除確認狀態，由即時預覽更新新案圖面；取回上一案會與目前案交換。新設計自動顯示預覽，確認狀態重置。角度輸入支援0.1°，常用選單左右15～150°與180°。
