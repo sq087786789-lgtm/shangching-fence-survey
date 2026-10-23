@@ -44,3 +44,7 @@ GitHub Pages main/root，所有資源採相對路徑，支援 /shangching-fence-
 
 ## 勘場照片
 photos.js（先於app.js載入）管理window.photoLibrary，IndexedDB sq-field-photos / images存 id→JPEG dataURL。data.photos保存{id,name,caption,segmentId,width,height,addedAt}，segments.id為穩定ID，插門不重用ID，刪除路段不刪照片。migrate為舊案補photos=[]與segment ID。JSON匯出expand會嵌入dataUrl；匯入先validatePhotos限制類型／20張／文字及dataURL上限，再原子IDB寫入，以新image id避免覆蓋其他案圖片，成功後才換目前資料。15MB匯入上限。新案／上一案保留照片索引；移除照片只移除目前案參照，保留影像供復原和上一案，暫無孤兒資料清理。不得把真實照片提交GitHub。壓縮使用Canvas，最長1600px，JPEG最多480000字元base64，無法讀取HEIC時請轉JPEG。照片只是現場參照，不自動定位、測量或改變3D幾何。列印含照片與文字備註；CSV及純3D設計檔不含照片。
+
+## 勘查表帶入完整3D工具
+openStudio 按鈕先 validate 表單及埋深，將 design() 去除段落內部備註及怪手需求，經 studio-bridge.js 存為本機一次性 sq-survey-transfer-<token>，同頁導航 studio.html?survey=<token>，不靠彈出視窗、不把案件內容放在URL，也不上傳伺服器。橋接檔檢查格式、24小時效期及尺寸，接收端再用工作室 validate 檢查設計。成功帶入前先將現有工作室設計備份至 sq-survey-studio-v1-before-survey 並保存新設計，然後替換畫面；支援按鈕交換恢復與復原。成功後刪除一次性資料並清除query；失敗保留工作室原圖並顯示錯誤。
+逐段設定、網目名稱及單／雙開 gateType 保留，客戶PNG與CSV網目顯示名稱（工具修改毫米值後會退回實際mm），工法區分單獨埋入。菱形網統計及客戶圖片為不含門的長度公尺；保留舊outputFields.area鍵以相容，但其意義改為網長。正2英吋50.8mm可通過輸出欄位驗證，長段座標與長度輸入支援原表單上限。工作室管厚、橫桿管徑等仍為design()預設，出圖前須核對；配件估算有既有規則與限制。照片、內部備註、客戶電話、地址、報價不會帶入此圖面；需報價時由勘查表另行匯出／列印。
