@@ -8,20 +8,26 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 5805,
-      "sha256": "abe161ea08c75076e6ae585b91d56a28bf95faa38f3a3112b7b0b065692a23d6",
+      "bytes": 6960,
+      "sha256": "0701df3e9980dfdc2a5e4ffad6ad504133ca2b8cb7b7a7c7cc78ce2f93d91223",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 19294,
-      "sha256": "3d6fc9711c30e06889075c4bf3e5b31fc44c944b60bfd5a48f3e1dfec71b2e23",
+      "bytes": 20882,
+      "sha256": "684eba3c3da7601e3610a805620d8de9a83051224260c67a4322b7ac9b7d5824",
       "url": "app.js"
     },
     {
+      "path": "photos.js",
+      "bytes": 9001,
+      "sha256": "056f7b9f2abfc08df03af473fc7b0f3bafc5598ca5aaad2e7edfbf4f744bb438",
+      "url": "photos.js"
+    },
+    {
       "path": "style.css",
-      "bytes": 4766,
-      "sha256": "1bf86741e451b13959c633b766aebdd9d7e5ba1afaa96ddbe2ad41d22708eeb1",
+      "bytes": 5864,
+      "sha256": "fad714eafbe83d9ad6a5749a18c08f7ccaffe96070b08b1f3be07e334e8b5bc7",
       "url": "style.css"
     },
     {
@@ -32,14 +38,14 @@
     },
     {
       "path": "README.md",
-      "bytes": 3780,
-      "sha256": "6623e69d815716d32dc27172b1b9a86c16dbcef233da4e4d95888f4e28637e73",
+      "bytes": 4402,
+      "sha256": "27fa144f1e06493b359f2841359d28ec7077422e60587f83c9cd2d3c85160bfc",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 4702,
-      "sha256": "9b16c9a8d77721561c7fd361083416925e391c7827404f409065427fadf59ef3",
+      "bytes": 5661,
+      "sha256": "a0bfb57a0b397fef135da5f1fee56e838c9cac304ca076a781c13764d6b291a4",
       "url": "AI_README.md"
     },
     {
@@ -50,14 +56,14 @@
     },
     {
       "path": "test.cjs",
-      "bytes": 3864,
-      "sha256": "3ebe70f966c66fcc29047a3ea11eb1279294ec7fbf5115a5203fe52342a3bf16",
+      "bytes": 5205,
+      "sha256": "dae84af5f1811e8850aeb7558d0681fc99bcda7529ee4d904e0ec16ebff4d5f1",
       "url": "test.cjs"
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 1010,
-      "sha256": "0224fcc8b1569e6e7a09f6c1a90a1959998713c052c0f1304e6b6c96a5a3ed85",
+      "bytes": 1022,
+      "sha256": "dd6a283e8493962a6c7fbe2ee05bf1634d67eeec046fab7c99fe3f27c4b70a98",
       "url": "build-handoff.cjs"
     },
     {
