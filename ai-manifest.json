@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 11921,
-      "sha256": "fc711c063de6d22eb52bd6d22e3a20e7b37ffed0c4c77488228c6f084e41edb0",
+      "bytes": 11730,
+      "sha256": "8f2d90567d4d1f52a2838a126b06ca3559bb10ac27c7a6bee47230463cde3c96",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 25178,
-      "sha256": "37d77efab98d99ffd39e44ed3b0d3b714769a4d5b5911d8525f60e7b47821e8c",
+      "bytes": 25424,
+      "sha256": "af4df3059103a24947ce6f9148bc7d88e041a867c2c6d0e4190e8fe5926c0edc",
       "url": "app.js"
     },
     {
@@ -26,8 +26,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 16520,
-      "sha256": "c4e0ec1f7b8b928a1b27d1ea3fc19e172224e119afca4afbe0ba3370f56f579d",
+      "bytes": 19810,
+      "sha256": "8bd17d055c05c0db3710a97fc8e77225910de130cc99b88d81cedc66ca4db30e",
       "url": "confirmation.js"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "path": "style.css",
-      "bytes": 11365,
-      "sha256": "8b33c0f521b065c912e4cba5c40778849f957dac516c985fd98a731e4b8ff174",
+      "bytes": 16748,
+      "sha256": "4c6e42cb6b41eb6076a2bb3034edab9af811e0869e89ede75ba64951ee7154d6",
       "url": "style.css"
     },
     {
@@ -74,20 +74,20 @@
     },
     {
       "path": "README.md",
-      "bytes": 15682,
-      "sha256": "0ee0ce9967deb29a3c6d7d839bac5f3739ff673600e6656a2a265713b7a96701",
+      "bytes": 16458,
+      "sha256": "2d58cb9f81f217e4b1c74bf9667994a542643509d2dd2419b3aa965c120abe63",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 19162,
-      "sha256": "d6e7f6561c428841efef10706658eb3a0997bd3ccd6232b7ab76824e3e205496",
+      "bytes": 19938,
+      "sha256": "05f2ac9255c0db9d3d3092b43b727c6badfb2fd3ee0ed75a718403f8153e184e",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 3158,
-      "sha256": "37b96b21890e4ed4ca27955b02029cd5e9ee366012562dbe62a2c5ff37f65204",
+      "bytes": 3445,
+      "sha256": "47f3db5e5e4b79cb26b062a4f99226939ca320a4a9b8e1e8cc0acdb8f198e3de",
       "url": "AGENTS.md"
     },
     {
