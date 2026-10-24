@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 11919,
-      "sha256": "920545bcf8befd46234dd95a76f7b9a881dfee44321fbd7301ff1494b455c6ee",
+      "bytes": 11934,
+      "sha256": "c8f2db7d219e31eb1bb105b88fc197a4b0674868b599aa89e65f094984583c69",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 24501,
-      "sha256": "e657e0ca7e0bcf25e932abad37720cd980cb3c917d217af6d3ffbab0f3ee92f5",
+      "bytes": 25158,
+      "sha256": "77761fd4564e14f2f6bff5bca12ebdf9b3014c7bd6b7171b200a3f380e26e30b",
       "url": "app.js"
     },
     {
@@ -26,14 +26,14 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 16155,
-      "sha256": "8ba07fd060f8098a4faa0ddc583c96e84a8e7dfbe013a8956cdec4ea4127b1e7",
+      "bytes": 16533,
+      "sha256": "004f6ed0bdce549e5a15ab6d8b7b83375a9c6bc54e48811717cf604a49060f85",
       "url": "confirmation.js"
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 16120,
-      "sha256": "fbfd7490c1545552a6b08ded0d91883c9fa14599ac7581d4af10f2d5b776993c",
+      "bytes": 16555,
+      "sha256": "93e4eef068d30749fb964a8fbe96d822823752916f8a63734be85504c2b4071f",
       "url": "reference-drawing.js"
     },
     {
@@ -68,32 +68,32 @@
     },
     {
       "path": "studio.html",
-      "bytes": 75522,
-      "sha256": "ce87f9bd970a21396e463e4d3d5156abbde256846cb9b8816bd427c4c1f92023",
+      "bytes": 76459,
+      "sha256": "96a3159dede1e510ee5912b628e72782b871a9eb0925060fc7217dab8ccf4858",
       "url": "studio.html"
     },
     {
       "path": "README.md",
-      "bytes": 13163,
-      "sha256": "b6ee10a018518fc43d888c564c4e80d3aa92b91b4f0b69d8fb7df8ad00c9c3c8",
+      "bytes": 14168,
+      "sha256": "46a85c50aa2793ef9278393dd5d3a13e6ff7c5afbadc4a5e1d5c1ec120c456a2",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 16643,
-      "sha256": "dc620331facb93724196f01129f161001e2a6b692eea2a8552d248fbdc757475",
+      "bytes": 17648,
+      "sha256": "7015c352a61935084e0200954c2df80b14dfe83acb57d959f69de9647e28e7cc",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2595,
-      "sha256": "7b845602f849172c4876fe2f17276634e2568fc449cbfc3f60f136c9df712e21",
+      "bytes": 2913,
+      "sha256": "ae665dfba4354d0f1aa497806b6e6cc8f8e53b82e3eb0eca8e02da376e1e08ba",
       "url": "AGENTS.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 15119,
-      "sha256": "fb127c8f0244f2f2f6a42377fdee5a45414bb064f875418601d0af9100ad7d84",
+      "bytes": 17463,
+      "sha256": "076526fbc1afa470397b6dbdd449db04de2c03f0bc0c5d093a6b50208ac6f83b",
       "url": "test.cjs"
     },
     {
