@@ -80,8 +80,8 @@
     },
     {
       "path": "AI_README.md",
-      "bytes": 16355,
-      "sha256": "0b0c8b1e0a28793c572254e2fb2a4154268886ce91a32bc9feaaee5e14b9a53c",
+      "bytes": 16643,
+      "sha256": "dc620331facb93724196f01129f161001e2a6b692eea2a8552d248fbdc757475",
       "url": "AI_README.md"
     },
     {
@@ -98,8 +98,8 @@
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 1138,
-      "sha256": "b8feb23642c59ac81ed69292ce0cf997704cea646a1b64663d10937d69fb4f7e",
+      "bytes": 1630,
+      "sha256": "588e58dbbb3733b4d28a36fd21682600640b869015732adf110b6c110b5ae65a",
       "url": "build-handoff.cjs"
     },
     {
