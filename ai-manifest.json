@@ -9,13 +9,13 @@
     {
       "path": "index.html",
       "bytes": 11921,
-      "sha256": "483f556bc939667418526289dfc410f6d01ca67a3b9f0ee11d70cd21c7ef903d",
+      "sha256": "fc711c063de6d22eb52bd6d22e3a20e7b37ffed0c4c77488228c6f084e41edb0",
       "url": "index.html"
     },
     {
       "path": "app.js",
       "bytes": 25178,
-      "sha256": "ea50d43f9e0eead22bde271f799ae26205eaed1f858409324c98d32da41e5250",
+      "sha256": "37d77efab98d99ffd39e44ed3b0d3b714769a4d5b5911d8525f60e7b47821e8c",
       "url": "app.js"
     },
     {
@@ -68,8 +68,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 80053,
-      "sha256": "20479109a6a583b1ed8c1bd86a70408fd5bcc9ed3df8bb43841cdf74f441d74d",
+      "bytes": 80097,
+      "sha256": "c0e20deb6486856d1522f98660e23bb14d2bd6d853942312b55da1b1752b1c6c",
       "url": "studio.html"
     },
     {
