@@ -8,8 +8,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 11934,
-      "sha256": "c8f2db7d219e31eb1bb105b88fc197a4b0674868b599aa89e65f094984583c69",
+      "bytes": 11937,
+      "sha256": "fe768f929f442bd9108e2892ccbf5cc210993532e1583e407ff1bc11303e10b4",
       "url": "index.html"
     },
     {
@@ -26,8 +26,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 16533,
-      "sha256": "004f6ed0bdce549e5a15ab6d8b7b83375a9c6bc54e48811717cf604a49060f85",
+      "bytes": 16520,
+      "sha256": "001b9ac51eff17df1d7867cdb4a518d1f6e6081c02607993498f29092e7a63f5",
       "url": "confirmation.js"
     },
     {
@@ -68,32 +68,32 @@
     },
     {
       "path": "studio.html",
-      "bytes": 76459,
-      "sha256": "96a3159dede1e510ee5912b628e72782b871a9eb0925060fc7217dab8ccf4858",
+      "bytes": 76450,
+      "sha256": "fae358d95b2bce12044b3c7b294458f1979ff9610a7abc61a6db4f0d242e498e",
       "url": "studio.html"
     },
     {
       "path": "README.md",
-      "bytes": 14168,
-      "sha256": "46a85c50aa2793ef9278393dd5d3a13e6ff7c5afbadc4a5e1d5c1ec120c456a2",
+      "bytes": 14826,
+      "sha256": "db38ed123bceb9707c6fa7aade6784611cb940d96a1854403e4fe849c1399ed6",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 17648,
-      "sha256": "7015c352a61935084e0200954c2df80b14dfe83acb57d959f69de9647e28e7cc",
+      "bytes": 18306,
+      "sha256": "6c33f464cb71017f306908f25f24ce84c4e1cbfbba371e133c92eed81f4da6d3",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2913,
-      "sha256": "ae665dfba4354d0f1aa497806b6e6cc8f8e53b82e3eb0eca8e02da376e1e08ba",
+      "bytes": 3158,
+      "sha256": "37b96b21890e4ed4ca27955b02029cd5e9ee366012562dbe62a2c5ff37f65204",
       "url": "AGENTS.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 17463,
-      "sha256": "076526fbc1afa470397b6dbdd449db04de2c03f0bc0c5d093a6b50208ac6f83b",
+      "bytes": 19274,
+      "sha256": "4e9aaff7094a5091f50226a4e1c665be986adcef77a822d29fa0edf2409bcf62",
       "url": "test.cjs"
     },
     {
