@@ -9,7 +9,7 @@
     {
       "path": "index.html",
       "bytes": 11730,
-      "sha256": "8f2d90567d4d1f52a2838a126b06ca3559bb10ac27c7a6bee47230463cde3c96",
+      "sha256": "e04a508412067a7054a106965ea47bf742b5cacaa0063cf169ed03040f6da376",
       "url": "index.html"
     },
     {
@@ -26,8 +26,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 19810,
-      "sha256": "8bd17d055c05c0db3710a97fc8e77225910de130cc99b88d81cedc66ca4db30e",
+      "bytes": 19998,
+      "sha256": "7cdcad8128962ff4d379df72fd2bd3c0d5613ef7a9802b8f0d85fcec5c70d0cb",
       "url": "confirmation.js"
     },
     {
@@ -92,8 +92,8 @@
     },
     {
       "path": "test.cjs",
-      "bytes": 20461,
-      "sha256": "4585c3df084eec68944ae74a32a0941cbf234c9bdb16cff871842cf41e81a7de",
+      "bytes": 21635,
+      "sha256": "161d2ca84f27ddf56a927fd79add41a00d68a68c93402965dda3663b6a429cc5",
       "url": "test.cjs"
     },
     {
