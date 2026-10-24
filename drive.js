@@ -3,6 +3,11 @@
 'use strict';
 const FOLDER='application/vnd.google-apps.folder',MAX=15*1024*1024;
 const id=value=>{if(!/^[a-zA-Z0-9_-]{1,150}$/.test(value||''))throw Error('雲端識別碼不正確');return value};
+function caseFolderName(project={},now=new Date()){
+ const clean=(v,fallback,max)=>String(v||fallback).trim().replace(/[\\/:*?"<>|\r\n]/g,'_').slice(0,max)||fallback;
+ const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(now).replace(' ','_').replaceAll(':','-');
+ return clean(project.client,'未填姓名',40)+'｜'+clean(project.address,'未填地點',70)+'｜'+stamp+'｜'+clean(project.name,'未命名案件',40);
+}
 function createStore({fetch:fetcher,getToken}){
  async function request(path,options={}){
   const token=getToken();if(!token)throw Error('請先登入 Google，登入逾時請重新連線');
@@ -20,7 +25,7 @@ function createStore({fetch:fetcher,getToken}){
  }
  async function save(snapshot,parent,progress=()=>{}){
   id(parent);const json=JSON.stringify(snapshot,null,2);if(new Blob([json]).size>MAX)throw Error('完整案件超過15MB，請先減少照片');
-  const name=String(snapshot.project?.name||'未命名案件').slice(0,80)+' · '+new Date().toISOString().replace(/[:.]/g,'-');
+  const name=caseFolderName(snapshot.project);
   const folder=await createFolder(name,parent,{appProperties:{sqKind:'survey-case',sqComplete:'no'}});
   try{
    progress('保存完整勘查資料…');await upload('完整勘查資料.json',folder.id,new Blob([json],{type:'application/json'}));
@@ -58,7 +63,7 @@ function createStore({fetch:fetcher,getToken}){
  }
  return {save,list,load,metadata,loadFile:async fileId=>readFile(await metadata(fileId))};
 }
-if(typeof module==='object'&&module.exports)module.exports={createStore};
+if(typeof module==='object'&&module.exports)module.exports={createStore,caseFolderName};
 root.surveyDrive={start({snapshot,restore}){
  const $=key=>document.getElementById(key),config=root.SQ_DRIVE_CONFIG||{};
  let token='',expires=0,busy=false,folder=null,store=createStore({fetch:(...a)=>fetch(...a),getToken:()=>Date.now()<expires?token:''}),client;
@@ -91,7 +96,9 @@ root.surveyDrive={start({snapshot,restore}){
  $('driveImport').onclick=()=>work(async()=>{const selected=await chooseFile(false);if(!selected)return;message('下載並驗證雲端 JSON…');await restore(await store.loadFile(selected.id));message('已載入雲端 JSON，原案件已備份為本機上一案。')});
  $('driveSave').onclick=()=>work(async()=>{message('準備完整案件與照片…');const current=await snapshot();const saved=await store.save(current,folder.id,message);message('已儲存至「'+folder.name+'」：'+saved.name);const link=$('driveResult');link.href='https://drive.google.com/drive/folders/'+saved.id;link.hidden=false;link.textContent='查看本次案件資料夾 ↗'});
  let nextPage='',choices=[];
- async function refresh(more=false){message('讀取雲端案件清單…');const result=await store.list(folder.id,more?nextPage:'');choices=more?choices.concat(result.files||[]):result.files||[];nextPage=result.nextPageToken||'';const list=$('driveCases');list.replaceChildren();for(const item of choices){const option=document.createElement('option');option.value=item.id;option.textContent=item.name;list.append(option)}$('driveMore').hidden=!nextPage;$('driveRestore').disabled=!choices.length;$('driveDialog').showModal();message(choices.length?'請選擇要載入的案件版本。':'此資料夾尚無本網站完整儲存的案件。')}
+ function drawChoices(){const list=$('driveCases'),q=$('driveSearch').value.trim().toLocaleLowerCase();list.replaceChildren();for(const item of choices.filter(item=>item.name.toLocaleLowerCase().includes(q))){const option=document.createElement('option');option.value=item.id;option.textContent=item.name;list.append(option)}$('driveRestore').disabled=!list.options.length;$('driveSearchCount').textContent='符合 '+list.options.length+' / 已載入 '+choices.length+' 案；可搜尋姓名、地點或日期，較舊案件請載入更多。';}
+ $('driveSearch').oninput=drawChoices;
+ async function refresh(more=false){message('讀取雲端案件清單…');const result=await store.list(folder.id,more?nextPage:'');choices=more?choices.concat(result.files||[]):result.files||[];nextPage=result.nextPageToken||'';drawChoices();$('driveMore').hidden=!nextPage;$('driveRestore').disabled=!$('driveCases').options.length;$('driveDialog').showModal();message(choices.length?'請選擇要載入的案件版本。':'此資料夾尚無本網站完整儲存的案件。')}
  $('driveLoad').onclick=()=>work(()=>refresh());$('driveMore').onclick=()=>work(()=>refresh(true));
  $('driveRestore').onclick=()=>work(async()=>{const selected=choices.find(item=>item.id===$('driveCases').value);if(!selected)throw Error('請先選擇案件');message('下載並驗證案件與照片…');const incoming=await store.load(selected.id);await restore(incoming);$('driveDialog').close();message('已載入「'+selected.name+'」，原案件已備份為本機上一案。')});
  $('driveClose').onclick=()=>{if(!busy)$('driveDialog').close()};$('driveDialog').addEventListener('cancel',event=>{if(busy)event.preventDefault()});
