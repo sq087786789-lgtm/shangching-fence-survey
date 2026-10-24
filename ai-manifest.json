@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 10920,
-      "sha256": "ef9038962564f5d271f47e5972dd8fee2be88df55f0080e95a09f55eaa926062",
+      "bytes": 10922,
+      "sha256": "430cb23c32b7f6962f988e6cb7e7870a5e7337cc195bd182ddd27cd9b3d38c10",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 21946,
-      "sha256": "6af4e6c18cb73f0342f90837d434fe8f5f48c12b8b0aecba649c04c903c4462c",
+      "bytes": 23726,
+      "sha256": "35cc324408291ee50ca5e900056ec819124156cba3ee7606148218b0e64335f3",
       "url": "app.js"
     },
     {
@@ -26,8 +26,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 14719,
-      "sha256": "d09e39ece68e7d3f05fa778dadde691ab76c1fb79baa16f9348ba8c8017015bf",
+      "bytes": 15047,
+      "sha256": "04bdbb4fcb08da16b1fdfef98eae527b02edcc5eebb67b9abb7491453657bcef",
       "url": "confirmation.js"
     },
     {
@@ -68,20 +68,20 @@
     },
     {
       "path": "studio.html",
-      "bytes": 72622,
-      "sha256": "9434152c0a6ee8734c835b0bbfac3a76ecac8efea67fe79f87ac311db11c771b",
+      "bytes": 73097,
+      "sha256": "ca46f386b08f1e3851c19cc4061562f038c8bb8eaad53c42d860e3d2075c0ea0",
       "url": "studio.html"
     },
     {
       "path": "README.md",
-      "bytes": 10779,
-      "sha256": "6db6804f3774442f135c66699f4bf9749a0034dfeeae3f4ca2ffa9e732c084d2",
+      "bytes": 11217,
+      "sha256": "2f609c301abf7cdd6a8fe91321362b4c494ba7649e86ff1e00483331c71d3858",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 13637,
-      "sha256": "fa96630b51a3aa3c34536eeb8581d771c1edd51eac92c1dfeba8f3977f2a1196",
+      "bytes": 14075,
+      "sha256": "0b2d27c2758bd6be5c5d77294cbd2d77f567db58f2ba4faa7c02726a8287e9ee",
       "url": "AI_README.md"
     },
     {
@@ -92,8 +92,8 @@
     },
     {
       "path": "test.cjs",
-      "bytes": 11305,
-      "sha256": "66e4efa5d3a869e345150b6d955e9a70471adeeabd47d9ed3b457d084bb47566",
+      "bytes": 12737,
+      "sha256": "e4bd07bfb2a6bc84cf9891fc7f01a0516eaa0b0251baa1d30724a1333951507c",
       "url": "test.cjs"
     },
     {
