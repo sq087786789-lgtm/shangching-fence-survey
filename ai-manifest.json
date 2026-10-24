@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 11937,
-      "sha256": "fe768f929f442bd9108e2892ccbf5cc210993532e1583e407ff1bc11303e10b4",
+      "bytes": 11921,
+      "sha256": "ca20bfdefb76674f981c3bb57fc29e0d1a3231149dfbc7dacab943b7453d063f",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 25158,
-      "sha256": "77761fd4564e14f2f6bff5bca12ebdf9b3014c7bd6b7171b200a3f380e26e30b",
+      "bytes": 25178,
+      "sha256": "d451ad3e6523104351aaa91a7f9b70299f34b281150c81fa7b3142f7cd44c4e2",
       "url": "app.js"
     },
     {
@@ -27,7 +27,7 @@
     {
       "path": "confirmation.js",
       "bytes": 16520,
-      "sha256": "001b9ac51eff17df1d7867cdb4a518d1f6e6081c02607993498f29092e7a63f5",
+      "sha256": "c4e0ec1f7b8b928a1b27d1ea3fc19e172224e119afca4afbe0ba3370f56f579d",
       "url": "confirmation.js"
     },
     {
@@ -62,26 +62,26 @@
     },
     {
       "path": "style.css",
-      "bytes": 9015,
-      "sha256": "411a15db495d9efde733f9cdc6d02eb6b8e3d0edeec92be69f0cb6f270bb5c83",
+      "bytes": 11365,
+      "sha256": "8b33c0f521b065c912e4cba5c40778849f957dac516c985fd98a731e4b8ff174",
       "url": "style.css"
     },
     {
       "path": "studio.html",
-      "bytes": 76450,
-      "sha256": "fae358d95b2bce12044b3c7b294458f1979ff9610a7abc61a6db4f0d242e498e",
+      "bytes": 79323,
+      "sha256": "54b26c0ec255e76f3c98037468ebfd24d337bb24c6f6162cdf6d70405c11cb3a",
       "url": "studio.html"
     },
     {
       "path": "README.md",
-      "bytes": 14826,
-      "sha256": "db38ed123bceb9707c6fa7aade6784611cb940d96a1854403e4fe849c1399ed6",
+      "bytes": 15447,
+      "sha256": "6a768971d2bdbec88f6912abadbc536a12a4a95f7d89a31839f71e6f899b86f2",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 18306,
-      "sha256": "6c33f464cb71017f306908f25f24ce84c4e1cbfbba371e133c92eed81f4da6d3",
+      "bytes": 18927,
+      "sha256": "b34ce744ce177b7d746711bf89d9458c3dc656f52fed438b59ef8fc917b67b05",
       "url": "AI_README.md"
     },
     {
