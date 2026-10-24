@@ -1,5 +1,7 @@
 'use strict';
-const assert=require('node:assert/strict'),{createStore}=require('./drive.js');
+const assert=require('node:assert/strict'),{createStore,caseFolderName}=require('./drive.js');
+assert.equal(caseFolderName({client:'王先生',address:'內埔鄉／農地',name:'東側圍籬'},new Date('2026-10-24T03:04:05Z')),'王先生｜內埔鄉／農地｜2026-10-24_11-04-05｜東側圍籬');
+assert.match(caseFolderName({},new Date('2026-10-24T16:00:00Z')),/未填姓名｜未填地點｜2026-10-25_00-00-00｜未命名案件/);
 (async()=>{
  const calls=[],uploads=[];let n=0,fail='',token='test-token';
  const fetch=async(url,options)=>{
@@ -13,7 +15,7 @@ const assert=require('node:assert/strict'),{createStore}=require('./drive.js');
  };
  const store=createStore({fetch,getToken:()=>token});
  const snapshot={project:{name:'合成測試案件'},design:{edges:[{length:150,note:'內部備註',excavator:'需要怪手'}]},photos:[{id:'test-photo',caption:'測試照片',dataUrl:'data:image/jpeg;base64,/9j/'}]};
- const saved=await store.save(snapshot,'root-test');assert.ok(saved.id);
+ const saved=await store.save(snapshot,'root-test');assert.ok(saved.id);assert.match(saved.name,/未填姓名｜未填地點｜.*｜合成測試案件/);
  assert.deepEqual(uploads.map(x=>x.metadata.name),['完整勘查資料.json','3D設計參數.json','01-test-photo.jpg','照片說明.json']);
  const restored=JSON.parse(await uploads[0].file.text());assert.equal(restored.photos[0].dataUrl,snapshot.photos[0].dataUrl);
  const design=JSON.parse(await uploads[1].file.text());assert.equal(design.edges[0].length,150);assert.equal(design.edges[0].note,undefined);assert.equal(design.edges[0].excavator,undefined);assert.equal(snapshot.design.edges[0].note,'內部備註');
