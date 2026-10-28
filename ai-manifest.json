@@ -8,8 +8,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 11803,
-      "sha256": "083ae54076490d20a86b9959048cf0cfebaf3a31ce567e2ba765748f5a95c61b",
+      "bytes": 11804,
+      "sha256": "7fe5978d4b6cb1c21cbc0c2b0295acc7e6d9ac91248b5a4d5b667089d43249b4",
       "url": "index.html"
     },
     {
@@ -32,8 +32,8 @@
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 17940,
-      "sha256": "fc9cd7d6101a63b325a72a4d3f51344782622345caf61cd1ac8a43b17cbfb029",
+      "bytes": 18919,
+      "sha256": "e08fbcebd496e2388daa6778c2217cf3386c53481b1860cda0825e07f9a90bb1",
       "url": "reference-drawing.js"
     },
     {
@@ -68,20 +68,20 @@
     },
     {
       "path": "studio.html",
-      "bytes": 101053,
-      "sha256": "de2bb87cbc7853fffa5d4d8d8e621f5b2811dc4273107d609b9a42a12cb4d1e9",
+      "bytes": 108299,
+      "sha256": "94f7b16b12b7d412ce9302e8453ff34fb79284bb4fa31fc5192bd1ef65261504",
       "url": "studio.html"
     },
     {
       "path": "README.md",
-      "bytes": 19489,
-      "sha256": "901e9e89045dd10b190180320d05ff2625f241e3c7a4e7583e9b9f55e6a32bae",
+      "bytes": 19838,
+      "sha256": "0ecdfb787cbb9f59b591cdfb46d21451a1f98ef42d095431ff80e498fe7a7450",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 22549,
-      "sha256": "817eef64ec4b06e02577dc7787b3e6347ba6e65159901f5e0a4608af9902e359",
+      "bytes": 23071,
+      "sha256": "1b69fd565cb6e30cb656ed98ec7a800019a7ed75c74ed1105c21ccb7733b8403",
       "url": "AI_README.md"
     },
     {
@@ -92,14 +92,14 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 13131,
-      "sha256": "d0e506f21932eaa5868002ddda0448177aaa76a2a491fd9a8197ea27f4ded15d",
+      "bytes": 15212,
+      "sha256": "d6c30b6d2bd862309fa3bd2cd3e0e0b4cc4dbe1c1eec4963f6e3f583ef10dae6",
       "url": "HANDOFF.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 38602,
-      "sha256": "e3c6bcb7c2eb3490241710bd8538e8e866770b6932ce5869665e75bd604696bc",
+      "bytes": 45252,
+      "sha256": "417174bf3f5966f790a780843a4f874c83480f800a1e34f992954911dd62863c",
       "url": "test.cjs"
     },
     {

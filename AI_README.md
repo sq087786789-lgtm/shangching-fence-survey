@@ -11,6 +11,7 @@ index.html + style.css → app.js 編輯勘查草稿 → estimate()/lines() 試�
 ## 檔案與函式
 - app.js：fresh/seg 預設；migrate 舊資料補欄位；validate 範圍檢查；render 表單；design 幾何資料；estimate 材料；lines 報價項目；quote 總額計算；update 儲存及摘要；sendPreview/schedulePreview 與確認按鈕處理即時圖面。
 - studio.html：既有單檔 Canvas 工作室。window.fenceStudio 暴露 getState、validate、stats 等；父頁訊息 type=sq-survey-design。
+- 推拉門直接拖曳：`slidingGateSpan`依slideOpen／direction算門片位置，`beginSlidingDrag`／`moveSlidingDrag`按畫面投影軸計算0–100%；`finishSlidingDrag`一次寫入復原歷史，pointercancel還原快照。只改slideOpen，不能移動門柱或調整長度。端點圈圈優先命中；平面推拉鈕避開端點。fit預留全開範圍；showControls控制操作鈕，嵌入預覽及客戶PNG不顯示。雙開／單開門保留原角度規則；示意滑輪與軌道不新增配件估價。
 - test.cjs 透過 VM 載入計算部分，測實際數量與資料；非完整 UI 測試。
 
 ## 儲存與匯出契約
