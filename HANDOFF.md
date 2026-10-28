@@ -9,7 +9,9 @@
 - 新增普通／獨立圍籬或大門不沿用既有旗標與備註；既有旗標可復原，取消標示不刪原備註。名稱／備註插入HTML及SVG均跳脫。
 - 已通過 `node --check app.js`、`node --check confirmation.js`、`node --check reference-drawing.js`、`node test.cjs`。新增案例含混合既有／新作、共用柱、材料CSV排除、客戶及內部確認單、備註跳脫、正確段落規格、全部既有時零施工量、舊檔／JSON／bridge、新增不繼承、復原及實際表單產生內容。
 - 已以實際Canvas程式產生合成既有／新作混合圖並檢視灰色、名稱與備註；無真實客戶資料，示例留忽略的work目錄。Chrome／390px實際頁面操作仍待可用連線覆核；未變更照片或雲端功能。
-- **發布狀態：** 程式與測試完成，待推送後核對正式檔案及Pages結果。
+- 使用者已確認範圍：「客戶圖保留，材料與報價排除」。
+- **已上線：** 功能提交 `8dddb1565be382fafcebe4a22dcf7c4e1f9ca695`，Pages執行 `40672856881` completed/success；正式studio、app、confirmation、共用繪圖核心及index均HTTP 200，SHA-256與本機測試來源一致。
+- 正式入口：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=8dddb15-existing 。交接與AI重建來源同步，真實Chrome／手機操作驗證狀態如上。
 
 ## 2026-10-28：圖面明確標示「推拉門」
 
