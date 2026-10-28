@@ -10,6 +10,17 @@ const photographed=a.fresh();const firstSegment=photographed.segments[0].id;phot
 const root=require('path').join(__dirname),studio=fs.readFileSync(root+'/studio.html','utf8');
 for(const script of studio.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(script[1]);
 const studioScript=studio.match(/<script>([\s\S]*?)<\/script>/)[1];
+{const previousSurvey=JSON.parse(vm.runInContext("JSON.stringify(data)",context));
+// Studio endpoint operations and sliding gates must preserve independent geometry/specs.
+const geometryContext={document:{getElementById:()=>({getContext:()=>({})})},console};vm.createContext(geometryContext);
+const geometrySource=studioScript.slice(0,studioScript.indexOf('try{const s=localStorage'))+studioScript.match(/function length\([^\n]+/)[0]+studioScript.slice(studioScript.indexOf('function endpointShared('),studioScript.indexOf('function editorValue('));
+vm.runInContext(geometrySource+';globalThis.geometry={moveSegmentEndpoint,resizeSegment,detachEndpoint,nearestEndpoint,joinEndpoint,turnEndpoint,validate};',geometryContext);
+const geometry=geometryContext.geometry;const route=a.design();
+for(let i=0;i<route.edges.length;i++)for(const end of ['a','b']){const copy=structuredClone(route),before=structuredClone(copy);geometry.turnEndpoint(copy,i,end,33);for(let j=0;j<copy.edges.length;j++)if(j!==i)for(const side of ['a','b'])assert.deepEqual(copy.nodes[copy.edges[j][side]],before.nodes[before.edges[j][side]]);geometry.validate(copy);}
+const joined=structuredClone(route);geometry.detachEndpoint(joined,0,'b');const target=joined.edges[1].a,p=joined.nodes[target];geometry.moveSegmentEndpoint(joined,0,'b',{x:p.x-.2,z:p.z+.1});assert.equal(geometry.nearestEndpoint(joined,0,'b',joined.nodes[joined.edges[0].b],.4),target);assert.equal(geometry.joinEndpoint(joined,0,'b',target),true);assert.equal(joined.edges[0].b,joined.edges[1].a);geometry.resizeSegment(joined,0,10);assert.notEqual(joined.edges[0].b,joined.edges[1].a);assert.deepEqual(joined.nodes[joined.edges[1].a],route.nodes[route.edges[1].a]);
+const slidingCase=a.fresh();slidingCase.segments.at(-1).gate='sliding';slidingCase.segments.at(-1).slideOpen=50;slidingCase.segments.at(-1).direction=-1;a.validate(slidingCase);a.set(slidingCase);const slidingDesign=a.design();geometry.validate(slidingDesign);assert.equal(slidingDesign.edges.at(-1).gateType,'sliding');assert.equal(slidingDesign.edges.at(-1).slideOpen,50);assert.equal(a.estimate().mesh,32);assert.throws(()=>a.validate({...slidingCase,segments:slidingCase.segments.map(s=>({...s,slideOpen:101}))}));
+let movingPanel;geometryContext.panel=(p,q)=>movingPanel={p,q};geometryContext.tube=()=>{};vm.runInContext('const clone=o=>JSON.parse(JSON.stringify(o));state='+JSON.stringify(slidingDesign)+';'+studioScript.match(/function drawGate\([^\n]+/)[0]+';drawGate(state.edges.at(-1));',geometryContext);const gate=slidingDesign.edges.at(-1),ga=slidingDesign.nodes[gate.a],gb=slidingDesign.nodes[gate.b];assert.ok(Math.abs(movingPanel.p.x-(ga.x-(gb.x-ga.x)*.5))<1e-8);assert.ok(Math.abs(movingPanel.q.z-(gb.z-(gb.z-ga.z)*.5))<1e-8);
+console.log('PASS studio A/B endpoints isolated, resize detaches shared points, snap joins without moving neighbors, sliding gate validation/transfer/mesh exclusion and translated geometry');a.set(previousSurvey); }
 const studioContext={window:{},document:{getElementById:()=>({getContext:()=>({})})}};
 vm.createContext(studioContext);
 studioContext.window.createFenceReference=require('./reference-drawing.js');
@@ -29,6 +40,7 @@ const confirmation=require('./confirmation.js');const confirmCase=a.fresh();conf
 
 // The studio's actual binding must use the shared CAD renderer successfully.
 vm.runInContext(studioScript.slice(studioScript.indexOf('const {cadSVG'),studioScript.indexOf('function openCAD'))+';window.cadTest=cadSVG;',studioContext);
+{const previous=JSON.parse(vm.runInContext('JSON.stringify(data)',context));const sliding=a.fresh();sliding.segments.at(-1).gate='sliding';sliding.segments.at(-1).slideOpen=100;sliding.segments.at(-1).direction=-1;a.set(sliding);const design=a.design();assert.ok(report.csv(design).includes('推拉門'));const drawing=studioContext.window.cadTest(design,design.edges.length-1,{front:true,plan:true});assert.ok(drawing.includes('推拉門正面（關閉參照）'));assert.ok(drawing.includes('推拉門 100%'));assert.ok(confirmation.model({...sliding,design}).materials.some(row=>row.name.includes('推拉門')));a.set(previous);console.log('PASS sliding gate customer CSV, closed single-panel front reference, translated plan and confirmation material name');}
 const cad=studioContext.window.cadTest(loadedDesign,0,{front:true,plan:true,mesh:true});
 for(const label of ['局部 2 跨','全案平面配置','150 m','網目規格'])assert.ok(cad.includes(label));assert.ok(!cad.includes('NaN'));
 const caseModel=confirmation.model(confirmSnapshot),drafts=confirmation.drawings(caseModel.design);assert.ok(drafts.some(d=>d.svg.includes('雙開門正面')));assert.ok(!drafts.some(d=>d.svg.includes('橫桿 Ø30')));

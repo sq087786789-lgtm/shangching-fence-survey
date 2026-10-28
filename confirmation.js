@@ -13,7 +13,7 @@ function model(s,internal=false){
  for(const [i,e]of s.segments.entries()){
   const mesh=`${mats[e.meshMat]}菱形網，高 ${e.height}m／線徑 ${e.wire}mm／網目 ${e.meshChoice}`;
   if(e.type==='fence'){add(mesh,e.length,'m');add('橫桿 '+pipeSpec(e.railDia,e.railThickness),e.length*e.railCount,'m')}
-  else {add('門框 '+pipeSpec(e.railDia,e.railThickness),1,'組');add(`${e.gate==='single'?'單開':'雙開'}大門，寬 ${e.length}m × 高 ${e.height}m`,1,'組');}
+  else {add('門框 '+pipeSpec(e.railDia,e.railThickness),1,'組');add(`${e.gate==='sliding'?'推拉門':(e.gate==='single'?'單開':'雙開')+'大門'}，寬 ${e.length}m × 高 ${e.height}m`,1,'組');}
   const a=s.design.nodes[i],b=s.design.nodes[i+1],spans=e.type==='gate'?1:Math.ceil((e.length-1e-8)/e.spacing);
   for(let j=0;j<=spans;j++){const x=a.x+(b.x-a.x)*j/spans,z=a.z+(b.z-a.z)*j/spans,key=x.toFixed(4)+','+z.toFixed(4),dia=e.type==='gate'?Math.max(89.1,e.postDia):e.postDia;
    if(!posts.has(key))posts.set(key,{...e,postDia:dia});else if(e.type==='gate')posts.get(key).postDia=Math.max(posts.get(key).postDia,dia);
