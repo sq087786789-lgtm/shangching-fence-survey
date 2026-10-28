@@ -1,5 +1,15 @@
 # 圍籬工作室交接紀錄
 
+## 2026-10-28：上方刪除鍵與快捷鍵
+
+- `studio.html` 頁首新增「刪除本段」按鈕，與右側刪除按鈕共用 `deleteSelectedSegment()`；無選取段時停用。
+- Delete只刪選取段，Ctrl+Z復原，Ctrl+Y／Ctrl+Shift+Z重做；Command對應可用。長按Delete不連續刪除，不用Backspace刪段。
+- 輸入欄位、下拉選單、可編輯文字、role=textbox、中文組字、已處理事件及參照圖對話框內，不攔截這些快捷鍵，保留原本欄位／視窗操作。
+- 既有構件及接點計算不變；刪除可復原，刪除最後一段後仍可用快捷鍵復原。
+- 已通過 `node --check app.js`、`node test.cjs`；新增實際函式測試包含刪除、復原、重做、Command、Shift+Z、輸入／組字／視窗／長按防誤觸、空白設計與還原。
+- 本次瀏覽器工具仍回報停用，因此不宣稱已完成真實鍵盤／390px畫面操作驗證；不要求使用者重新切換已啟用的Chrome設定。使用現有Git登入同步，交接與AI來源索引一併更新。
+- 本節發布結果在完成部署核對後補記。
+
 ## 目前狀態：已上線（2026-10-28）
 
 - 正式工作室：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=86ed241
