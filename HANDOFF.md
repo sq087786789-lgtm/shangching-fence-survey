@@ -9,7 +9,8 @@
 - 上方接點分離、接合開關、方向箭頭與15°微調收進「接點／方向進階」，A／B端及拖曳轉向保留可見；快捷鍵說明可展開。手機按編輯會定位到設定，提供「回到圖面」；窄版工具列換行，主圖區可捲動，避免內容被裁切。
 - 已通過 `node --check app.js`、`node test.cjs`；新增測試使用實際新增及復原函式，覆蓋兩種門新增、既有構件不變、自動選取與編輯、復原、手機設定定位、無效欄位停止新增、空白設計新增及模式提示。HTML結構、ID無重複及原欄位ID完整性另已檢查。
 - 瀏覽器工具此次仍回報 `Local browser use is disabled in Work settings`。不要求使用者重複調整已啟用的設定；目前沒有完成真實Chrome與390px畫面操作驗證，程式測試不代表實機驗證。
-- **發布狀態：** 功能與交接已備妥，待推送後核對GitHub Pages結果及正式檔案；成功紀錄將補在本節。
+- **已上線：** 功能提交 `9d076ed07dd99f00b58921f509a73eaefbb2e523`；GitHub Pages執行 `40666986096` 結果為 completed/success。正式 `studio.html` HTTP 200，與本機測試檔案SHA-256完全一致：`557d8fc6f7a3e9b58812cf5c70778a4bcdd06a8639a38e13bba65db6fd7895cd`。
+- 本次正式連結：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=9d076ed 。交接及AI來源索引同步；真實Chrome與390px操作仍待可用連線覆核。
 
 ## 2026-10-28：上方刪除鍵與快捷鍵
 
