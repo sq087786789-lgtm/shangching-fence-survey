@@ -4,30 +4,30 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const bases={direct:'單獨埋入',buried:'埋入／混凝土',plate:'底板固定'},mats={galv:'鍍鋅',highgalv:'高鍍鋅',pvc:'PVC包覆（綠）'};
 const createReference=typeof module==='object'&&module.exports?require('./reference-drawing.js'):root.createFenceReference;
-const reference=createReference({length:(e,s)=>Math.hypot(s.nodes[e.b].x-s.nodes[e.a].x,s.nodes[e.b].z-s.nodes[e.a].z),outputEnabled:(s,k)=>s.outputFields?.[k]!==false,spanCount:(l,p)=>Math.max(1,Math.ceil((l-1e-8)/p)),railLevels:e=>e.railCount===0?[]:e.railCount===1?[e.height-.025]:Array.from({length:e.railCount??2},(_,i)=>.05+(e.height-.075)*i/((e.railCount??2)-1)),customerReport:()=>({columns:[],rows:[]})});
+const reference=createReference({length:(e,s)=>Math.hypot(s.nodes[e.b].x-s.nodes[e.a].x,s.nodes[e.b].z-s.nodes[e.a].z),outputEnabled:(s,k)=>s.outputFields?.[k]!==false,spanCount:(l,p)=>Math.max(1,Math.ceil((l-1e-8)/p)),railLevels:e=>e.meshOnly||e.railCount===0?[]:e.railCount===1?[e.height-.025]:Array.from({length:e.railCount??2},(_,i)=>.05+(e.height-.075)*i/((e.railCount??2)-1)),customerReport:()=>({columns:[],rows:[]})});
 const num=n=>Number(n.toFixed(2)).toLocaleString('zh-TW');
 const pipeSpec=(dia,thick)=>'Ø'+(dia??'待確認')+'mm／'+(thick==null?'厚度待確認':thick+'mm '+(thick===1.4?'亞管':thick===1.8?'鍍鋅管':'其他管厚'));
 function model(s,internal=false){
- const groups=new Map(),posts=new Map();
+ const groups=new Map(),posts=new Map(),existing=new Set();for(const [i,e]of s.segments.entries())if(e.meshOnly&&e.type==='fence'){const a=s.design.nodes[i],b=s.design.nodes[i+1],n=Math.ceil((e.length-1e-8)/e.spacing);for(let j=0;j<=n;j++)existing.add((a.x+(b.x-a.x)*j/n).toFixed(4)+','+(a.z+(b.z-a.z)*j/n).toFixed(4));}
  function add(name,qty,unit){if(!qty)return;const key=name+'|'+unit;if(!groups.has(key))groups.set(key,{name,qty:0,unit});groups.get(key).qty+=qty}
  for(const [i,e]of s.segments.entries()){
   const mesh=`${mats[e.meshMat]}菱形網，高 ${e.height}m／線徑 ${e.wire}mm／網目 ${e.meshChoice}`;
-  if(e.type==='fence'){add(mesh,e.length,'m');add('橫桿 '+pipeSpec(e.railDia,e.railThickness),e.length*e.railCount,'m')}
+  if(e.type==='fence'){add(mesh,e.length,'m');if(!e.meshOnly)add('橫桿 '+pipeSpec(e.railDia,e.railThickness),e.length*e.railCount,'m')}
   else {add('門框 '+pipeSpec(e.railDia,e.railThickness),1,'組');add(`${e.gate==='sliding'?'推拉門':(e.gate==='single'?'單開':'雙開')+'大門'}，寬 ${e.length}m × 高 ${e.height}m`,1,'組');}
-  const a=s.design.nodes[i],b=s.design.nodes[i+1],spans=e.type==='gate'?1:Math.ceil((e.length-1e-8)/e.spacing);
+  if(e.meshOnly&&e.type==='fence')continue;const a=s.design.nodes[i],b=s.design.nodes[i+1],spans=e.type==='gate'?1:Math.ceil((e.length-1e-8)/e.spacing);
   for(let j=0;j<=spans;j++){const x=a.x+(b.x-a.x)*j/spans,z=a.z+(b.z-a.z)*j/spans,key=x.toFixed(4)+','+z.toFixed(4),dia=e.type==='gate'?Math.max(89.1,e.postDia):e.postDia;
-   if(!posts.has(key))posts.set(key,{...e,postDia:dia});else if(e.type==='gate')posts.get(key).postDia=Math.max(posts.get(key).postDia,dia);
+   if(existing.has(key))continue;if(!posts.has(key))posts.set(key,{...e,postDia:dia});else if(e.type==='gate')posts.get(key).postDia=Math.max(posts.get(key).postDia,dia);
   }
  }
  for(const e of posts.values())add(`立柱 ${pipeSpec(e.postDia,e.postThickness)}／管長 ${num(e.postLength??(e.height+.04+(e.base==='plate'?0:e.depth)))}m`,1,'支');
- const methods=new Map();for(const e of s.segments){const burial=e.base==='plate'?0:e.depth,above=(e.postLength??(e.height+.04+burial))-burial;const key=`${bases[e.base]}，${e.base==='plate'?'不需埋入':'埋入 '+num(burial*100)+' 公分'}，土面上 ${num(above*100)} 公分／${e.type==='gate'?'門柱':`最大柱距 ${e.spacing}m、橫桿 ${e.railCount}排`}`;methods.set(key,(methods.get(key)||0)+e.length)}
- const notices=[s.notes,...s.segments.map((e,i)=>e.note?'第 '+(i+1)+' 段：'+e.note:'')].filter(Boolean);const short=s.segments.map((e,i)=>({e,i})).filter(({e})=>e.postLength!=null&&e.postLength-(e.base==='plate'?0:e.depth)<e.height-.001);if(short.length)notices.push('第 '+short.map(({i})=>i+1).join('、')+' 段：立柱地上長度低於圍籬／門高，請確認管長、埋深與高度。');
+ const methods=new Map();for(const e of s.segments){if(e.meshOnly&&e.type==='fence'){const key='只裝圍網，沿用既有立柱；不新增立柱、橫桿、基礎與管夾';methods.set(key,(methods.get(key)||0)+e.length);continue;}const burial=e.base==='plate'?0:e.depth,above=(e.postLength??(e.height+.04+burial))-burial;const key=`${bases[e.base]}，${e.base==='plate'?'不需埋入':'埋入 '+num(burial*100)+' 公分'}，土面上 ${num(above*100)} 公分／${e.type==='gate'?'門柱':`最大柱距 ${e.spacing}m、橫桿 ${e.railCount}排`}`;methods.set(key,(methods.get(key)||0)+e.length)}
+ const notices=[s.notes,...s.segments.map((e,i)=>e.note?'第 '+(i+1)+' 段：'+e.note:'')].filter(Boolean);const short=s.segments.map((e,i)=>({e,i})).filter(({e})=>!e.meshOnly&&e.postLength!=null&&e.postLength-(e.base==='plate'?0:e.depth)<e.height-.001);if(short.length)notices.push('第 '+short.map(({i})=>i+1).join('、')+' 段：立柱地上長度低於圍籬／門高，請確認管長、埋深與高度。');
  const conditions=Object.entries({ground:'地面',access:'進場',slope:'地形',demolition:'拆除',boundary:'界址',utilities:'地下管線'}).map(([k,l])=>l+'：'+(s.conditions[k]||'待確認'));
  return {compact:!internal,title:internal?'公司完整勘查彙整單':'圍籬工程內容確認單',project:{name:s.project.name,client:s.project.client,address:s.project.address,date:s.project.date},time:new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}),summary:`總長（含門）${num(s.segments.reduce((n,e)=>n+e.length,0))} m　菱形網 ${num(s.segments.filter(e=>e.type==='fence').reduce((n,e)=>n+e.length,0))} m　大門 ${s.segments.filter(e=>e.type==='gate').length} 組`,materials:[...groups.values()],methods:[...methods].map(([name,length])=>name+'；合計 '+num(length)+' m'),conditions,notices: notices.length?notices:['尚無補充注意事項'],design:{name:s.project.name,nodes:s.design.nodes.map(n=>({x:n.x,z:n.z})),edges:s.design.edges.map(e=>({...e})),outputFields:{railDia:s.segments.every(e=>e.railDia!=null),'part-tail':false,'part-through':false,'part-ring':false}},prices:internal?[...s.quoteLines.map(l=>`${l.name}：${num(l.qty)} ${l.unit} × ${l.rate} = ${Math.round(l.qty*l.rate)}`),`雜項 ${s.pricing.extra}／折讓 ${s.pricing.discount}／稅額 ${s.quoteSummary.tax}`,`試算合計 NT$ ${Math.round(s.quoteSummary.total).toLocaleString('zh-TW')}`]:[]};
 }
 function drawings(d,compact=false){
  if(compact){const index=Math.max(0,d.edges.findIndex(e=>e.style!=='gate'));return [{label:'第 '+(index+1)+' 段局部樣式參照（其餘差異依下方規格）',svg:reference.cadSVG(d,index,{front:true,plan:false,mesh:true,specifications:false})}];}
- const groups=new Map();for(const [i,e]of d.edges.entries()){const key=JSON.stringify([e.style,e.height,e.spacing,e.postDia,e.postLength,e.postThickness,e.railDia,e.railThickness,e.depth,e.base,e.railCount,e.gateType,e.meshChoice,e.wire,e.meshMat,e.style==='gate'?e.length:0]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(i)}
+ const groups=new Map();for(const [i,e]of d.edges.entries()){const key=JSON.stringify([e.style,!!e.meshOnly,e.height,e.spacing,e.postDia,e.postLength,e.postThickness,e.railDia,e.railThickness,e.depth,e.base,e.railCount,e.gateType,e.meshChoice,e.wire,e.meshMat,e.style==='gate'?e.length:0]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(i)}
  return [...groups.values()].map((indices,i)=>({label:'第 '+indices.slice(0,6).map(n=>n+1).join('、')+(indices.length>6?' 等 '+indices.length:'')+' 段'+(d.edges[indices[0]].style==='gate'?'大門':'圍籬')+'參照',svg:reference.cadSVG(d,indices[0],{front:true,plan:i===0,mesh:true,specifications:false})}));
 }
 function build(s,internal=false){const m=model(s,internal);return `<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(m.title)}</title><style>
