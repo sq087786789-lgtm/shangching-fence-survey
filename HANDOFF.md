@@ -9,7 +9,8 @@
 - 修改 `studio.html`、`app.js`、`confirmation.js`、`reference-drawing.js`；`index.html`與工作室的變更腳本版本同步更新，避免瀏覽器沿用舊繪圖核心。
 - 已通過 `node --check app.js`、`node --check confirmation.js`、`node --check reference-drawing.js`、`node test.cjs`；新增檢查含純圍網／混合共用柱數量與報價、設定切回、新增／復原、非法門設定、JSON／bridge、CSV、客戶及公司共用CAD、舊檔與實際表單產生內容。HTML結構與ID完整性檢查通過。
 - 真實瀏覽器與390px手機操作仍待工具連線可用時覆核；本次不宣稱已完成實機驗證。雲端、照片及既有資料保留。
-- **發布狀態：** 已完成程式及測試，待推送後補Pages結果與正式檔案核對。
+- **已上線：** 功能提交 `9e45e54442eea8c8e7845f77def7744a740d3c05`；Pages執行 `40668418116` 結果為 completed/success。正式 `studio.html`、`app.js`、`confirmation.js`、`reference-drawing.js`、`index.html` 皆HTTP 200且SHA-256與測試過的本機檔案完全一致。
+- 正式工作室：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=9e45e54 。程式／部署已驗證，真實Chrome及390px畫面操作狀態仍如上。
 
 ## 2026-10-28：上方新增門與簡化編輯畫面
 
