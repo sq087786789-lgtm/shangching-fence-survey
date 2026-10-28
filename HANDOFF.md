@@ -9,7 +9,8 @@
 - `reference-drawing.js`共用正面閉門線稿同步門框、補強及底輪外觀，公司／客戶確認單沿用此核心；平面仍依實際開啟位置。`index.html`及工作室更新繪圖核心版本，避免舊快取。
 - 已通過 `node --check app.js`、`node --check reference-drawing.js`、`node test.cjs`及HTML結構／唯一ID檢查。新增測試實際pointerdown／move／up／cancel處理器，覆蓋兩視圖與兩方向、上下限、欄位同步、門柱與其他段不動、一次復原／重做、取消、端點與平移優先、預設開度、全開適配、SVG底輪及輸出操作鈕隱藏。
 - 另用本機Canvas繪圖套件執行實際draw程式，產生0／50／100%畫面並檢視門框、底輪、把手及全開範圍；合成示例僅放忽略的work目錄。瀏覽器工具仍回報停用，因此不宣稱已完成Chrome／390px頁面實機操作，不要求使用者重複切設定。
-- **發布狀態：** 功能與測試完成，待推送後補Pages結果及正式來源核對。
+- **已上線：** 功能提交 `d03e0eaab010f4e9d9b8eaf7013f8918f4352d77`；Pages執行 `40670407462` 結果 completed/success。正式 `studio.html`、`reference-drawing.js`、`index.html` 皆HTTP 200且SHA-256與測試過的本機來源一致。
+- 新版入口：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=d03e0ea-verified 。交接與AI來源同步；Chrome／手機實際頁面操作仍待可用連線覆核。
 
 ## 2026-10-28：只裝圍網，沿用客戶既有立柱
 
