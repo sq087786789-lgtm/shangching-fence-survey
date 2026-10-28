@@ -74,14 +74,14 @@
     },
     {
       "path": "README.md",
-      "bytes": 17886,
-      "sha256": "f77cbc38ae57d194646ea661472b6c07a5fd1321921e1fdd7c046e4c1cbd1329",
+      "bytes": 18001,
+      "sha256": "f1f6fba3c787b8f03799b8c921720c363c4a12c2eecea7d35b69bdb9513d2b26",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 21366,
-      "sha256": "4da04a1c830968a91ffb9ed310fffc3863a5fbbb0f94c364ac9def3f7bf27413",
+      "bytes": 21491,
+      "sha256": "f7d289cb6117776de66944167abdf8ac73a72f2f1f06a8d9423a3561bde79857",
       "url": "AI_README.md"
     },
     {
@@ -91,6 +91,12 @@
       "url": "AGENTS.md"
     },
     {
+      "path": "HANDOFF.md",
+      "bytes": 5077,
+      "sha256": "002a0dddb200d147deb9b8ee40e1db3136f9dd90d0edf45103656937ed5345ba",
+      "url": "HANDOFF.md"
+    },
+    {
       "path": "test.cjs",
       "bytes": 26854,
       "sha256": "4cca9a09b51e7604445b4d52cd0fcc33174ec5c33d9acf4b402648ad6cf140d3",
@@ -98,14 +104,14 @@
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 1630,
-      "sha256": "588e58dbbb3733b4d28a36fd21682600640b869015732adf110b6c110b5ae65a",
+      "bytes": 1643,
+      "sha256": "fbe0aec5fe711df5d4c182c2399ad9ede837ea374182c9f216e76ec20dd478e2",
       "url": "build-handoff.cjs"
     },
     {
       "path": "ai.html",
-      "bytes": 1415,
-      "sha256": "10c399866cc7e1481f7c4b3de8d73f41d33e442d06d3a33bc6db273d1dc98e81",
+      "bytes": 1507,
+      "sha256": "dfa877534ea2b431701a7139c36973a765d76439d5515336e5b1f7f088573d42",
       "url": "ai.html"
     },
     {
