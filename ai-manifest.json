@@ -8,14 +8,14 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 11807,
-      "sha256": "83aae08a652c835f0ab0b2fe6095561fe365e26af6369cd976e2b011a4b6e43e",
+      "bytes": 11830,
+      "sha256": "15f2141fe7d7a236ec36d2b6ca66d081deed62236f55b58148132b2ae1e8edfd",
       "url": "index.html"
     },
     {
       "path": "app.js",
-      "bytes": 27029,
-      "sha256": "2d44ae35f3a38f37f1512c8ca26986de7a02506a71dd37fa3952073153f103d1",
+      "bytes": 27554,
+      "sha256": "ff48e403615f79a802f6226fc7365f8e07cde315c2b82d0a55729d3d3d7b6380",
       "url": "app.js"
     },
     {
@@ -26,14 +26,14 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 20729,
-      "sha256": "25955493323c942e7c0b31dd75bc75b1f0a8e02d1983a63485a4969adc229ad6",
+      "bytes": 21404,
+      "sha256": "ab63486924c06f7d5d086f2cb72c8160b3a675ff1a811f0f119bba06900b785a",
       "url": "confirmation.js"
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 18960,
-      "sha256": "b9aa7d0772087db8874ad475faf71c411f31c78eb786aeb12d757b0891291fb7",
+      "bytes": 19661,
+      "sha256": "b8bd13a46cdedd82a0cad2981a25f2d1d78c98e42f9cb3bbbdf7192080eb91f4",
       "url": "reference-drawing.js"
     },
     {
@@ -68,38 +68,38 @@
     },
     {
       "path": "studio.html",
-      "bytes": 108481,
-      "sha256": "8dae6abf6f4a3d0cc6e80f48996f2922f6dde754dccab5ce56e033e3f490efda",
+      "bytes": 111441,
+      "sha256": "77f40fd836fbf00c55dcb8ab4a8033989774f2a9664659c6b01ebd9c428b656c",
       "url": "studio.html"
     },
     {
       "path": "README.md",
-      "bytes": 19838,
-      "sha256": "0ecdfb787cbb9f59b591cdfb46d21451a1f98ef42d095431ff80e498fe7a7450",
+      "bytes": 20281,
+      "sha256": "86da961fd0e0f87f3d25d6804e98820693abf10aef6ed5b9c0cf2475af21c560",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 23071,
-      "sha256": "1b69fd565cb6e30cb656ed98ec7a800019a7ed75c74ed1105c21ccb7733b8403",
+      "bytes": 23777,
+      "sha256": "82b047ab7379416e9c7ef8e85216655e7ff131171578205d629b0d78a3ff9bd4",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 3970,
-      "sha256": "095393661084e9d86e5f645e5148c3c04b9a128cba165ee7888fc2c90872c7a0",
+      "bytes": 4462,
+      "sha256": "5a6b9a30a66f16b7516e11df050795330324770c90e0bfdf3962e854905b1457",
       "url": "AGENTS.md"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 16640,
-      "sha256": "9aa8e5e171aaa3256a8d9ce991280bd568d54b30bd12d39160394b6bea6a00c0",
+      "bytes": 18639,
+      "sha256": "7b83d419a78a24406eba10b80a246fc1c0079f4408aa6ee148011d8bfa4ca1c5",
       "url": "HANDOFF.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 45252,
-      "sha256": "417174bf3f5966f790a780843a4f874c83480f800a1e34f992954911dd62863c",
+      "bytes": 50735,
+      "sha256": "5352dc3b43542a3797bb7742461440e1ea35f8ff52e21ea2f70a7ac25e66c144",
       "url": "test.cjs"
     },
     {
