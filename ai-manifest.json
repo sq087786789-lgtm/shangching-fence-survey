@@ -32,14 +32,14 @@
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 17357,
-      "sha256": "d92d1eb42a322c287bd76868110b6a1a819ea14778d15f6c5b984b9099f07e61",
+      "bytes": 17266,
+      "sha256": "f5642f586832dd4e183745bc92596fc025babc32bb577a57bb9cbdc4e6488da2",
       "url": "reference-drawing.js"
     },
     {
       "path": "drive.js",
-      "bytes": 12762,
-      "sha256": "2568142936ed3e75319484a1bad9c61e5cf8af39ee0d9bbe595e4e464224feaa",
+      "bytes": 12654,
+      "sha256": "41005b7681c874958863b30fe7ccf9c77f0ab8555c68f29f6993c0c49483c470",
       "url": "drive.js"
     },
     {
@@ -50,14 +50,14 @@
     },
     {
       "path": "drive-test.cjs",
-      "bytes": 3583,
-      "sha256": "251f6d1fba3d4e2fd824bb9c3eb00c0e2447fef98abe3259e562dedb170ec16e",
+      "bytes": 3555,
+      "sha256": "c9c4a585d2122146e2a6fc3c7c695a9cfabf6ef38e16e452548a4cac5b704b9c",
       "url": "drive-test.cjs"
     },
     {
       "path": "studio-bridge.js",
-      "bytes": 1267,
-      "sha256": "f29556762e687276b0485fbb062b7d2c0eda51324da6cb7f5e5136f50b96ed77",
+      "bytes": 1245,
+      "sha256": "66d29dfc0a4909c405d8350efd377ab003c88a2f23cd3cb0a171f27809b62daa",
       "url": "studio-bridge.js"
     },
     {
