@@ -9,7 +9,8 @@
 - 配件自動計算先排除零橫桿段，避免簡易圍籬排在第一段使其他有橫桿段漏算；新柱與網長照計。既有圍籬排除與只裝網規則保留，照片及雲端未修改。
 - 已通過app／confirmation／reference-drawing語法檢查與node test.cjs。新增實際選項／事件測試包含簡易欄位隱藏、有／無橫桿混用、材質厚度預設與自訂、兩角色管徑數字／提交／驗證、淨開口轉換、舊案／JSON／bridge相容、未知厚度、獨立輸出欄位與舊勾選繼承。HTML結構及唯一ID檢查通過。
 - 已以共用CAD產生並檢視簡易圍籬與大門的合成線稿。瀏覽器工具仍回報停用，故不宣稱完成Chrome／390px頁面實機驗證，也不要求使用者重複切設定。
-- **發布狀態：** 待推送及正式來源核對。
+- **已上線：** 功能提交 `d22b13693d77218d9563d5bacaaf785aa2af3fd0`，Pages執行 `40802905061` completed/success；正式studio、app、confirmation、共用繪圖核心及index皆HTTP 200，SHA-256與本機測試來源一致。
+- 新版入口：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=d22b136-posts 。交接及AI重建來源同步；Chrome／手機實際操作狀態如上。
 
 ## 2026-10-29：推拉提示移到門片下方，避免遮擋
 
