@@ -25,6 +25,9 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 幾何 format=sq-fence-design，version=1；nodes x/z公尺，edges a/b端點索引。朝向0°東、90°北，z減少為北。
 
 ## 核心算法與限制
+簡易圍籬為既有style=clamp與railCount=0，不增資料版本；需有新立柱及網量，沒有橫桿／自動管夾，混合計算不可把零橫桿段當全案配件的排數來源。工作室postDia／thickness是選取段實際柱規格，門柱使用獨立UI控制器映射同一段的實際規格，不改其他圍籬。
+勘查表segments新增可選gatePostDia、gatePostThickness、postMaterial、gatePostMaterial：門柱明確選值優先；舊案未提供時沿用舊門柱至少89.1的繪圖回推，migrate不覆寫舊資料。design把選取角色換算成edges.postDia／thickness／material，再移除表單角色欄位；原始完整勘查JSON保留獨立欄位。材料選擇與自訂厚度分開，不能把2mm錏管因厚度改判鍍鋅管。表單gateOpening為淨開口輸入，轉存原length時加門柱外徑，原length仍為柱心幾何。
+工作室輸出length只列圍籬長度，gateWidth只列門淨開口；門柱另有gatePostDia／gatePostThickness／gatePostLength輸出鍵（這些輸出鍵不是工作室幾何來源）。新輸出鍵未設定時繼承舊length／postDia／thickness／postLength勾選，避免舊案隱藏的資訊重新出現。共用CAD門淨寬尺寸線取門柱內側，不改實際節點；客戶確認單的門柱材質／厚度以實際選取角色列出，未知厚度仍標待確認。
 `segments[].existing`／`edges[].existing`缺省false；true表示整段已完成、只供位置參照，優先於meshOnly。既有段排除本次total／mesh／rail／gates／新增柱與基礎、自動配件及length-based labor；其已有柱位亦排除相接新段的新柱。全案手動加減及費用仍保留。note為最長20000字串，客戶圖及確認單保留既有名稱與備註，材料CSV排除。JSON完整保留以便編輯；新增段不繼承existing及note。customerReport提供rowIndices對應原段索引，CAD查選取規格不得直接用過濾後rows[index]。客戶簡版若含既有段，必須同時繪全案平面位置，不能只畫新段局部而遺失既有位置。
 `segments[].meshOnly`／`edges[].meshOnly` 為可選布林值，缺省或舊檔為false。true只適用圍籬（type=fence／style=clamp），表示只裝圍網並沿用既有立柱；網量與安裝長度照算，不計新立柱、橫桿、基礎或自動管夾配件。原管材、工法與橫桿排數保留供切回一般圍籬，計算與繪圖須優先判斷meshOnly，不能只看railCount。混合配置若新段柱位落在既有柱位，也不重複計新柱。客戶規格須註明既有立柱、留空新管材與基礎尺寸；3D與共用線稿以虛線示意既有柱，不標新管長或埋深。
 每段跨數 ceil(length/spacing)，接點共享端柱；門段只有兩端柱，不生中間柱。網量=sum(非門段 length)，絕不能乘 height。橫桿=sum(length*railCount)。單獨埋入／混凝土／底板按接點計處；工法交界採先出現段，需人工覆核。

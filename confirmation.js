@@ -4,22 +4,22 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const bases={direct:'單獨埋入',buried:'埋入／混凝土',plate:'底板固定'},mats={galv:'鍍鋅',highgalv:'高鍍鋅',pvc:'PVC包覆（綠）'};
 const createReference=typeof module==='object'&&module.exports?require('./reference-drawing.js'):root.createFenceReference;
-const reference=createReference({length:(e,s)=>Math.hypot(s.nodes[e.b].x-s.nodes[e.a].x,s.nodes[e.b].z-s.nodes[e.a].z),outputEnabled:(s,k)=>s.outputFields?.[k]!==false,spanCount:(l,p)=>Math.max(1,Math.ceil((l-1e-8)/p)),railLevels:e=>e.meshOnly||e.railCount===0?[]:e.railCount===1?[e.height-.025]:Array.from({length:e.railCount??2},(_,i)=>.05+(e.height-.075)*i/((e.railCount??2)-1)),customerReport:()=>({columns:[],rows:[]})});
+const reference=createReference({length:(e,s)=>Math.hypot(s.nodes[e.b].x-s.nodes[e.a].x,s.nodes[e.b].z-s.nodes[e.a].z),outputEnabled:(s,k)=>(s.outputFields?.[k]??s.outputFields?.[({gateWidth:'length',gatePostDia:'postDia',gatePostThickness:'thickness',gatePostLength:'postLength'})[k]])!==false,spanCount:(l,p)=>Math.max(1,Math.ceil((l-1e-8)/p)),railLevels:e=>e.meshOnly||e.railCount===0?[]:e.railCount===1?[e.height-.025]:Array.from({length:e.railCount??2},(_,i)=>.05+(e.height-.075)*i/((e.railCount??2)-1)),customerReport:()=>({columns:[],rows:[]})});
 const num=n=>Number(n.toFixed(2)).toLocaleString('zh-TW');
-const pipeSpec=(dia,thick)=>'Ø'+(dia??'待確認')+'mm／'+(thick==null?'厚度待確認':thick+'mm '+(thick===1.4?'亞管':thick===1.8?'鍍鋅管':'其他管厚'));
+const pipeSpec=(dia,thick,material)=>'Ø'+(dia??'待確認')+'mm／'+(thick==null?'厚度待確認':thick+'mm '+(({zinc:'亞管',galv:'鍍鋅管',steel:'不鏽鋼',green:'綠色烤漆',black:'黑色烤漆'})[material]??(thick===1.4?'亞管':thick===1.8?'鍍鋅管':'其他管厚')));
 function model(s,internal=false){
  const groups=new Map(),posts=new Map(),existing=new Set();for(const [i,e]of s.segments.entries())if(e.existing||e.meshOnly&&e.type==='fence'){const a=s.design.nodes[i],b=s.design.nodes[i+1],n=e.type==='gate'?1:Math.ceil((e.length-1e-8)/e.spacing);for(let j=0;j<=n;j++)existing.add((a.x+(b.x-a.x)*j/n).toFixed(4)+','+(a.z+(b.z-a.z)*j/n).toFixed(4));}
  function add(name,qty,unit){if(!qty)return;const key=name+'|'+unit;if(!groups.has(key))groups.set(key,{name,qty:0,unit});groups.get(key).qty+=qty}
  for(const [i,e]of s.segments.entries()){
   if(e.existing)continue;const mesh=`${mats[e.meshMat]}菱形網，高 ${e.height}m／線徑 ${e.wire}mm／網目 ${e.meshChoice}`;
   if(e.type==='fence'){add(mesh,e.length,'m');if(!e.meshOnly)add('橫桿 '+pipeSpec(e.railDia,e.railThickness),e.length*e.railCount,'m')}
-  else {add('門框 '+pipeSpec(e.railDia,e.railThickness),1,'組');add(`${e.gate==='sliding'?'推拉門':(e.gate==='single'?'單開':'雙開')+'大門'}，寬 ${e.length}m × 高 ${e.height}m`,1,'組');}
+  else {add('門框 '+pipeSpec(e.railDia,e.railThickness),1,'組');add(`${e.gate==='sliding'?'推拉門':(e.gate==='single'?'單開':'雙開')+'大門'}，淨開口 ${num(Math.hypot(s.design.nodes[i+1].x-s.design.nodes[i].x,s.design.nodes[i+1].z-s.design.nodes[i].z)-s.design.edges[i].postDia/1000)}m × 高 ${e.height}m`,1,'組');}
   if(e.meshOnly&&e.type==='fence')continue;const a=s.design.nodes[i],b=s.design.nodes[i+1],spans=e.type==='gate'?1:Math.ceil((e.length-1e-8)/e.spacing);
-  for(let j=0;j<=spans;j++){const x=a.x+(b.x-a.x)*j/spans,z=a.z+(b.z-a.z)*j/spans,key=x.toFixed(4)+','+z.toFixed(4),dia=e.type==='gate'?Math.max(89.1,e.postDia):e.postDia;
-   if(existing.has(key))continue;if(!posts.has(key))posts.set(key,{...e,postDia:dia});else if(e.type==='gate')posts.get(key).postDia=Math.max(posts.get(key).postDia,dia);
+  for(let j=0;j<=spans;j++){const x=a.x+(b.x-a.x)*j/spans,z=a.z+(b.z-a.z)*j/spans,key=x.toFixed(4)+','+z.toFixed(4),dia=e.type==='gate'?s.design.edges[i].postDia:e.postDia;
+   if(existing.has(key))continue;if(!posts.has(key))posts.set(key,{...e,postDia:dia,postThickness:e.type==='gate'?(e.gatePostThickness??e.postThickness):e.postThickness,postMaterial:e.type==='gate'?(e.gatePostMaterial??e.postMaterial):e.postMaterial});else if(e.type==='gate')posts.set(key,{...e,postDia:dia,postThickness:e.gatePostThickness??e.postThickness,postMaterial:e.gatePostMaterial??e.postMaterial});
   }
  }
- for(const e of posts.values())add(`立柱 ${pipeSpec(e.postDia,e.postThickness)}／管長 ${num(e.postLength??(e.height+.04+(e.base==='plate'?0:e.depth)))}m`,1,'支');
+ for(const e of posts.values())add(`${e.type==='gate'?'門柱':'立柱'} ${pipeSpec(e.postDia,e.postThickness,e.postMaterial)}／管長 ${num(e.postLength??(e.height+.04+(e.base==='plate'?0:e.depth)))}m`,1,'支');
  const methods=new Map();for(const e of s.segments){if(e.existing)continue;if(e.meshOnly&&e.type==='fence'){const key='只裝圍網，沿用既有立柱；不新增立柱、橫桿、基礎與管夾';methods.set(key,(methods.get(key)||0)+e.length);continue;}const burial=e.base==='plate'?0:e.depth,above=(e.postLength??(e.height+.04+burial))-burial;const key=`${bases[e.base]}，${e.base==='plate'?'不需埋入':'埋入 '+num(burial*100)+' 公分'}，土面上 ${num(above*100)} 公分／${e.type==='gate'?'門柱':`最大柱距 ${e.spacing}m、橫桿 ${e.railCount}排`}`;methods.set(key,(methods.get(key)||0)+e.length)}
  const notices=[s.notes,...s.segments.map((e,i)=>e.existing?'第 '+(i+1)+' 段：既有'+(e.type==='gate'?(e.gate==='sliding'?'推拉門':'大門'):'圍籬')+' '+num(e.length)+' m，不屬於本次施工'+(e.note?'；備註：'+e.note:''):e.note?'第 '+(i+1)+' 段：'+e.note:'')].filter(Boolean);const short=s.segments.map((e,i)=>({e,i})).filter(({e})=>!e.existing&&!e.meshOnly&&e.postLength!=null&&e.postLength-(e.base==='plate'?0:e.depth)<e.height-.001);if(short.length)notices.push('第 '+short.map(({i})=>i+1).join('、')+' 段：立柱地上長度低於圍籬／門高，請確認管長、埋深與高度。');
  const conditions=Object.entries({ground:'地面',access:'進場',slope:'地形',demolition:'拆除',boundary:'界址',utilities:'地下管線'}).map(([k,l])=>l+'：'+(s.conditions[k]||'待確認'));
