@@ -1,5 +1,15 @@
 # 圍籬工作室交接紀錄
 
+## 2026-10-30：GitHub統一工具入口
+
+- 已實際讀取Render正式入口，確認「圍籬配置工作室」仍連到hongsing-fence-planner舊專案，這是入口連結落後，昨天新版studio本體部署仍正確。
+- 使用者明確選擇「一個GitHub總入口集中管理所有連結，各工具保留自己的專案」。新增 `tools.html`＋`tools.js`＋唯一清單 `tools.json`；正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/tools.html`。工作室卡片直連同專案studio，常用工具包含勘查、進銷存、裝車、尺寸、名片、官網；舊圍籬工具收在legacy展開區，官網預備專案連結亦保留。
+- 清單根據GitHub帳號全部7個公開專案與現有正式入口盤點；工作室與勘查共用本儲存庫，沒有額外複製工具。工具連結統一不代表案件資料自動同步。新增／修改連結只編輯本專案tools.json；本體功能在各自儲存庫修改。AI來源打包同步含3個入口檔案。
+- 原Render入口的來源在 `E:\GPT\fence-inventory-free\public\tools.html`，改成自動轉址與手動備援連結；/admin保持原址。該專案先正常快轉遠端ef3acfb再修改，自己的HANDOFF.md同步記錄。沒有修改舊hongsing-fence-planner、登入設定或資料庫。
+- 通過node --check app.js、tools.js及完整node test.cjs、兩入口HTML結構／ID檢查、8張卡片與全部7個公開專案清單核對。新增入口為獨立導航，不改計算核心。
+- 本次Chrome工具已恢復可用。已在本機HTTP使用真實Chrome驗證桌機配置、實際390 CSS px寬度（innerWidth=390、scrollWidth=371，無水平溢出）、7張常用卡片、舊版展開與卡片實際開啟新版studio（含推拉門／分組工具列）。檢查後還原暫時viewport覆寫；先前「Chrome不可用」紀錄屬歷史狀態。本次未重新執行全部工作室幾何互動實測。
+- 發布狀態待補：先發布並核對GitHub入口，再發布Render轉址，避免轉到尚不存在的頁面。
+
 ## 2026-10-29：工具列分組與上方留白壓縮
 
 - 依使用者截圖整理studio上方：新增／操作／視角／檢視按用途靠左排齊、自動換行，取消兩端拉開的大片空白；編輯本段保留橘色。勘查表橋接提示改成緊湊橫條，備份說明仍可展開。

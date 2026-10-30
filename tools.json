@@ -1,0 +1,12 @@
+{
+  "tools": [
+    {"id":"studio","name":"圍籬配置工作室","summary":"拖拉圍籬、雙開大門與推拉門，分開或接合端點，放大編輯並輸出規格與尺寸線稿。","url":"./studio.html","repository":"shangching-fence-survey","group":"current","icon":"圍","tag":"目前維護版"},
+    {"id":"survey","name":"圍籬現場勘查／報價","summary":"手機記錄分段長度、轉角與施工條件，套入立體配置，按公尺試算材料與施工費用。","url":"./index.html","repository":"shangching-fence-survey","group":"current","icon":"勘","tag":"手機勘場"},
+    {"id":"inventory","name":"圍籬進銷存","summary":"登入後管理商品、庫存、採購與訂單，並下載業務資料備份。免費主機首次開啟可能需要稍候。","url":"https://hongsing-inventory.onrender.com/admin","repository":"fence-inventory","group":"current","icon":"庫","tag":"需要登入"},
+    {"id":"cargo","name":"內埔裝車助手","summary":"安排貨物的立體位置、旋轉與堆疊，輔助拖板車的裝載規劃。","url":"https://sq087786789-lgtm.github.io/neipu-cargo-desktop/","repository":"neipu-cargo-desktop","group":"current","icon":"載","tag":"裝車規劃"},
+    {"id":"drawing","name":"圍籬尺寸與工程圖","summary":"輸入四邊尺寸、柱距與門的位置，計算周長及柱數，產生參考工程圖。","url":"https://sq087786789-lgtm.github.io/fence-app/","repository":"fence-app","group":"current","icon":"圖","tag":"尺寸工具"},
+    {"id":"cards","name":"名片管家","summary":"建立、搜尋聯絡資料，匯入與匯出名片。自動辨識依工具內的設定使用。","url":"https://sq087786789-lgtm.github.io/card-app/","repository":"card-app","group":"current","icon":"名","tag":"聯絡資料"},
+    {"id":"website","name":"上慶企業社官網","summary":"查看圍籬工程案例與聯絡資訊。GitHub 官網專案目前為預備專案，正式官網維持原網址。","url":"https://www.hongsing.com.tw/","repository":"-hongsing-website","group":"current","icon":"慶","tag":"企業官網"},
+    {"id":"legacy-studio","name":"舊版圍籬配置工具","summary":"保留供舊案查閱；新的配置與功能請使用上方「圍籬配置工作室」。","url":"https://sq087786789-lgtm.github.io/hongsing-fence-planner/","repository":"hongsing-fence-planner","group":"legacy","icon":"舊","tag":"舊版保留"}
+  ]
+}

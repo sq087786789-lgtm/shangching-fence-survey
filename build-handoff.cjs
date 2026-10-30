@@ -1,6 +1,6 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const root=__dirname;
-const files=['index.html','app.js','photos.js','confirmation.js','reference-drawing.js','drive.js','drive-config.js','drive-test.cjs','studio-bridge.js','style.css','studio.html','README.md','AI_README.md','AGENTS.md','HANDOFF.md','test.cjs','build-handoff.cjs','ai.html','.nojekyll','.gitignore'];
+const files=['index.html','app.js','photos.js','confirmation.js','reference-drawing.js','drive.js','drive-config.js','drive-test.cjs','studio-bridge.js','style.css','studio.html','tools.html','tools.js','tools.json','README.md','AI_README.md','AGENTS.md','HANDOFF.md','test.cjs','build-handoff.cjs','ai.html','.nojekyll','.gitignore'];
 const entries=files.map(file=>{const content=fs.readFileSync(path.join(root,file),'utf8');return {path:file,bytes:Buffer.byteLength(content),sha256:crypto.createHash('sha256').update(content).digest('hex'),content};});
 // The running site's browser key stays in its existing restricted configuration.
 // Handoff exports use a blank template so other AI tools cannot copy that key.

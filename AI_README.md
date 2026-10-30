@@ -1,5 +1,7 @@
 # AI 接手文件
 
+統一工具入口是 `tools.html`，唯一工具清單是 `tools.json`，由 `tools.js` 安全建立連結。新增／修改入口只更新這份清單，各工具仍在各自儲存庫維護。Render進銷存的 `public/tools.html` 僅轉址；新版工作室要連 `studio.html`，舊版僅收在legacy群組。不要將工具入口統一誤做成案件或資料庫合併。
+
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
 這是完整可執行的手機圍籬勘查工具，不只是展示畫面。從 ai.html 讀取 README、原始碼索引、單一檔案及完整原始碼 JSON 即可重建。
