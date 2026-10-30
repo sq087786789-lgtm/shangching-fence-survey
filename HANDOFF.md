@@ -8,7 +8,9 @@
 - 原Render入口的來源在 `E:\GPT\fence-inventory-free\public\tools.html`，改成自動轉址與手動備援連結；/admin保持原址。該專案先正常快轉遠端ef3acfb再修改，自己的HANDOFF.md同步記錄。沒有修改舊hongsing-fence-planner、登入設定或資料庫。
 - 通過node --check app.js、tools.js及完整node test.cjs、兩入口HTML結構／ID檢查、8張卡片與全部7個公開專案清單核對。新增入口為獨立導航，不改計算核心。
 - 本次Chrome工具已恢復可用。已在本機HTTP使用真實Chrome驗證桌機配置、實際390 CSS px寬度（innerWidth=390、scrollWidth=371，無水平溢出）、7張常用卡片、舊版展開與卡片實際開啟新版studio（含推拉門／分組工具列）。檢查後還原暫時viewport覆寫；先前「Chrome不可用」紀錄屬歷史狀態。本次未重新執行全部工作室幾何互動實測。
-- 發布狀態待補：先發布並核對GitHub入口，再發布Render轉址，避免轉到尚不存在的頁面。
+- **已上線：** GitHub入口來源提交 `be4118ca7c89e00266bd9bbce53c5466d8b69461`，Pages執行 `41019028571` completed/success；tools.html／tools.js／tools.json正式檔案HTTP200，SHA-256全部與本機已測試來源一致。Chrome正式頁已完整載入清單，驗證截圖保存在忽略目錄 `work/tools-live-20261030.png`。
+- 原Render入口轉址提交 `965a4c859dd1633951c63ccd896f4de35ec2702a` 已推送main並自動部署；正式tools.html HTTP200且SHA-256與轉址來源一致，/ready HTTP200。已直接重新整理使用者原本的Chrome入口分頁，確認自動抵達GitHub總入口並載入全部7張常用卡片；保留該正式入口分頁，暫時測試分頁與viewport已清理。
+- 以後新增或修正工具連結只改tools.json，本體程式仍修改各工具自己的專案並部署。完成每次任務都更新HANDOFF.md，並重建AI來源索引；不再另維護Render的工具卡片清單。
 
 ## 2026-10-29：工具列分組與上方留白壓縮
 
