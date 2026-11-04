@@ -38,3 +38,15 @@ body{background:#f1f5f9;color:var(--ink)}header{background:#142b48;box-shadow:0 
 @media print{.projectMenu,.routeGuide,.outputOptions{display:none}.surveyHeader{display:block}.surveyHeader .brandWrap{color:#111}.fieldGroupTitle,.segmentSummary span{background:white}.segment{break-inside:avoid}}
 
 #confirmBackBar .pdfHelp{grid-column:1/-1;margin:0;color:#475569;font-size:12px;line-height:1.5;text-align:center}#confirmSharePdf{white-space:nowrap}
+
+/* Segment folding is view state, separate from saved construction parameters. */
+details.segment{padding:0;overflow:clip}
+.segmentHeading{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;padding:16px;min-height:76px;user-select:none}
+.segmentHeading::-webkit-details-marker{display:none}
+.segmentHeadingText{display:block;min-width:0}.segmentHeading b{display:block;color:#183653;font-size:16px;line-height:1.5}.segmentHeading small{display:block;margin-top:5px;font-size:13px;line-height:1.6;color:#52657c;overflow-wrap:anywhere}
+.segmentFoldLabel{flex:none;font-size:13px;color:#1d4ed8;font-weight:700}.segment:not([open]) .whenOpen,.segment[open] .whenClosed{display:none}
+.segment[open]>.segmentHeading{border-bottom:1px solid #dbe4ef;background:#f8fafc}
+.segmentBody{padding:16px}.segmentDelete{margin-bottom:10px}.segmentDelete small{color:#64748b;font-size:12px}.foldSegment{width:100%;min-height:46px;margin:14px 0 8px;color:#1e40af;background:#eff6ff;border-color:#bbd0f5;font-weight:650}
+.segmentFoldActions{display:flex;gap:10px;justify-content:flex-end;margin:12px 0}.segmentFoldActions button{min-height:44px;font-size:14px}
+@media(max-width:900px){details.segment{padding:0}.segmentHeading{padding:14px;min-height:78px}.segmentHeading b{font-size:15px}.segmentHeading small{font-size:13px}.segmentBody{padding:14px}.segmentFoldActions{justify-content:stretch}.segmentFoldActions button{flex:1}.scene{height:64dvh;min-height:400px}.mobileNav{grid-template-columns:repeat(5,minmax(0,1fr)) minmax(94px,1.6fr)}}
+@media print{details.segment{overflow:visible}.segmentBody{display:block!important}details.segment>summary{display:flex!important}.segmentFoldLabel,.segmentFoldActions,.foldSegment{display:none!important}}

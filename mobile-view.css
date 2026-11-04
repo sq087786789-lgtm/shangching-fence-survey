@@ -1,0 +1,41 @@
+/* Mobile viewing starts with the whole design; detailed tools remain available. */
+.mobileStudioBar{display:none}
+@media(max-width:850px){
+ body:not(.embed){min-width:0}
+ body:not(.embed)>header{min-height:50px;padding:8px 12px;gap:6px}
+ body:not(.embed)>header .mark{padding:6px 8px;border-radius:8px}
+ body:not(.embed)>header h1{font-size:16px}
+ body:not(.embed)>header .sub{display:none}
+ .mobileStudioBar{display:flex;position:sticky;top:0;z-index:8;align-items:center;gap:8px;padding:6px 10px;background:#fff;border-bottom:1px solid #d5dfeb}
+ .mobileStudioBar a,.mobileStudioBar button{display:flex;align-items:center;justify-content:center;flex:1;min-height:44px;font-size:14px;white-space:nowrap;text-decoration:none;border-radius:8px}
+ .mobileStudioBar a{color:#334155;background:#f1f5f9}
+ body:not(.mobile-tools-open)>header .actions,body:not(.mobile-tools-open) .left,body:not(.mobile-tools-open) .right,body:not(.mobile-tools-open) #surveyBridge,body:not(.mobile-tools-open) .workspaceStatus,body:not(.mobile-tools-open) .endpoint-tools,body:not(.mobile-tools-open) .stats,body:not(.mobile-tools-open) .main>.note{display:none}
+ body:not(.mobile-tools-open) .workspaceTools .toolCreate,body:not(.mobile-tools-open) .workspaceTools .toolModes,body:not(.mobile-tools-open) .workspaceTools .toolHistory,body:not(.mobile-tools-open) .workspaceTools .toolLabel,body:not(.mobile-tools-open) #zoomSelected,body:not(.mobile-tools-open) #dims{display:none!important}
+ body:not(.mobile-tools-open) .workspaceTools{gap:4px;padding:5px 8px;flex-wrap:nowrap}
+ body:not(.mobile-tools-open) .workspaceTools .group{gap:4px;padding:0;border:0;flex-wrap:nowrap}
+ body:not(.mobile-tools-open) .workspaceTools .toolZoom{margin-left:auto}
+ body:not(.mobile-tools-open) .workspaceTools button{padding:7px 8px;font-size:12px;min-height:44px}
+ body:not(.mobile-tools-open) #expandCanvas{font-size:0;width:44px;padding:4px}
+ body:not(.mobile-tools-open) #expandCanvas::after{content:'⛶';font-size:23px}
+ body:not(.mobile-tools-open) .layout{display:flex;flex-direction:column;height:auto;min-width:0}
+ body:not(.mobile-tools-open):not(.embed) .main{height:auto;min-height:0;overflow:visible}
+ body:not(.mobile-tools-open):not(.embed) .main>.sceneCompare{display:flex;flex-direction:column;flex:none;margin:0 8px;gap:10px;min-height:0}
+ body:not(.mobile-tools-open):not(.embed) .main>.sceneCompare>.viewport{height:calc(100dvh - 166px);min-height:380px;margin:0;flex:none}
+ body:not(.mobile-tools-open) .scene-label{top:10px;left:10px;max-width:calc(100% - 20px)}
+ body:not(.mobile-tools-open) .scene-label b{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ body:not(.mobile-tools-open) .legend{left:8px;bottom:8px;padding:5px 7px;font-size:10px;max-width:calc(100% - 16px)}
+ body.mobile-tools-open .main{height:auto;min-height:0;overflow:visible}
+ body.mobile-tools-open .main>.sceneCompare{flex:none}
+ body.mobile-tools-open .main>.sceneCompare>.viewport{height:65dvh;min-height:350px}
+ body.embed .mobileStudioBar{display:none}
+ body.embed .workspaceTools .toolModes,body.embed .workspaceTools .toolCreate,body.embed .endpoint-tools,body.embed .workspaceStatus{display:none}
+ body.embed .main>.sceneCompare{flex:1;min-height:0}
+ body.embed .main>.sceneCompare>.viewport{height:100%;min-height:0}
+ body.canvas-expanded .mobileStudioBar{display:none}
+ body.canvas-expanded .main{height:100dvh!important;min-height:0!important;overflow:hidden!important}
+ body.canvas-expanded .main>.sceneCompare{flex:1!important;min-height:0!important}
+ body.canvas-expanded .main>.sceneCompare>.viewport{height:100%!important;min-height:0!important;flex:1!important}
+ body.canvas-expanded #expandCanvas{font-size:12px!important;width:auto!important}
+ body.canvas-expanded #expandCanvas::after{content:none!important}
+}
+@media print{.mobileStudioBar{display:none!important}}

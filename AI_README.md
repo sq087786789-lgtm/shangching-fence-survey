@@ -4,6 +4,10 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+手機大圖／收合：app.js的segmentOpen為以穩定segment.id索引的記憶體Map，只管details.segment.open；不放入data或JSON。render保留Map，resetScene清除，新增／復原呼叫showSegment自動展開。原生toggle使用capture事件記狀態；segmentSummaryText供render與欄位change共同更新摘要，避免長度／柱距改了卻顯示舊數字。beforeprint展開、afterprint復原。
+
+mobile-view.css在studio的scene-photos.css之後載入，850px以下預設隱藏次要資訊、保留看圖控制；mobile-tools-open顯示原設定，setMobileTools不改設計或歷史。勘查表overview按鈕透過原transfer附overview=1，工作室必須在history.replaceState清查詢前捕捉requestOverview，帶入完成後才toggleCanvasFocus。embed不顯示手機導航，desktop不受手機簡化影響。資料／數量／照片規則沿用；版本修改須同時更新app的iframe快取參數與index的JS/CSS參數。
+
 2026-11-04：`project.phone2`是第二組電話，migrate補空字串；phone／phone2為最多60字的文字，不轉數字。`confirmation.model/build`第二參數支援舊boolean及`customer`／`quote`／`internal`；customer仍無價格，quote只列雜項折讓及net／tax／total摘要且使用簡版線稿，internal保留詳細價格。HTML／Canvas／PDF共用model，金額來自quoteSummary，不重算另一套稅。
 
 `scene-photos.js/.css`為勘查與工作室共用的獨立照片面板。`design().sitePhotoRefs`只有id/name/caption/segmentId，影像由既有`photos.js`的唯讀read(id)取IndexedDB，不能把dataUrl塞進傳輸packet或PDF。段落以既有edge.id對應；工作室新增圍籬清除沿用範本的id，避免誤帶舊照片。缺少影像、孤兒路段、切換案件與非同步過期讀取須安全處理；面板用textContent建立文字，不插HTML。原`confirmationSnapshot`仍清空photos，model不帶sitePhotoRefs。照片面板不參與材料／價格／幾何，放大圖面模式暫時收起照片。
