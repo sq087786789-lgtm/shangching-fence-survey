@@ -6,7 +6,8 @@
 - 不改JSON格式或資料鍵，舊spacing值保留供切回圍籬；門仍只有兩端柱。height沿用原design／3D／客戶確認單傳輸，門柱postLength獨立，沒有自動修改門柱高度、價格或其他路段。index的app快取為gate-height-1，studio及其他共用圖面檔不需改。
 - 通過node --check app.js、完整node test.cjs。此次是既有欄位顯示／輸入方式修正，未增加重複的表面測試套件。
 - 內建瀏覽器390×844／scrollWidth375實測：純門案例spacing欄數0，門高可輸入1.65且正確保存。客戶產生1頁圖片，線稿門高1.65m、淨開口4m，材料顯示雙開門高1.65m、門柱2支。帶入完整3D後height欄為165cm且spacingfield.hidden=true。合成截圖work/mobile-gate-height.png，未使用真實客戶資料。
-- 本機測試前案件已還原、viewport已重設。尚未重測實體iPhone／LINE／私人Drive登入；此次不改分享與雲端功能。發布待正常提交、Pages完成與正式原始SHA-256核對後補記，不可只依本機完成宣稱上線。
+- **已上線：** 功能提交 `bd57db24e3d2833aca8a3ca8d18c13177a34cad8` 正常快轉推送main，Pages執行 `41858019564` completed/success。正式index.html及app.js皆HTTP200，原始SHA-256與已測試提交一致；正式內建瀏覽器已載入app.js?v=gate-height-1並確認一般圍籬柱距控制保留。
+- 網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=gate-height-1`。本機測試前案件已還原、viewport已重設，本次伺服器已停止；正式分頁保留。尚未重測實體iPhone／LINE／私人Drive登入；此次不改分享與雲端功能。接手仍使用本Documents/Codex checkout，核對GitHub最新HEAD後再修改。
 
 ## 2026-11-04：PVC線徑、50／57／75／85mm網目及表單分組
 
