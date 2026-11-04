@@ -10,7 +10,8 @@
 - 已通過app／confirmation／fence-materials語法、完整node test.cjs、新quote-units-test.cjs及drive-test.cjs。新測試包含10m/2m×2=10支、管長改6m仍10支、環帽4連結片、10.5m計11、兩段5.25m合計後計11、不改圖面10.5m、半班原費用、舊米價隔離、JSON。原配件／幾何／圖面比例／照片／返回檢查通過。
 - Chrome目前無可用連線，本次改用內建瀏覽器實測390×844：scrollWidth375無整頁溢出，10m案例表格網10m／橫桿10支／橫通8個／尾夾4個；單價input寬約83px，數量與輸入欄不重疊。實際改量測10.5後表格網11m／橫桿12支，客戶報價顯示整米說明且保留量測10.5。證據為忽略目錄work/mobile-span-quote-10.png。
 - 實際Canvas／PNG／A4 PDF渲染驗證1頁：10.5m的測試費率案例計11米、12橫桿、10橫通與4尾夾，未稅2380、稅119、含稅2499。work/span-quotation-1.png及span-quotation.pdf為合成資料；實體iPhone／LINE及私人Google Drive連線未重測，不將內建窄版當實機。
-- 發布狀態：待正常提交、Pages完成及正式原始SHA-256核對後補記；目前不能只依本機結果宣稱上線。完成時還須恢復本機測試前案件、重設viewport並停止本次本機伺服器。
+- **已上線：** 功能提交 `7ccc1e43f20ed35d0822d25e6d035bb63342ac74` 正常快轉推送main，Pages執行 `41831040248` completed/success。正式index.html、app.js、fence-materials.js、studio.html、confirmation.js、style.css皆HTTP200，原始SHA-256與已測試提交一致。正式內建瀏覽器已實際載入span-quote-1、整數數量、橫桿支單位及舊米價核對提示；沒有向正式站寫入合成測試案。
+- 正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=span-quote-1`。本機測試前案件已恢復，暫時viewport已重設，本次伺服器已停止，測試分頁已清理，正式網站保留供使用者開啟。下一位AI先讀本節與最新GitHub HEAD，實際checkout路徑見上；每次完成再更新交接與AI來源包。原E槽副本仍保留，不把舊副本或先前發表的進料算法當現行規則。
 
 ## 2026-11-04：立柱與菱形網高度依獨立參數等比繪製
 
