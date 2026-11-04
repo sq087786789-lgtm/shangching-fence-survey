@@ -6,7 +6,8 @@
 - 保留原ID、PNG files及PDF File產生流程；分享內容仍由同一模型建立。圖片不支援原生分享或分享失敗時，showImages會展開圖片並捲入視窗，提示長按／下載圖片再由LINE附加；使用者取消不重送。PDF仍使用原download(pdf)與iPhone預覽底部分享圖示，不直接Web Share PDF。不自動傳訊、不選收件人。
 - 通過confirmation語法、完整node test.cjs及靜態DOM IDs／控制項綁定檢查。既有函式測試仍確認PDF走下載／開啟、圖片handler傳PNG列表、未完成輸出時不動作；本次主要為位置及提示調整，沒有更改案件格式、價格、圖面、照片或雲端功能。
 - Chrome本機合成案驗證實際innerWidth390／scrollWidth371；圖片主按鈕可見且產生完成後啟用，兩個PDF按鈕在其他選項收合時不可見、展開後可見。展開圖片驗證為1120×1584及.png下載名；保持返回功能。證據在忽略目錄work/image-first-mobile.png，不含真實案件；未重新測試實體iPhone／LINE原生分享。
-- 發布狀態：程式及本機驗證已完成，待正式發布與來源核對後補記。
+- **已上線：** 圖片優先功能提交 `1051a1d`，發布提交 `58cfe3b99b83a4881cc1eaa2ba102253d2b6bc9c`（只另整理行尾格式）已正常快轉推送main；Pages執行 `41782226317` completed/success。正式index.html、confirmation.js、style.css皆HTTP200，原始SHA-256與已測試提交一致。
+- 正式網址：`https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=image-first-1`。本機測試表單及暫時viewport已恢復，沒有把合成案件或真實案件寫入公開儲存庫；PDF原生開啟路徑與圖片傳送由使用者選擇收件人。
 
 ## 2026-11-04：手機全貌大圖與逐段收合
 
