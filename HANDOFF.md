@@ -8,7 +8,7 @@
 - 新height-scale-test.cjs納入完整test及AI來源包：實際CAD矩形比例、柱長獨立增長、網高獨立增長、底板、不同埋深、短柱與10m極值、3D實際panel/renderPost輸出座標。已通過完整node test.cjs與app/reference/confirmation語法；實際Canvas PNG／A4 PDF解析通過，一般12m範例仍1頁，橫桿8支／配件6與4／稅額均保留。
 - Chrome本機390 CSS px／scrollWidth371無水平溢出；設定管長2.5m、埋入50cm、網高1.2m，客戶預覽矩形柱高270px／網高162px，比例正確2:1.2；產生1頁圖片。帶入完整3D顯示柱長2.5m、網高120cm、地上柱2m，返回正常。合成對照頁已人工檢視，證據work/height-comparison-browser.png；左→中只改管長，網片像素高162不變，柱高202.5→270；中→右只改網高，網片162→243，柱270不變。
 - 本機測試前表單已恢復、暫時viewport已重設。沒有修改真實案件或上傳合成案件；實體iPhone／LINE與私人Google Drive未重測。下一位AI須保留gate本體間隙及舊資料，不能把圖面等比誤改為網量乘高度計價。
-- 發布狀態：待提交、Pages完成及正式原始檔SHA-256核對後補實際結果；尚不能只憑本機測試宣稱上線。
+- **已上線：** 功能提交 `7944e2cd718b43721cf1aebe2bd5c6eaeaa15b91` 正常快轉推送main，Pages執行 `41786655434` completed/success。正式index.html、app.js、studio.html、reference-drawing.js及confirmation.js皆HTTP200，原始SHA-256與已測試提交一致。網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=height-scale-1`；不是舊私人Sites網址。合成對照截圖精簡版work/height-comparison-browser-detail.png亦已人工檢視，三種獨立比例清楚可見。每次完成同步本交接及AI來源索引，不要把本機或歷史發布當成下一次修改的正式驗證。
 
 ## 2026-11-04：手機橫桿支數、配件數量與單價
 
