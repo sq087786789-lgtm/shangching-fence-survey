@@ -8,7 +8,8 @@
 - 列印前暫時展開所有段，列印結束復原狀態；客戶PDF及完整JSON仍從原資料產生，不依賴details是否展開。電話、稅額、材料算法、原圖片／PDF輸出及雲端未變更。
 - 通過app語法、完整node test.cjs與靜態DOM ID／控制項綁定檢查。新增實際函式／事件測試含第一段預設、單段toggle、全部開關、新增目標展開、id與render保留、列印復原、資料／報價不變、手機設定返回，以及transfer後URL清理仍可進大圖。
 - Chrome本機合成案件已實測390px、scrollWidth390無溢出；單段收合、修改高度仍保留開關、新增段自動展開、移除後原報價相同。一般手機canvas約373×676px，設定hidden；全貌模式約373×788px，返回後恢復一般畫面；照片保持在圖下方。已驗證從勘查表放大入口直接進全貌。證據在忽略目錄work/mobile-segments-collapsed.png、mobile-whole-design.png、mobile-fullscreen-design.png，無真實案件。
-- 發布狀態：程式及本機驗證完成，待正式發布與來源雜湊核對後補記。實體iPhone及原生分享未在本次重測。
+- **已上線：** 功能提交 `48ff40df6f3b4fea38dc8741911eaed4c85d2b47` 已正常快轉發布main，Pages執行 `41781161989` completed/success；正式index.html、app.js、studio.html、style.css、mobile-view.css皆HTTP200，原始SHA-256與已測試提交一致。正式Chrome頁已顯示逐段收合、全部收合／展開與全貌入口，既有案件仍可載入；本次未改正式案件欄位。
+- 正式網址：`https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=mobile-overview-1`。本機另以原生數值鍵將長度20→22，摘要及用量同步正確，再還原20；測試表單已恢復原狀，暫時手機viewport覆寫已清理。實體iPhone及原生分享未在本次重測。
 
 ## 2026-11-04：稅額分列、第二電話與3D照片對照
 
