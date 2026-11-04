@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
 const source=fs.readFileSync(__dirname+'/app.js','utf8');
-const ctx={document:{getElementById:()=>({})},localStorage:{getItem:()=>null},structuredClone};
+const ctx={sqFenceMaterials:require('./fence-materials.js'),document:{getElementById:()=>({})},localStorage:{getItem:()=>null},structuredClone};
 vm.createContext(ctx);vm.runInContext(source.slice(0,source.indexOf("document.addEventListener('change'"))+';globalThis.api={fresh,migrate,validate,design,quote,set:x=>data=x};',ctx);
 const api=ctx.api,report=require('./confirmation.js'),panel=require('./scene-photos.js');
 function fixture(){const s=api.fresh();s.project.phone='0900-000-001';s.project.phone2='08-000-0000';s.segments=[s.segments[0]];s.segments[0].length=10;s.pricing.extra=125;s.pricing.discount=300;api.set(s);return {...s,design:api.design(),quoteLines:api.quote().items,quoteSummary:api.quote()};}

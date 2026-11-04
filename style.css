@@ -50,3 +50,6 @@ details.segment{padding:0;overflow:clip}
 .segmentFoldActions{display:flex;gap:10px;justify-content:flex-end;margin:12px 0}.segmentFoldActions button{min-height:44px;font-size:14px}
 @media(max-width:900px){details.segment{padding:0}.segmentHeading{padding:14px;min-height:78px}.segmentHeading b{font-size:15px}.segmentHeading small{font-size:13px}.segmentBody{padding:14px}.segmentFoldActions{justify-content:stretch}.segmentFoldActions button{flex:1}.scene{height:64dvh;min-height:400px}.mobileNav{grid-template-columns:repeat(5,minmax(0,1fr)) minmax(94px,1.6fr)}}
 @media print{details.segment{overflow:visible}.segmentBody{display:block!important}details.segment>summary{display:flex!important}.segmentFoldLabel,.segmentFoldActions,.foldSegment{display:none!important}}
+
+#railQuoteSettings{margin-top:14px}#railQuoteHint{margin:10px 0 14px}#bill td:nth-child(2){font-weight:700;color:#183653}#bill td:first-child{overflow-wrap:anywhere}
+@media(max-width:900px){.tablewrap table{table-layout:fixed}.tablewrap th:nth-child(1){width:36%}.tablewrap th:nth-child(2){width:15%}.tablewrap th:nth-child(3){width:27%}.tablewrap th:nth-child(4){width:22%}#bill td{padding:11px 4px;vertical-align:middle}#bill td:nth-child(2){font-size:15px}#bill input{width:100%;min-width:0;padding:7px 4px;font-size:16px}.tablewrap small{display:block;font-size:11px;margin-top:4px}}

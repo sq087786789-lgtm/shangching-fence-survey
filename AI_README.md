@@ -4,6 +4,17 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-04 橫桿支數及配件報價契約
+
+- 共用 `fence-materials.js`：瀏覽器為 `sqFenceMaterials`，Node為require；index與studio先載入此檔。app、confirmation、studio均使用 `railGroups`／`accessoryCount`，測試VM也須注入此依賴。
+- `segments[].railLength`／`edges[].railLength`是每支進料管長，預設3m、允許0.5～12m；`railCount`是整數排數，上下兩根＝2排；`topFix`為through／ring，舊案缺少時補through。新圍籬沿用第一段設定，3D傳輸及JSON保留這些欄位。
+- 管數=sum(各段 ceil(段長/railLength) × railCount)，誤差容忍1e-8m；每段各排分別進位，不跨段共用餘料。依管長／管徑／厚度分組，`rateKey`例 `railPiece_3_48p6_1p4`。`estimate().rail`仍是安裝公尺數供舊契約使用，新增 `railPieces`分組及`accessories`；不能把公尺當支數。
+- 新案頂層 `railPricing='piece'`；舊案缺少時migrate補`length`保留原總額及`rates.rail`元／m。切換piece後使用`rates[rateKey]`，缺少才用`rates.railPiece`（預設0），不可套用舊每米價。新配件率為 `rates.part_through/tail/ring/link/corner`，預設0，依正數量列入lines／CSV／報表／quote總額。數量列在橫桿後，零用量配件不列；動態rateKey不隨分組順序變。
+- 配件按5mm內共點與每段柱距生成支點，逐排高度匹配：中間柱每排1橫通、起迄每排1尾管夾、角柱每排1組轉角取代管夾。環帽頂排不計中間橫通，環帽按支點計，上排每個管接頭1片連結片（直線跨段接頭也算）。保留studio手動`accessoryAdjustments`，混排／混高分別計算；複雜分岔與混固定方式須人工覆核。gate本體、existing、meshOnly、railCount=0排除自動量。
+- 客戶材料表橫桿改成分規格支數並列配件；工法摘要保留排數。HTML、PNG與PDF用同一model，簡版仍無價且不含照片。圖片優先及PDF次選流程不變。
+- `material-test.cjs`納入test.cjs：12/3×2=8、逐段進位、分組、多排與角柱／共用柱／環帽、排除條件、舊價相容、新單價與稅、JSON及新增段繼承。完整案件仍沿用原drive序列化，無須新增OAuth權限。
+- 目前index的CSS／app／confirmation及app iframe版本為`rail-pieces-1`；studio額外載入共用數量檔。新程式發布時不可漏該檔。測試合成資料與截圖只放忽略的work，不放真實案件進公開儲存庫。
+
 客戶圖片優先：index.html將confirmShareImages移到confirmBackBar，confirmSharePdf移入outputOptions，保留原ID及事件；style.css的主按鈕樣式改指向confirmShareImages。分享仍用PNG files，不支援或失敗時showImages展開並捲到圖片，AbortError不重送；PDF兩按鈕仍走download(pdf)，不可為了改位置而改成直接PDF navigator.share。確認單模型、圖片／PDF內容與原資料不變。index的style／confirmation快取版本為image-first-1。
 
 手機大圖／收合：app.js的segmentOpen為以穩定segment.id索引的記憶體Map，只管details.segment.open；不放入data或JSON。render保留Map，resetScene清除，新增／復原呼叫showSegment自動展開。原生toggle使用capture事件記狀態；segmentSummaryText供render與欄位change共同更新摘要，避免長度／柱距改了卻顯示舊數字。beforeprint展開、afterprint復原。
@@ -44,8 +55,8 @@ rates：mesh(元/m)、post、rail、plate、buried、direct、gate、labor。pri
 工作室輸出length只列圍籬長度，gateWidth只列門淨開口；門柱另有gatePostDia／gatePostThickness／gatePostLength輸出鍵（這些輸出鍵不是工作室幾何來源）。新輸出鍵未設定時繼承舊length／postDia／thickness／postLength勾選，避免舊案隱藏的資訊重新出現。共用CAD門淨寬尺寸線取門柱內側，不改實際節點；客戶確認單的門柱材質／厚度以實際選取角色列出，未知厚度仍標待確認。
 `segments[].existing`／`edges[].existing`缺省false；true表示整段已完成、只供位置參照，優先於meshOnly。既有段排除本次total／mesh／rail／gates／新增柱與基礎、自動配件及length-based labor；其已有柱位亦排除相接新段的新柱。全案手動加減及費用仍保留。note為最長20000字串，客戶圖及確認單保留既有名稱與備註，材料CSV排除。JSON完整保留以便編輯；新增段不繼承existing及note。customerReport提供rowIndices對應原段索引，CAD查選取規格不得直接用過濾後rows[index]。客戶簡版若含既有段，必須同時繪全案平面位置，不能只畫新段局部而遺失既有位置。
 `segments[].meshOnly`／`edges[].meshOnly` 為可選布林值，缺省或舊檔為false。true只適用圍籬（type=fence／style=clamp），表示只裝圍網並沿用既有立柱；網量與安裝長度照算，不計新立柱、橫桿、基礎或自動管夾配件。原管材、工法與橫桿排數保留供切回一般圍籬，計算與繪圖須優先判斷meshOnly，不能只看railCount。混合配置若新段柱位落在既有柱位，也不重複計新柱。客戶規格須註明既有立柱、留空新管材與基礎尺寸；3D與共用線稿以虛線示意既有柱，不標新管長或埋深。
-每段跨數 ceil(length/spacing)，接點共享端柱；門段只有兩端柱，不生中間柱。網量=sum(非門段 length)，絕不能乘 height。橫桿=sum(length*railCount)。單獨埋入／混凝土／底板按接點計處；工法交界採先出現段，需人工覆核。
-單價尚未按規格拆分，怪手施工費=excavatorShifts*excavatorRate，進退場費=excavatorTransport，各自列在lines；quote()計算小計、折讓、稅與總額，JSON/CSV/列印均含這兩項。全案估價不按需求段數倍乘，舊檔由migrate補0，保留原extra避免丟失，固定扣件及耗損另列。正2英吋與2英吋名稱必須區分，但圖面mm僅近似；不要推定供應商規範。
+每段跨數 ceil(length/spacing)，接點共享端柱；門段只有兩端柱，不生中間柱。網量=sum(非門段 length)，絕不能乘 height。橫桿安裝米數=sum(length*railCount)，供新支數算法與舊案按米計價區分；採購支數依上方railGroups契約。單獨埋入／混凝土／底板按接點計處；工法交界採先出現段，需人工覆核。
+橫桿依規格分組單價，其餘原材料仍用既有單價；怪手施工費=excavatorShifts*excavatorRate，進退場費=excavatorTransport，各自列在lines；quote()計算小計、折讓、稅與總額，JSON/CSV/列印均含這兩項。全案估價不按需求段數倍乘，舊檔由migrate補0，保留原extra避免丟失；橫桿配件已依part_*單價列費，耗損及未列零星扣件另估。正2英吋與2英吋名稱必須區分，但圖面mm僅近似；不要推定供應商規範。
 200段、單段5000m、總長20000m上限是試算工具效能限制。大案3D可能很細小，不是結構設計圖。
 安全：表單插入HTML先經esc，匯入有大小與格式限制，postMessage只接受同源父頁，雲端僅由 drive.js 手動觸發，授權範圍為 drive.file。
 
