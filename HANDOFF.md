@@ -8,7 +8,8 @@
 - wire／meshChoice／mesh沿原JSON／Drive及design傳輸；studio.meshSpecification新增識別四個精確名稱，避免57／85輸出錯名。新增mesh-presets-test.cjs納入test及AI來源包；驗證PVC3.9預設、自訂3.7、舊PVC3.2不改、50／57／75／85／正2英吋、繼承／JSON／3D／客戶報表及實際studio setter。完整node test.cjs、node drive-test.cjs、app語法、static DOM binding均通過。
 - 內建瀏覽器390×844實測scrollWidth375：選PVC自動3.9、選57mm成功，分組及短標籤清楚；自訂3.7＋3英吋／85mm重新整理仍保留。客戶圖片產生1頁並列出PVC／3.7／85mm，帶入完整3D後wire3.7、mesh85、material=pvc。證據work/mobile-mesh-fields.png為合成資料。
 - 實際Canvas／A4 PDF仍產生1頁；新PVC3.9／85mm材料文字保留，計價範例未稅2380／稅119／含稅2499不受影響。忽略的work/mesh-quotation-1.png及mesh-quotation.pdf為測試證據。實體iPhone／LINE及私人Drive登入未重測。
-- 本機測試前案件已還原、viewport已重設；沒有寫入真實客戶資料或改E槽副本。發布仍須等正常提交、Pages完成與正式原始SHA-256核對後補記，不得只憑本機完成宣稱上線。接手來源為本Documents/Codex checkout。
+- **已上線：** 功能提交 `d25c61b38a2207c6870f66060646efb518a9df73` 正常快轉推送main，Pages執行 `41854558641` completed/success。正式index.html、app.js與studio.html皆HTTP200，原始SHA-256與已測試提交一致。正式內建瀏覽器已確認app快取mesh-presets-1、3.9選項、四個精確網目、立柱與工法分組及排數短標籤。
+- 正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=mesh-presets-1`。本機測試前案件已還原、viewport已重設，正式分頁保留；沒有寫入真實客戶資料或改E槽副本。本次伺服器已停止。接手來源仍是本Documents/Codex checkout，先核對GitHub最新HEAD及本節，再修改並更新交接與AI來源包。
 
 ## 2026-11-04：報價整數數量、整米進位與橫桿按跨計支（最新）
 
