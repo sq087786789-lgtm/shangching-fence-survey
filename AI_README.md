@@ -4,6 +4,14 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-04 線徑與網目選項
+
+- app.meshOptions加入2英吋／50mm、57mm與3英吋／75mm、85mm四個獨立名稱，分別映射50／57／75／85數值。新段預設2英吋／50mm；保留舊2英吋=50、3英吋=75別名供舊案，只有目前舊名會加原案mm選項，不丟棄或改寫原尺寸。4英吋及正2英吋50.8仍保留。名稱為業主採購規格，不可用英吋換算覆蓋57／85。
+- wireField提供2.6／3／3.4／3.9／4／5及other自訂1～6mm，實際data-key仍wire；wirePreset僅UI不存進案件。選other只顯示自訂欄，不先改資料，數字change沿用既有validate。setMeshMaterial只有明確從其他材質改選pvc時帶3.9，讀取／render／同材質重選不重設自訂值；studio.setSegmentSpec採相同規則。
+- segmentSpecs集中產生菱形網規格、立柱與工法、橫桿分組；基礎及埋深移到立柱旁，gate用門柱與工法／門框，meshOnly不出新管材工法與橫桿。排數與管長只簡化標籤，railCount／railLength及按跨計支、規格分組、價格鍵均不改。
+- design原樣攜帶wire／meshChoice／mesh；studio.meshSpecification識別四個新精確名稱，CSV／圖片不會退回錯誤網目。完整JSON／Drive沿用原序列化。mesh-presets-test.cjs納入主測試及AI來源包，涵蓋PVC預設／自訂、舊PVC保留、4種精確網目、正2英吋、JSON／3D／客戶輸出／第一段繼承及實際studio setter。
+- 版本mesh-presets-1，發布app.js／studio.html／index.html及AI來源包。工作區仍為Documents/Codex/2026-11-04/shangching-span-quote；原E槽副本不改動。
+
 ## 2026-11-04 獨立高度與繪圖比例
 
 - 沿用既有height（網高／門高）、postLength（含埋入的整支管長）、depth及base，沒有新增或遷移資料欄位。app將圍籬height標籤明確改成「菱形網高度」，門片仍用門高；studio顯示「菱形網／門高（獨立於柱長）」。地上柱長維持postLength−burial，plate的burial為0，不能用網高覆寫柱長。

@@ -1,5 +1,15 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-04：PVC線徑、50／57／75／85mm網目及表單分組
+
+- 依使用者要求新增3.9mm線徑預設與其他自訂1～6mm。選PVC時setMeshMaterial預帶3.9，但之後可自訂，載入舊案／換段／重選同一材質不重設。工作室setSegmentSpec同規則，原數字wire欄仍可自由調整。
+- 網目分列2英吋／50mm、2英吋／57mm、3英吋／75mm、3英吋／85mm，數值分別50／57／75／85。新段預設明確50mm名稱；舊2英吋、3英吋別名及原尺寸保留，UI對目前舊選項顯示原案mm。保留4英吋與正2英吋50.8mm，不能以英吋換算取代業主指定規格。
+- 新segmentSpecs把菱形網規格、立柱與工法、橫桿分區；立柱管材／總長／基礎／埋深在一起。橫桿短標籤為排數與管長m，資料鍵及按跨數計支、整米計價、配件、照片及圖面比例不改。gate為門柱與工法／門框，meshOnly只留既有柱提示。
+- wire／meshChoice／mesh沿原JSON／Drive及design傳輸；studio.meshSpecification新增識別四個精確名稱，避免57／85輸出錯名。新增mesh-presets-test.cjs納入test及AI來源包；驗證PVC3.9預設、自訂3.7、舊PVC3.2不改、50／57／75／85／正2英吋、繼承／JSON／3D／客戶報表及實際studio setter。完整node test.cjs、node drive-test.cjs、app語法、static DOM binding均通過。
+- 內建瀏覽器390×844實測scrollWidth375：選PVC自動3.9、選57mm成功，分組及短標籤清楚；自訂3.7＋3英吋／85mm重新整理仍保留。客戶圖片產生1頁並列出PVC／3.7／85mm，帶入完整3D後wire3.7、mesh85、material=pvc。證據work/mobile-mesh-fields.png為合成資料。
+- 實際Canvas／A4 PDF仍產生1頁；新PVC3.9／85mm材料文字保留，計價範例未稅2380／稅119／含稅2499不受影響。忽略的work/mesh-quotation-1.png及mesh-quotation.pdf為測試證據。實體iPhone／LINE及私人Drive登入未重測。
+- 本機測試前案件已還原、viewport已重設；沒有寫入真實客戶資料或改E槽副本。發布仍須等正常提交、Pages完成與正式原始SHA-256核對後補記，不得只憑本機完成宣稱上線。接手來源為本Documents/Codex checkout。
+
 ## 2026-11-04：報價整數數量、整米進位與橫桿按跨計支（最新）
 
 - 使用者最新要求取代先前進料管長算法：10m、柱距2m、5跨，上下兩排＝10支。fence-materials.railGroups改逐段ceil(length/spacing)×排數，進料管長只保留採購參考與規格分組；studio.specRows及客戶材料CSV／圖片／PDF同步。環帽連結片以實際跨數接頭計算，其他配件及排除／手動增減沿用。
