@@ -9,7 +9,8 @@
 - 已通過app／confirmation／fence-materials語法、完整node test.cjs（含新增material-test及原照片／報價／手機／studio檢查）、node drive-test.cjs。數量測試覆蓋逐段進位、不同規格、浮點邊界、角柱、混2／3排、環帽接頭、排除供料、手動增減、舊價保留、稅金、繼承與JSON有效性。
 - Chrome本機合成案件實測：390 CSS px／scrollWidth371無整頁水平溢出；12m、3m管、上下2排得到8支、橫通6、尾夾4，各填450／50／25後未稅4580、稅229、含稅4809。改6m管為4支；改環帽式為橫通3、尾夾4、環帽5、連結片3。帶入完整3D後管長3及配件6／4一致，返回正常。
 - 已實際產生1頁PNG與A4 PDF，解析PDF頁數並人工檢視PNG，支數／配件／三項稅額一致；客戶無價模式保留。忽略目錄work/rail-quotation-1.png及rail-quotation.pdf為合成資料證據。實體iPhone／LINE及真實Google Drive登入未重測，不將Chrome窄版當成實機。
-- 發布狀態：待本次正常提交及Pages完成後補記；不可據此宣稱已上線。下一步：發布、核對正式檔原始SHA-256、補實際提交及Pages執行號，恢復本機測試前表單並關閉測試伺服器。
+- **已上線：** 功能提交 `e7fd89ba6eefe456ab8bee308eeab424a95de491` 正常快轉推送main；Pages執行 `41785285853` completed/success。正式index.html、app.js、studio.html、confirmation.js、style.css、fence-materials.js均HTTP200，原始SHA-256與已測試提交一致。正式Chrome頁已載入新管長欄位、共用數量檔與配件單價；原有舊案件維持length模式，未改真實案件價格或內容。
+- 正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=rail-pieces-1`。本機合成測試前表單已恢復，暫時viewport已重設。瀏覽器截圖曾逾時／空白，未將空白截圖當畫面證據；已另成功保存並檢視合成輸出截圖work/rail-output-browser.png及其局部rail-output-browser-detail.png，配合前述DOM及真實Canvas／PDF檢查。實體手機、LINE與私人雲端限制如上。後續修改先讀本節、fetch核對遠端，再修改共用算法；每次完成同步交接與AI來源索引。
 
 ## 2026-11-04：客戶主操作改分享圖片、PDF收進選項
 
