@@ -1,5 +1,13 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-04：大門移除柱距欄、門片高度自由輸入
+
+- 使用者指出大門沒有最大柱距，門片高度須能調整。app.render的gate不再產生spacing欄；門片height改數字input，0.5～6m、step0.01，支援1.65m等非原選單高度。一般圍籬保留原網高及柱距選單。
+- 不改JSON格式或資料鍵，舊spacing值保留供切回圍籬；門仍只有兩端柱。height沿用原design／3D／客戶確認單傳輸，門柱postLength獨立，沒有自動修改門柱高度、價格或其他路段。index的app快取為gate-height-1，studio及其他共用圖面檔不需改。
+- 通過node --check app.js、完整node test.cjs。此次是既有欄位顯示／輸入方式修正，未增加重複的表面測試套件。
+- 內建瀏覽器390×844／scrollWidth375實測：純門案例spacing欄數0，門高可輸入1.65且正確保存。客戶產生1頁圖片，線稿門高1.65m、淨開口4m，材料顯示雙開門高1.65m、門柱2支。帶入完整3D後height欄為165cm且spacingfield.hidden=true。合成截圖work/mobile-gate-height.png，未使用真實客戶資料。
+- 本機測試前案件已還原、viewport已重設。尚未重測實體iPhone／LINE／私人Drive登入；此次不改分享與雲端功能。發布待正常提交、Pages完成與正式原始SHA-256核對後補記，不可只依本機完成宣稱上線。
+
 ## 2026-11-04：PVC線徑、50／57／75／85mm網目及表單分組
 
 - 依使用者要求新增3.9mm線徑預設與其他自訂1～6mm。選PVC時setMeshMaterial預帶3.9，但之後可自訂，載入舊案／換段／重選同一材質不重設。工作室setSegmentSpec同規則，原數字wire欄仍可自由調整。

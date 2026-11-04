@@ -4,6 +4,8 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+2026-11-04大門尺寸欄修正：app.render的gate不產生spacing欄，height用數字input（0.5～6m、step0.01），圍籬仍用原網高及柱距選單。資料鍵height／spacing均不刪除或遷移，舊spacing保留供切回圍籬；大門計數原本就僅兩端柱。design／3D／確認單沿用height，門柱postLength仍獨立。此次只改app與index的app快取gate-height-1，既有studio支援自訂門高且會隱藏spacingfield，不需修改。
+
 ## 2026-11-04 線徑與網目選項
 
 - app.meshOptions加入2英吋／50mm、57mm與3英吋／75mm、85mm四個獨立名稱，分別映射50／57／75／85數值。新段預設2英吋／50mm；保留舊2英吋=50、3英吋=75別名供舊案，只有目前舊名會加原案mm選項，不丟棄或改寫原尺寸。4英吋及正2英吋50.8仍保留。名稱為業主採購規格，不可用英吋換算覆蓋57／85。
