@@ -1,5 +1,17 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-04：稅額分列、第二電話與3D照片對照
+
+- 最終報價明列折讓後未稅金額、稅金（稅率%）、含稅總額；CSV同步。新增「輸出客戶報價／PDF」與quote模式，只有金額摘要；原客戶簡版保持無價，公司完整版逐項計價。一般範例一頁A4，金額三項盡量同頁，過量仍續頁。PDF開啟／iPhone下方分享LINE流程維持，無自動發送。
+- project.phone2新增備用電話，原phone保留；舊案補空白，最多60字，以文字保存並保留0與分機。HTML／PNG／PDF共用model帶出兩組電話，未填不顯示。完整JSON／Drive沿用既有保存來源。
+- 新增共用scene-photos.js/.css；勘查表圖面及完整工作室都有畫布外照片區，桌機右側、手機下方，沒有照片就隱藏。沿用照片segmentId對edge.id，篩選路段可對應3D取景；工作室選段同步篩選，照片可放大並返回。新增構件不沿用舊edge.id，避免誤配。照片讀取失敗及孤兒路段提示，非同步過期結果不回寫新畫面。放大圖面模式隱藏照片以保留空間。
+- design.sitePhotoRefs僅存id/name/caption/segmentId，從原IndexedDB唯讀讀圖；完整JSON／雲端仍含實際照片。跨裝置要先在勘查表載入完整案件再帶入3D，單獨3D JSON不是照片備份。客戶確認單／報價輸出不含照片或照片備註。雲端授權、API金鑰及真實案件均未改動。
+- 通過node --check app.js／confirmation.js／scene-photos.js、完整node test.cjs、node drive-test.cjs及新增quote-photo-test.cjs（主測試已包含）。涵蓋稅率0、折讓過額、金額一致、電話遷移及跳脫、無價隔離、照片篩選／缺檔／過期讀取／返回與studio內嵌腳本語法。
+- 使用實際Canvas／Resvg及pdf-lib產生並解析合成報價：1頁A4；48,000未稅、2,400稅金、50,400含稅。證據在忽略的work/quotation-1.png及quotation.pdf，沒有真實客戶資料。
+- 已在Chrome以僅限本機合成案件驗證：兩組電話、2張照片載入、390 CSS px／scrollWidth390無水平溢出、照片在圖下方不重疊、實際報價產生1頁且PDF按鈕啟用、三項金額正確及返回正常。完整工作室帶入3段後，照片出現在畫布右側，照片選第2段同步selectionTitle，放大及返回正常。證據work/mobile-quote-totals.png、studio-photo-comparison.png。實體iPhone與LINE未重測。
+- 瀏覽器擴充功能無本機檔案上傳權限，這次用忽略目錄的本機合成fixture驗證讀取及顯示，沒有改擴充權限；原照片挑選／HEIC與Google雲端實際登入存取未重新測試。
+- 發布狀態：程式與上述測試已完成，待GitHub發布與正式來源雜湊核對後補記，不能僅以本機畫面宣稱上線。
+
 ## 2026-10-30：GitHub統一工具入口
 
 - 已實際讀取Render正式入口，確認「圍籬配置工作室」仍連到hongsing-fence-planner舊專案，這是入口連結落後，昨天新版studio本體部署仍正確。

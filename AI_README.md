@@ -4,6 +4,12 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+2026-11-04：`project.phone2`是第二組電話，migrate補空字串；phone／phone2為最多60字的文字，不轉數字。`confirmation.model/build`第二參數支援舊boolean及`customer`／`quote`／`internal`；customer仍無價格，quote只列雜項折讓及net／tax／total摘要且使用簡版線稿，internal保留詳細價格。HTML／Canvas／PDF共用model，金額來自quoteSummary，不重算另一套稅。
+
+`scene-photos.js/.css`為勘查與工作室共用的獨立照片面板。`design().sitePhotoRefs`只有id/name/caption/segmentId，影像由既有`photos.js`的唯讀read(id)取IndexedDB，不能把dataUrl塞進傳輸packet或PDF。段落以既有edge.id對應；工作室新增圍籬清除沿用範本的id，避免誤帶舊照片。缺少影像、孤兒路段、切換案件與非同步過期讀取須安全處理；面板用textContent建立文字，不插HTML。原`confirmationSnapshot`仍清空photos，model不帶sitePhotoRefs。照片面板不參與材料／價格／幾何，放大圖面模式暫時收起照片。
+
+`quote-photo-test.cjs`涵蓋三種報表模式、電話相容、折讓與0%稅、照片穩定關聯／篩選／讀取失敗／舊讀取取消／返回及輸出隔離；由test.cjs一併執行。一般報價PDF線稿高度最多400px（1120px畫布），給三項金額留空間；無價簡版不受此限制，內容過長照常續頁。
+
 這是完整可執行的手機圍籬勘查工具，不只是展示畫面。從 ai.html 讀取 README、原始碼索引、單一檔案及完整原始碼 JSON 即可重建。
 
 ## 架構與資料流
