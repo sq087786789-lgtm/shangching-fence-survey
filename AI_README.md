@@ -12,16 +12,16 @@
 - 所有客戶HTML／PNG／PDF與工作室參照線稿共用此核心，輸出標註說明改為同視圖等比。兩張輸出在不同頁面或容器內仍可能整體縮放，但同圖柱高／網高／埋深的相對比例不變。
 - height-scale-test.cjs已納入test.cjs及AI來源包，驗證CAD實際矩形比例、改柱不改網、改網不改柱、共地面、底板／埋深／短柱／10m極值，以及實際studio.panel/renderPost函式的輸出座標；不依賴另一份假繪圖函式。index與app嵌入圖及reference快取版本height-scale-1；發布不能漏reference-drawing.js與studio.html。
 
-## 2026-11-04 橫桿支數及配件報價契約
+## 2026-11-04 報價整數數量與依跨計支（最新契約）
 
-- 共用 `fence-materials.js`：瀏覽器為 `sqFenceMaterials`，Node為require；index與studio先載入此檔。app、confirmation、studio均使用 `railGroups`／`accessoryCount`，測試VM也須注入此依賴。
-- `segments[].railLength`／`edges[].railLength`是每支進料管長，預設3m、允許0.5～12m；`railCount`是整數排數，上下兩根＝2排；`topFix`為through／ring，舊案缺少時補through。新圍籬沿用第一段設定，3D傳輸及JSON保留這些欄位。
-- 管數=sum(各段 ceil(段長/railLength) × railCount)，誤差容忍1e-8m；每段各排分別進位，不跨段共用餘料。依管長／管徑／厚度分組，`rateKey`例 `railPiece_3_48p6_1p4`。`estimate().rail`仍是安裝公尺數供舊契約使用，新增 `railPieces`分組及`accessories`；不能把公尺當支數。
-- 新案頂層 `railPricing='piece'`；舊案缺少時migrate補`length`保留原總額及`rates.rail`元／m。切換piece後使用`rates[rateKey]`，缺少才用`rates.railPiece`（預設0），不可套用舊每米價。新配件率為 `rates.part_through/tail/ring/link/corner`，預設0，依正數量列入lines／CSV／報表／quote總額。數量列在橫桿後，零用量配件不列；動態rateKey不隨分組順序變。
-- 配件按5mm內共點與每段柱距生成支點，逐排高度匹配：中間柱每排1橫通、起迄每排1尾管夾、角柱每排1組轉角取代管夾。環帽頂排不計中間橫通，環帽按支點計，上排每個管接頭1片連結片（直線跨段接頭也算）。保留studio手動`accessoryAdjustments`，混排／混高分別計算；複雜分岔與混固定方式須人工覆核。gate本體、existing、meshOnly、railCount=0排除自動量。
-- 客戶材料表橫桿改成分規格支數並列配件；工法摘要保留排數。HTML、PNG與PDF用同一model，簡版仍無價且不含照片。圖片優先及PDF次選流程不變。
-- `material-test.cjs`納入test.cjs：12/3×2=8、逐段進位、分組、多排與角柱／共用柱／環帽、排除條件、舊價相容、新單價與稅、JSON及新增段繼承。完整案件仍沿用原drive序列化，無須新增OAuth權限。
-- 目前index的CSS／app／confirmation及app iframe版本為`rail-pieces-1`；studio額外載入共用數量檔。新程式發布時不可漏該檔。測試合成資料與截圖只放忽略的work，不放真實案件進公開儲存庫。
+- 使用者最新明確要求覆蓋先前依進料管長計支規則：`railGroups`數量=sum(各段ceil(段長/spacing)×railCount)。例10m／柱距2m／2排＝10支；12m／柱距3m／2排＝8支。`railLength`保留為採購參考，不決定安裝支數；規格群組及`railPiece_管長_外徑_厚度`單價鍵保留，原每支價不丟失。
+- 共用fence-materials.js提供survey／studio／confirmation數量；環帽上排每跨一支，連結片依直線相連跨數減1計。零橫桿、meshOnly、existing及gate本體排除自動量，手動accessoryAdjustments保留。studio.specRows的railPieces同步改依spanCount(length,spacing)×排數。
+- `fresh/migrate`標示`railQuantityBasis='span'`，design傳輸也帶此欄。railPricing統一piece；舊缺省／length由migrate存previousRailPricing='length'後改piece。rates.rail元／m仍保存在檔案，但lines不再使用，不可當元／支。每支價依rates[rateKey]，缺少用rates.railPiece，預設0；舊每米案UI提示核對。UI取消舊按米選項。
+- `wholeMeters`用ceil(max(0,n−1e-8))，只在lines的mesh／labor將整行總數進位；不可逐段各自進位，更不能改segments[].length、estimate().mesh／total或design節點。quote、CSV及內部報價使用lines的整數計價量；網高仍不乘入數量。報價上方metrics顯示計價米數並改標題。
+- 報價表qtyValue及qtyUnit分行；一般量為整數，quantityText保留半台班為½／1½等分數，實際台班數與費用不進位。單價input可保留小數；此需求不刪掉管徑48.6、厚度1.4、網高1.5等必要規格精度。
+- 客戶材料表及工法保留量測實值，橫桿為跨數支數；若實際網長與整米計價數不同，priced報表增加整米進位計價說明。無價簡版仍不含價，照片仍排除，圖面比例沿用高度修正；PNG／PDF用同一model。
+- quote-units-test.cjs已納入test.cjs及AI來源包，覆蓋10米5跨10支、進料管長不改數量、環帽跨接頭、10.5計11、跨段合計後進位、實際長度不變、qtyValue不含小數點、半班、原米價隔離及JSON。material-test.cjs更新舊模式預期。快取span-quote-1；發布不可漏fence-materials.js／studio.html／confirmation.js。
+- 本次延續工作時可寫區改為Documents/Codex，實際接手checkout為`C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote`；origin仍是同一GitHub專案。舊E:/GPT/shangching-fence-survey保留先前未提交修改且本次不再寫入，不能把舊副本當最新發布來源。先核對GitHub HEAD與本HANDOFF再接續，不刪除原資料。
 
 客戶圖片優先：index.html將confirmShareImages移到confirmBackBar，confirmSharePdf移入outputOptions，保留原ID及事件；style.css的主按鈕樣式改指向confirmShareImages。分享仍用PNG files，不支援或失敗時showImages展開並捲到圖片，AbortError不重送；PDF兩按鈕仍走download(pdf)，不可為了改位置而改成直接PDF navigator.share。確認單模型、圖片／PDF內容與原資料不變。index的style／confirmation快取版本為image-first-1。
 

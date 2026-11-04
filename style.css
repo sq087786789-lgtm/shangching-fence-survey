@@ -53,3 +53,6 @@ details.segment{padding:0;overflow:clip}
 
 #railQuoteSettings{margin-top:14px}#railQuoteHint{margin:10px 0 14px}#bill td:nth-child(2){font-weight:700;color:#183653}#bill td:first-child{overflow-wrap:anywhere}
 @media(max-width:900px){.tablewrap table{table-layout:fixed}.tablewrap th:nth-child(1){width:36%}.tablewrap th:nth-child(2){width:15%}.tablewrap th:nth-child(3){width:27%}.tablewrap th:nth-child(4){width:22%}#bill td{padding:11px 4px;vertical-align:middle}#bill td:nth-child(2){font-size:15px}#bill input{width:100%;min-width:0;padding:7px 4px;font-size:16px}.tablewrap small{display:block;font-size:11px;margin-top:4px}}
+
+.quoteQty .qtyValue{display:block;overflow-wrap:anywhere;line-height:1.35}.quoteQty .qtyUnit{display:block;font-size:11px;color:#52657c;font-weight:400;line-height:1.3;margin-top:4px}
+@media(max-width:900px){.tablewrap th:nth-child(1){width:34%}.tablewrap th:nth-child(2){width:13%}.tablewrap th:nth-child(3){width:29%}.tablewrap th:nth-child(4){width:24%}#bill td:last-child{overflow-wrap:anywhere;white-space:normal}#bill input{min-height:44px}}

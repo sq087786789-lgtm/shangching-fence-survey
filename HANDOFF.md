@@ -1,5 +1,17 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-04：報價整數數量、整米進位與橫桿按跨計支（最新）
+
+- 使用者最新要求取代先前進料管長算法：10m、柱距2m、5跨，上下兩排＝10支。fence-materials.railGroups改逐段ceil(length/spacing)×排數，進料管長只保留採購參考與規格分組；studio.specRows及客戶材料CSV／圖片／PDF同步。環帽連結片以實際跨數接頭計算，其他配件及排除／手動增減沿用。
+- 使用者另明確確認「10.5m進位11m，按11m計價」。lines對整行mesh／labor總數進位，quote與CSV沿用此量，量測length／estimate原量／3D節點不改。若priced客戶輸出與量測網長不同，增加整米計價米數說明；無價簡版、圖面比例及照片隔離保留。
+- 報價數量不再補.00，數字與單位分行；手機數量欄13%、單價欄29%，每個單價輸入至少44px高，金額可換行。半台班以½／1½顯示，實際費用不進位，單價及必要的管徑／厚度／尺寸仍可含小數。報價metrics改標計價數量並顯示整數。
+- fresh/migrate及design標railQuantityBasis=span。舊缺省／length案改piece並存previousRailPricing=length，rates.rail原米價仍保存，但UI不再提供舊按米橫桿；元／支不挪用元／米，舊案提示核對每支價。原每支單價鍵保留，新支數可能改總額。這是使用者授權的算法更新，不能再套先前「12m/進料3m」作所有案件支數。
+- 本次中途可寫工作區改變，已從正式GitHub HEAD 045954367b66e36f097661ed61ce9d8a7327b30c取新checkout到 `C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote`，逐檔帶入剛才的6個程式修改後續作。舊 `E:/GPT/shangching-fence-survey` 的先前未提交修改原樣保留，沒有刪除／重設；不可在舊副本直接重複發布。GitHub專案與正式網址不變。
+- 已通過app／confirmation／fence-materials語法、完整node test.cjs、新quote-units-test.cjs及drive-test.cjs。新測試包含10m/2m×2=10支、管長改6m仍10支、環帽4連結片、10.5m計11、兩段5.25m合計後計11、不改圖面10.5m、半班原費用、舊米價隔離、JSON。原配件／幾何／圖面比例／照片／返回檢查通過。
+- Chrome目前無可用連線，本次改用內建瀏覽器實測390×844：scrollWidth375無整頁溢出，10m案例表格網10m／橫桿10支／橫通8個／尾夾4個；單價input寬約83px，數量與輸入欄不重疊。實際改量測10.5後表格網11m／橫桿12支，客戶報價顯示整米說明且保留量測10.5。證據為忽略目錄work/mobile-span-quote-10.png。
+- 實際Canvas／PNG／A4 PDF渲染驗證1頁：10.5m的測試費率案例計11米、12橫桿、10橫通與4尾夾，未稅2380、稅119、含稅2499。work/span-quotation-1.png及span-quotation.pdf為合成資料；實體iPhone／LINE及私人Google Drive連線未重測，不將內建窄版當實機。
+- 發布狀態：待正常提交、Pages完成及正式原始SHA-256核對後補記；目前不能只依本機結果宣稱上線。完成時還須恢復本機測試前案件、重設viewport並停止本次本機伺服器。
+
 ## 2026-11-04：立柱與菱形網高度依獨立參數等比繪製
 
 - 使用者要求「立柱高度跟菱形網高度分開參數，圖面按比例改變」。沿用postLength／depth／height，不新增或重設案件欄位。表單明確標「菱形網高度」及門片高度，studio標示高度獨立於柱長。

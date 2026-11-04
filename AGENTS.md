@@ -1,7 +1,7 @@
 # 接手規則
 每次完成任務都更新HANDOFF.md，記錄改動、檢查結果、實際發布狀態與下一位AI注意事項，並重建AI來源索引。
 高度比例：height為獨立網高／門高，postLength為含埋深整支柱長。一般圍籬網片從0至height繪製，地上柱長postLength減有效埋深；不能以網高拉長柱或以柱長拉高網片。同一正面圖的柱／網／埋深必須等比，正常高度修改不可固定壓成同高，極值整體縮放仍保留相對比例。修改studio及reference-drawing後執行height-scale-test.cjs（主測試已包含），並確認客戶圖片／PDF。
-橫桿以每支管長計支數：逐段ceil(段長/railLength)×排數後加總，不共用跨段餘料；不同管長／管徑／厚度分組填元／支單價。新案railPricing=piece，舊案缺省length保留原rates.rail元／m，切換支數不可挪用舊單價。新配件part_*單價預設0，依實際配置列量計費；無橫桿、既有、只裝網及大門本體排除自動配件。共用fence-materials.js讓勘查／3D／確認單數量一致，保留手動配件增減；修改算法須通過material-test.cjs（已納入test.cjs）。每支管長與固定方式須隨JSON／3D／完整備份保留。
+最新報價規則：橫桿依逐段ceil(段長/spacing)×排數計支，10m／柱距2m／上下2排＝10支；railLength僅採購參考。舊每米價保留但不能當每支價，UI不再提供按米橫桿。菱形網／工資整行總米數不足整米進位計價，實際量測、估算與圖面不得改寫。數量與單位分行，不顯示小數點；半台班用½保留原費用。共用fence-materials與studio規格同步，環帽連結片按跨數接頭；執行quote-units-test.cjs（主測試已包含），保留原配件排除與手動增減。
 客戶輸出以圖片優先：confirmShareImages固定在底部主操作區，confirmSharePdf與confirmPdf放outputOptions內。圖片分享用PNG File；不支援／失敗時展開圖片供儲存，取消不重送。PDF仍用原下載／開啟後iPhone分享路徑，不能改回PDF直接Web Share。
 每段收合狀態只存在segmentOpen UI Map，以穩定id保存，不能寫入案件或改材料／報價。摘要須隨長度／柱距／網目等欄位更新；新增／復原自動展開。手機完整圖預設簡化、設定可再展開，保留放大與返回；overview旗標在帶入後清URL之前保存，不能改勘查表和工作室的資料邊界。
 報價須清楚列出折讓後未稅、稅金及含稅總額；原客戶簡版保持無價，新增quote模式提供客戶金額摘要。project.phone2是文字電話欄，舊案原電話不可改寫。照片以穩定edge.id對應sitePhotoRefs，在畫布外獨立區顯示；不可擋住圍籬或把照片塞入客戶PDF。跨裝置照片仍靠完整案件載入，3D設計只有索引。

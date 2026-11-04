@@ -12,8 +12,8 @@ function railGroups(s,specs=s.edges){
  s.edges.forEach((e,i)=>{
   if(!active(e))return;const spec=specs[i]||e,L=length(e,s),pipe=stock(e),dia=spec.railDia??null,wall=spec.railThickness??null;
   const rateKey='railPiece_'+[pipe,dia??'u',wall??'u'].map(v=>String(v).replaceAll('.','p')).join('_');
-  if(!groups.has(rateKey))groups.set(rateKey,{rateKey,length:pipe,dia,thickness:wall,name:'橫桿 '+pipe+'m／Ø'+(dia??'待確認')+'mm／'+(wall==null?'厚度待確認':'厚'+wall+'mm'+(wall===1.4?' 亞管':wall===1.8?' 鍍鋅管':'')),qty:0,installedLength:0});
-  const group=groups.get(rateKey);group.qty+=spans(L,pipe)*(e.railCount??2);group.installedLength+=L*(e.railCount??2);
+  if(!groups.has(rateKey))groups.set(rateKey,{rateKey,length:pipe,dia,thickness:wall,name:'橫桿（'+pipe+'m進料）／Ø'+(dia??'待確認')+'mm／'+(wall==null?'厚度待確認':'厚'+wall+'mm'+(wall===1.4?' 亞管':wall===1.8?' 鍍鋅管':'')),qty:0,installedLength:0});
+  const group=groups.get(rateKey);group.qty+=spans(L,e.spacing)*(e.railCount??2);group.installedLength+=L*(e.railCount??2);
  });
  return [...groups.values()];
 }
@@ -32,15 +32,15 @@ function accessoryCount(s){
   const rows=new Map();for(const arm of p.arms){const heights=levels(arm.e);heights.forEach((y,i)=>{const id=y.toFixed(5);if(!rows.has(id))rows.set(id,[]);rows.get(id).push({...arm,ring:arm.e.topFix==='ring'&&i===heights.length-1})})}
   for(const arms of rows.values()){const type=kind(arms);if(type==='middle'){if(!arms.some(a=>a.ring))auto.through++}else if(type==='end')auto.tail++;else if(type==='corner')auto.corner++;else auto.tail+=arms.length}
  }
- // Each segment buys its own pipes. A straight shared top joint needs a link too.
+ // Each span is one installed rail. A straight shared top joint needs a link too.
  const visited=new Set(),runs=[];edges.forEach((edge,j)=>{
   if(edge.topFix!=='ring'||visited.has(j))return;const queue=[j];let meters=0,pieces=0;
-  while(queue.length){const i=queue.pop();if(visited.has(i))continue;visited.add(i);const e=edges[i];meters+=length(e,s);pieces+=spans(length(e,s),stock(e));for(const p of [s.nodes[e.a],s.nodes[e.b]]){const k=key(p),node=points.get(k);if(kind(node.arms)!=='middle')continue;for(const next of adj.get(k)||[])if(!visited.has(next)&&edges[next].topFix==='ring'&&Math.abs(edges[next].height-e.height)<1e-5)queue.push(next)}}
+  while(queue.length){const i=queue.pop();if(visited.has(i))continue;visited.add(i);const e=edges[i];meters+=length(e,s);pieces+=spans(length(e,s),e.spacing);for(const p of [s.nodes[e.a],s.nodes[e.b]]){const k=key(p),node=points.get(k);if(kind(node.arms)!=='middle')continue;for(const next of adj.get(k)||[])if(!visited.has(next)&&edges[next].topFix==='ring'&&Math.abs(edges[next].height-e.height)<1e-5)queue.push(next)}}
   runs.push(meters);auto.link+=Math.max(0,pieces-1);
  });
  const adjustment=s.accessoryAdjustments||{};
  const items=Object.entries(names).map(([key,name])=>({key,name,unit:key==='corner'?'組':key==='link'?'片':'個',automatic:auto[key],adjustment:adjustment[key]||0,total:Math.max(0,auto[key]+(adjustment[key]||0))}));
- return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(e=>e.topFix==='ring')?'環帽':edges.every(e=>e.topFix!=='ring')?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'各段各排依每支管長進位，不跨段共用餘料；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽式頂排不計中間橫通，上橫桿每個管接頭1片連結片。門本體配件另計；只裝網、既有及無橫桿段排除。不同高度、分岔及混用固定方式請覆核。',items};
+ return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(e=>e.topFix==='ring')?'環帽':edges.every(e=>e.topFix!=='ring')?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'橫桿依各段跨數×排數計支，進料管長只供採購參考；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽式頂排不計中間橫通，上橫桿每個管接頭1片連結片。門本體配件另計；只裝網、既有及無橫桿段排除。不同高度、分岔及混用固定方式請覆核。',items};
 }
 const api={railGroups,accessoryCount,names};if(typeof module==='object'&&module.exports)module.exports=api;else root.sqFenceMaterials=api;
 })(globalThis);
