@@ -10,7 +10,9 @@
 - 使用實際Canvas／Resvg及pdf-lib產生並解析合成報價：1頁A4；48,000未稅、2,400稅金、50,400含稅。證據在忽略的work/quotation-1.png及quotation.pdf，沒有真實客戶資料。
 - 已在Chrome以僅限本機合成案件驗證：兩組電話、2張照片載入、390 CSS px／scrollWidth390無水平溢出、照片在圖下方不重疊、實際報價產生1頁且PDF按鈕啟用、三項金額正確及返回正常。完整工作室帶入3段後，照片出現在畫布右側，照片選第2段同步selectionTitle，放大及返回正常。證據work/mobile-quote-totals.png、studio-photo-comparison.png。實體iPhone與LINE未重測。
 - 瀏覽器擴充功能無本機檔案上傳權限，這次用忽略目錄的本機合成fixture驗證讀取及顯示，沒有改擴充權限；原照片挑選／HEIC與Google雲端實際登入存取未重新測試。
-- 發布狀態：程式與上述測試已完成，待GitHub發布與正式來源雜湊核對後補記，不能僅以本機畫面宣稱上線。
+- **已上線：** 功能提交 `f0688fb7061d9bf38837eec78ed31b0a5ef1f362` 已正常快轉推送main；Pages執行 `41779352708` completed/success。index.html、app.js、confirmation.js、photos.js、studio.html、scene-photos.js與scene-photos.css正式HTTP200，原始SHA-256與已測試提交一致。Windows換分支曾將新增檔LF轉CRLF，已按提交原始位元組核對，不能將文字解碼／本機換行差異誤認成正式網站不同版本。
+- 正式網址：`https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=quote-photos-1`。Chrome已確認正式頁能保留既有案件、顯示備用電話／客戶報價按鈕／三項稅額與新版嵌入圖面。沒有把合成案件寫入正式網站，沒有將真實案件寫入儲存庫。本機合成測試表單已恢復測試前內容；正式頁保留供使用者開啟。
+- GitHub連接器建立PR回覆403，但既有git推送權限正常；本次採主分支正常快轉發布，沒有強制推送、權限變更或建立PR。後續修改先fetch再核對新提交，不必因此重設登入或API金鑰。
 
 ## 2026-10-30：GitHub統一工具入口
 
