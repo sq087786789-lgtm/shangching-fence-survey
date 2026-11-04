@@ -4,6 +4,8 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+客戶圖片優先：index.html將confirmShareImages移到confirmBackBar，confirmSharePdf移入outputOptions，保留原ID及事件；style.css的主按鈕樣式改指向confirmShareImages。分享仍用PNG files，不支援或失敗時showImages展開並捲到圖片，AbortError不重送；PDF兩按鈕仍走download(pdf)，不可為了改位置而改成直接PDF navigator.share。確認單模型、圖片／PDF內容與原資料不變。index的style／confirmation快取版本為image-first-1。
+
 手機大圖／收合：app.js的segmentOpen為以穩定segment.id索引的記憶體Map，只管details.segment.open；不放入data或JSON。render保留Map，resetScene清除，新增／復原呼叫showSegment自動展開。原生toggle使用capture事件記狀態；segmentSummaryText供render與欄位change共同更新摘要，避免長度／柱距改了卻顯示舊數字。beforeprint展開、afterprint復原。
 
 mobile-view.css在studio的scene-photos.css之後載入，850px以下預設隱藏次要資訊、保留看圖控制；mobile-tools-open顯示原設定，setMobileTools不改設計或歷史。勘查表overview按鈕透過原transfer附overview=1，工作室必須在history.replaceState清查詢前捕捉requestOverview，帶入完成後才toggleCanvasFocus。embed不顯示手機導航，desktop不受手機簡化影響。資料／數量／照片規則沿用；版本修改須同時更新app的iframe快取參數與index的JS/CSS參數。

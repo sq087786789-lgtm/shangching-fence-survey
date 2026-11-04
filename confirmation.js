@@ -64,19 +64,20 @@ root.surveyConfirmation={start({snapshot,notice}){
  const actions=['confirmPrint','confirmDownload','confirmImages','confirmPdf','confirmShareImages','confirmSharePdf'];
  const status=t=>$('confirmStatus').textContent=t;
  function clear(){frameObserver?.disconnect();frameObserver=null;for(const url of urls)URL.revokeObjectURL(url);urls=[];$('confirmImagesList').replaceChildren();files=[];pdf=null}
- async function refresh(){const rev=++revision;for(const k of actions)$(k).disabled=true;clear();status('正在繪製參照線稿並彙整材料與工法，產生圖片和PDF…');try{
+ async function refresh(){const rev=++revision;for(const k of actions)$(k).disabled=true;clear();status('正在繪製參照線稿並彙整材料與工法，產生確認單圖片…');try{
   const data=await snapshot(),audience=$('confirmAudience').value,internal=audience==='internal',next=build(data,audience),m=model(data,audience);if(rev!==revision)return;html=next;$('confirmTitle').textContent=internal?'公司完整資料':audience==='quote'?'客戶報價確認單':'客戶確認單';$('confirmFrame').srcdoc=html;
   const pages=await renderPages(m),pngs=[],jpegs=[];const bytes=url=>Uint8Array.from(atob(url.split(',')[1]),c=>c.charCodeAt(0));for(const page of pages){pngs.push(new Blob([bytes(page.png)],{type:'image/png'}));jpegs.push(bytes(page.jpeg))}if(rev!==revision)return;
   const prefix=(internal?'內部':audience==='quote'?'客戶報價':'客戶')+'確認單-'+String(m.project.name).replace(/[\\/:*?"<>|]/g,'_').slice(0,60);files=pngs.map((b,i)=>new File([b],prefix+'-'+(i+1)+'.png',{type:'image/png'}));pdf=new File([pdfFromJpegs(jpegs)],prefix+'.pdf',{type:'application/pdf'});
   files.forEach((f,i)=>{const u=URL.createObjectURL(f);urls.push(u);const figure=document.createElement('figure'),img=document.createElement('img'),caption=document.createElement('figcaption'),link=document.createElement('a');img.src=u;img.alt='確認單第 '+(i+1)+' 頁';caption.textContent='第 '+(i+1)+' / '+files.length+' 頁（iPhone可長按圖片儲存）';link.href=u;link.download=f.name;link.textContent='下載第 '+(i+1)+' 頁圖片';figure.append(img,caption,link);$('confirmImagesList').append(figure)});
-  for(const k of actions)$(k).disabled=false;status('已產生 '+files.length+' 頁圖片及PDF。'+(!internal&&files.length>1?'本案內容較多，已續頁保留全部資訊。':'已彙整完成。')); 
+  for(const k of actions)$(k).disabled=false;status('已產生 '+files.length+' 頁圖片。PDF可從其他輸出選取。'+(!internal&&files.length>1?'本案內容較多，已續頁保留全部資訊。':'已彙整完成。')); 
  }catch(e){if(rev===revision)status('尚未產生：'+e.message)}}
  function download(file){const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=file.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),60000)}
  function openPdf(){if(!pdf)return;status('PDF 開啟後，請點 iPhone 下方的分享圖示，再選擇 LINE 傳送。');download(pdf)}
- async function share(list){if(!list.length)return;try{if(navigator.share&&navigator.canShare?.({files:list})){await navigator.share({files:list});status('已交由系統分享，請在分享面板選LINE與收件人。')}else{status('此瀏覽器未提供檔案分享。請下載PDF，或展開圖片後長按儲存，再從LINE附加傳送。');$('confirmImagesList').hidden=false}}catch(e){if(e.name!=='AbortError')status('未能分享。請先下載PDF或長按圖片儲存，再用LINE傳送。')}}
+ function showImages(){$('confirmImagesList').hidden=false;$('confirmImagesList').scrollIntoView({behavior:'smooth',block:'start'})}
+ async function share(list){if(!list.length)return;try{if(navigator.share&&navigator.canShare?.({files:list})){await navigator.share({files:list});status('已交由系統分享，請在分享面板選LINE與收件人。')}else{showImages();status('圖片已展開，請長按儲存或下載圖片，再從LINE附加傳送。')}}catch(e){if(e.name!=='AbortError'){showImages();status('圖片已展開，請長按儲存或下載圖片，再用LINE傳送。')}}}
  function openCustomerPreview(){$('confirmAudience').value='customer';$('confirmDialog').showModal();refresh()}for(const id of ['confirmation','customerPreview','mobileCustomerPreview'])$(id).onclick=openCustomerPreview;$('quotePreview').onclick=()=>{$('confirmAudience').value='quote';$('confirmDialog').showModal();refresh()};$('confirmAudience').onchange=refresh;$('confirmRefresh').onclick=refresh;
  function returnToSurvey(){$('confirmDialog').close();revision++;clear();$('confirmation').focus({preventScroll:true})}for(const key of ['confirmClose','confirmBackTop','confirmBackBottom'])$(key).onclick=returnToSurvey;$('confirmDialog').addEventListener('cancel',()=>{revision++;clear();$('confirmation').focus({preventScroll:true})});
  $('confirmPrint').onclick=()=>{$('confirmFrame').contentWindow.focus();$('confirmFrame').contentWindow.print()};$('confirmDownload').onclick=()=>download(new File([html],'確認單.html',{type:'text/html;charset=utf-8'}));
- $('confirmImages').onclick=()=>{$('confirmImagesList').hidden=false;$('confirmImagesList').scrollIntoView({behavior:'smooth',block:'start'});status('圖片已在下方展開，可長按儲存或逐頁下載。')};$('confirmPdf').onclick=openPdf;$('confirmShareImages').onclick=()=>share(files);$('confirmSharePdf').onclick=openPdf;
+ $('confirmImages').onclick=()=>{showImages();status('圖片已在下方展開，可長按儲存或逐頁下載。')};$('confirmPdf').onclick=openPdf;$('confirmShareImages').onclick=()=>share(files);$('confirmSharePdf').onclick=openPdf;
 }};
 })(typeof window==='undefined'?globalThis:window);

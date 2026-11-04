@@ -1,5 +1,13 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-04：客戶主操作改分享圖片、PDF收進選項
+
+- 依使用者要求交換圖片與PDF位置：固定底部主按鈕為confirmShareImages「分享圖片／LINE」；confirmSharePdf「開啟PDF／傳LINE」與原confirmPdf留在「PDF、下載與其他輸出」。頁面入口文字改為簡易圖／圖片及客戶報價／圖片，底部提示也改為圖片優先。
+- 保留原ID、PNG files及PDF File產生流程；分享內容仍由同一模型建立。圖片不支援原生分享或分享失敗時，showImages會展開圖片並捲入視窗，提示長按／下載圖片再由LINE附加；使用者取消不重送。PDF仍使用原download(pdf)與iPhone預覽底部分享圖示，不直接Web Share PDF。不自動傳訊、不選收件人。
+- 通過confirmation語法、完整node test.cjs及靜態DOM IDs／控制項綁定檢查。既有函式測試仍確認PDF走下載／開啟、圖片handler傳PNG列表、未完成輸出時不動作；本次主要為位置及提示調整，沒有更改案件格式、價格、圖面、照片或雲端功能。
+- Chrome本機合成案驗證實際innerWidth390／scrollWidth371；圖片主按鈕可見且產生完成後啟用，兩個PDF按鈕在其他選項收合時不可見、展開後可見。展開圖片驗證為1120×1584及.png下載名；保持返回功能。證據在忽略目錄work/image-first-mobile.png，不含真實案件；未重新測試實體iPhone／LINE原生分享。
+- 發布狀態：程式及本機驗證已完成，待正式發布與來源核對後補記。
+
 ## 2026-11-04：手機全貌大圖與逐段收合
 
 - 使用者希望手機完整圖少顯示資訊、圖面更大，填完參數後每段可收合。每段改原生details，摘要保留段號、長度／門淨開口、高度、柱距與網目；有「填好了，收合本段」「全部收合／展開」。預設只開第一段，新增／復原自動展開；用segment.id的Map保留畫面狀態，改規格及重新render不亂開段，也不寫入JSON／報價。摘要由segmentSummaryText與change共用，長度等不重新render的欄位也會更新摘要。
