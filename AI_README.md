@@ -4,6 +4,14 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-04 獨立高度與繪圖比例
+
+- 沿用既有height（網高／門高）、postLength（含埋入的整支管長）、depth及base，沒有新增或遷移資料欄位。app將圍籬height標籤明確改成「菱形網高度」，門片仍用門高；studio顯示「菱形網／門高（獨立於柱長）」。地上柱長維持postLength−burial，plate的burial為0，不能用網高覆寫柱長。
+- studio.panel一般圍籬網片範圍由舊0.05～height−0.025改成0～height，與標註網高一致。gate本體原框架間隙保留，橫桿／扣件排位不變，配件數量與報價不受影響。renderPost仍獨立使用postAbove。
+- reference-drawing.cadSVG採同一scale繪製地上立柱、埋深、網片與寬度。一般比例上限135px/m，寬度870px／極高尺寸540px上限才整圖等比縮放；不再每次以205px固定最高處。ground及面板高度隨實際最大高度調整，防止長柱超出畫框。一般圍籬mesh矩形使用ground到ground−height*scale，data-mesh屬性供實際幾何驗證。
+- 所有客戶HTML／PNG／PDF與工作室參照線稿共用此核心，輸出標註說明改為同視圖等比。兩張輸出在不同頁面或容器內仍可能整體縮放，但同圖柱高／網高／埋深的相對比例不變。
+- height-scale-test.cjs已納入test.cjs及AI來源包，驗證CAD實際矩形比例、改柱不改網、改網不改柱、共地面、底板／埋深／短柱／10m極值，以及實際studio.panel/renderPost函式的輸出座標；不依賴另一份假繪圖函式。index與app嵌入圖及reference快取版本height-scale-1；發布不能漏reference-drawing.js與studio.html。
+
 ## 2026-11-04 橫桿支數及配件報價契約
 
 - 共用 `fence-materials.js`：瀏覽器為 `sqFenceMaterials`，Node為require；index與studio先載入此檔。app、confirmation、studio均使用 `railGroups`／`accessoryCount`，測試VM也須注入此依賴。
