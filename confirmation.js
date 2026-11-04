@@ -69,7 +69,7 @@ root.surveyConfirmation={start({snapshot,notice}){
   const pages=await renderPages(m),pngs=[],jpegs=[];const bytes=url=>Uint8Array.from(atob(url.split(',')[1]),c=>c.charCodeAt(0));for(const page of pages){pngs.push(new Blob([bytes(page.png)],{type:'image/png'}));jpegs.push(bytes(page.jpeg))}if(rev!==revision)return;
   const prefix=(internal?'內部':audience==='quote'?'客戶報價':'客戶')+'確認單-'+String(m.project.name).replace(/[\\/:*?"<>|]/g,'_').slice(0,60);files=pngs.map((b,i)=>new File([b],prefix+'-'+(i+1)+'.png',{type:'image/png'}));pdf=new File([pdfFromJpegs(jpegs)],prefix+'.pdf',{type:'application/pdf'});
   files.forEach((f,i)=>{const u=URL.createObjectURL(f);urls.push(u);const figure=document.createElement('figure'),img=document.createElement('img'),caption=document.createElement('figcaption'),link=document.createElement('a');img.src=u;img.alt='確認單第 '+(i+1)+' 頁';caption.textContent='第 '+(i+1)+' / '+files.length+' 頁（iPhone可長按圖片儲存）';link.href=u;link.download=f.name;link.textContent='下載第 '+(i+1)+' 頁圖片';figure.append(img,caption,link);$('confirmImagesList').append(figure)});
-  for(const k of actions)$(k).disabled=false;status('已產生 '+files.length+' 頁圖片。PDF可從其他輸出選取。'+(!internal&&files.length>1?'本案內容較多，已續頁保留全部資訊。':'已彙整完成。')); 
+  for(const k of actions)$(k).disabled=false;status('已產生 '+files.length+' 頁圖片。PDF可從其他輸出選取。'+(!internal&&files.length>1?'本案內容較多，已續頁保留全部資訊。':'已彙整完成。'));
  }catch(e){if(rev===revision)status('尚未產生：'+e.message)}}
  function download(file){const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=file.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),60000)}
  function openPdf(){if(!pdf)return;status('PDF 開啟後，請點 iPhone 下方的分享圖示，再選擇 LINE 傳送。');download(pdf)}
