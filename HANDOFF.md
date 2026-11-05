@@ -1,5 +1,17 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-06：大門欄位簡化、現場備註彙整與顏色（最新）
+
+- 依使用者最新要求，大門樣式僅單開／雙開／推拉門，隱藏turn數字及快捷轉角，原案turn和幾何保留。常用門高／柱管長／厚度改preset＋其他；管徑預設不顯示第二個自訂欄，匯入自訂值會展開。門框常用邊長改管材大小。一般圍籬尺寸與工法保留。
+- siteNoteRows及syncSiteNotes將門基礎工法備註和各段note列在現場補充事項下方，標示來源並escape，不改data.notes、不重複寫入；改原文即更新。保持原openStudio不傳一般段note的邊界，foundationNote仍帶入；確認單保留原有各段注意事項。
+- 新gateFinish=none/paint/baked，gateFinishColor文字最多80；無時隱藏顏色並保留值。JSON仍v1，3D、確認單、工作室／CAD規格帶入，輸出關閉設定相容。常用中文色名及#RGB/#RRGGBB可呈現柱與框顏色，未識別描述保留文字但沿原材質；油漆與烤漆無獨立光澤模擬，不改網色或自動加費。
+- 主測試node test.cjs、drive-test.cjs、JS語法、靜態DOM綁定通過。gate-parameters-test新增三樣式、自訂欄顯示、4m保留、備註彙整／替換／不改全案notes、塗裝保存／驗證／輸出覆蓋。使用8084隔離來源的合成資料；正式資料、照片、Drive與LINE聊天室未操作。
+- 實際UI完成預設／其他切換、114.5自訂柱徑、厚度回1.8收起、4m淨開口持續保持、兩則備註更新無重複、油漆→無→烤漆保留色號、重載與帶入studio參數一致。390px iframe檢查innerWidth390／scrollWidth375，沒有橫向溢出，截圖work/gate-mobile-fields.png；不是實體iPhone測試。
+- 工作室實際PDF下載成功，work/gate-finish.pdf為2頁A4；Poppler渲染gate-finish-1.png／gate-finish-2.png已人工確認綠門／銀色圍籬、4m、分開的材料卡及工法備註無重疊。work/gate-clean-output-browser.png為出圖視窗。第一次自動化點到桌機隱藏按鈕造成等待失敗，改可見#studioOutputPdf後下載成功，不能誤記為網站輸出失效。
+- 8084測試已透過fixture恢復測試前sq-*資料，未改正式來源或原有案件。work目錄證據不公開；不需要把合成PDF放GitHub。最新快取gate-simple-1、37檔AI來源包；實際發布結果待下方完成紀錄。
+
+
+
 
 ## 2026-11-05：大門淨開口保留、門柱與門框材料（最新）
 

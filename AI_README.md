@@ -1,5 +1,15 @@
 # AI 接手文件
 
+## 2026-11-06 大門簡化、備註彙整與塗裝（最新）
+
+- componentStyleField對大門僅列gate-single/gate-double/gate-sliding，標籤單開／雙開／推拉門；一般圍籬保留舊選擇。門的turn控制隱藏但資料及幾何不刪除。studio隱藏／停用非門選項，不改保存格式。
+- gatePresetField及studio data-gate-preset對門高、柱管長及厚度提供常用值／其他。pipeField與studio管徑數字只在自訂時顯示；匯入非預設值自動展開，選預設不刪其他無關參數；4m淨開口保留規則不變。門框尺寸標籤改管材大小。
+- siteNoteRows/syncSiteNotes由segments[].gateFoundationNote與note衍生，放#segmentNotesSummary；標示段號、HTML escaping、即時更新，不把彙整文字append到data.notes。原案件與確認單繼續沿用各欄原資料。既有openStudio去除一般note與excavator的邊界不改，基礎備註照常帶入。
+- 新選填gateFinish=none/paint/baked及gateFinishColor（最多80字），JSON仍v1。選無隱藏顏色但保留原字串；studio commitPendingGateOpening/commitEditor捕捉未離欄顏色。gatePaintColor支援常用中文色及#RGB/#RRGGBB，未知字串只列規格；柱／框使用色彩，網子材質仍獨立。油漆／烤漆外觀用同色、規格分開，無自動塗裝計價。
+- customerReport、specGroups及confirmation保留塗裝／色彩資料和輸出勾選相容。gate-parameters-test涵蓋新欄位、舊案、自訂顯示、備註不重複及顏色驗證，主測試已包含。快取gate-simple-1；AI包仍37檔。
+
+
+
 
 ## 2026-11-05 大門參數與管材（最新）
 
