@@ -1,5 +1,18 @@
 # 圍籬工作室交接紀錄
 
+
+## 2026-11-05：大門淨開口保留、門柱與門框材料（最新）
+
+- 使用者回報4m跳成3.xxx，要求合併門型到構件樣式、門柱四種／門框三種管材、自訂厚度與尺寸、增加101/114、基礎備註。經提問確認：**保留大門基礎工法選單，只移除單獨埋入與埋深欄**，不是全部改成備註。
+- 已重現studio柱心固定4m時更換60.5柱後，欄位顯示3.94。app用顯式可選gateOpening保存手填淨開口，改柱徑後重算length；studio改postDia保留淨開口、移動／分離本段B端，其他構件不動。新增門4m淨開口；既有幾何不自動改寫。門型UI合併單開／雙開／推拉，保存gate/gateType相容。新門預設buried，門柱與門框尺寸增加101/114及自訂。
+- gatePostShape、gateFrameShape、gateFrameMaterial、gateFoundationNote完整傳到3D與JSON；柱material與frame railMaterial分開，square柱實際3D用方管，門片及推拉框用獨立frame材。選gate材質不覆寫厚度，舊無獨立frame資料先沿用並固定原材，不連動誤改。新增輸出kind欄及foundationNote，CAD與Canvas卡共用分組；確認單材料區分圓／方管，工法保留備註。一般圍籬計價／跨數／管材預設不變。
+- Survey大門數字／textarea在input先保存有效值、update不重建卡片，修正尚未blur就換選項造成自訂厚度／備註消失。change仍驗證並render。新gateOpening與length不一致的匯入會明確拒絕；舊案缺該欄按原length回推不改資料。注意不可擅自替舊案補淨開口4m。
+- 大門工法顯示buried／plate；舊direct仍保存並以原案工法保留顯示，選擇新工法才改，深度UI隱藏但舊depth用於原幾何與估算，未刪除。一般fence仍direct預設並有深度選單。新門埋入參數仍沿用原預設／第一段資料，不能宣稱已由使用者確認隱藏深度；差異可寫基礎備註。
+- 新gate-parameters-test.cjs及既有node test.cjs、drive-test.cjs、JS語法、靜態DOM IDs/綁定均通過。真實瀏覽器使用隔離8083合成案：4m＋114亞方管門柱／厚2.7、101鍍鋅圓管門框／厚2.1、底板與備註；三門型切換保持4，openStudio實際帶入後全部值相符。測試含輸入不blur就換選單、再載入；沒有真實Google／LINE傳訊或客戶案件寫入。
+- 手機尺寸browser viewport高階API未作用，改用有文件的CDP Emulation.setDeviceMetricsOverride核對innerWidth390、scrollWidth390，無橫向溢出；其後clear override及reset。IAB截圖縮放不宜拿來判讀實體iPhone字體大小，實機仍待使用者覆核。原網頁／Chrome案件未編輯。
+- 實際下載work/gate-parameters.pdf，pdfinfo一頁A4，Poppler渲染work/gate-parameters.png人工確認4m、門柱亞方114／2.7、門框鍍鋅圓101／2.1與備註正確且無重疊。work/gate-output-browser.png為完整出圖視窗證據；所有測試圖／PDF及fixture只在ignored work，不上傳。8083先用gate-qa.html保存sq-*資料，已從fixture按恢復測試前資料，測試兩分頁已關。未改8080／正式私有案件；最後保留正式驗證分頁。
+- 工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，E槽舊副本不改。Repomix自動監控已產生最新版地圖，不能把地圖代替實際驗證。新增gate-parameters-test使AI來源包37檔，config仍為空白API key模板。快取gate-fields-1涵蓋index app/reference/confirmation及app iframe、studio reference/confirmation；實際發布結果後補。
+
 ## 2026-11-05：同一雲端案件反覆更新、參考圖樣式資訊卡（最新）
 
 - 使用者明確要Google雲端同案修改可覆蓋；後補截圖要求資訊像淺色橘框卡片，較好辨識。本次同時完成兩項。工作區C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；舊E槽不動。

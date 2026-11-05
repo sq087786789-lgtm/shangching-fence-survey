@@ -1,0 +1,44 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),materials=require('./fence-materials.js'),confirmation=require('./confirmation.js');
+const source=fs.readFileSync(__dirname+'/app.js','utf8'),handlers={},messages=[];
+const document={getElementById:()=>({}),addEventListener:(event,handler)=>handlers[event]=handler};
+const c={document,localStorage:{getItem:()=>null},sqFenceMaterials:materials,structuredClone};vm.createContext(c);
+vm.runInContext(source.slice(0,source.indexOf("document.addEventListener('change'"))+';globalThis.api={fresh,blankDesign,insertSegment,validate,migrate,design,quote,lines,gateOpeningValue,setGateOpening,setComponentStyle,setGateKind,segmentSpecs,set:x=>data=x,get:()=>data};render=()=>{};update=()=>{};notice=()=>{};',c);
+vm.runInContext(source.split(/\r?\n/).find(line=>line.startsWith("document.addEventListener('change'")),c);
+vm.runInContext(source.split(/\r?\n/).find(line=>line.startsWith("document.addEventListener('input'")),c);
+const api=c.api,job=api.blankDesign();api.set(job);api.insertSegment('gate');const gate=job.segments[1],originalFence=JSON.stringify(job.segments[0]);
+assert.equal(gate.gateOpening,4);assert.equal(gate.length,4.0891);assert.equal(gate.base,'buried');
+function edit(key,value,pendingOpening=api.gateOpeningValue(gate)){
+ const input={value:String(pendingOpening),validity:{valid:true}},box={dataset:{index:'1'},querySelector:selector=>selector==='input[data-key="gateOpening"]'?input:null};
+ handlers.change({target:{dataset:{key},value:String(value),validity:{valid:true},closest:selector=>selector==='.segment'?box:null}});
+ assert.equal(api.get(),job,'a valid edit must not silently roll back to another object');
+}
+for(const kind of ['single','double','sliding']){edit('componentStyle','gate-'+kind);assert.equal(gate.gate,kind);assert.equal(api.design().edges[1].gateType,kind);assert.equal(api.gateOpeningValue(gate),4);}
+for(const diameter of [101,114,117.7,48.6,89.1]){edit('gatePostDia',diameter);assert.equal(api.gateOpeningValue(gate),4);assert.ok(Math.abs(gate.length-(4+diameter/1000))<1e-8);}
+// A typed opening must survive a different control change even before a blur event fires.
+edit('gatePostDia',114,4.5);assert.equal(api.gateOpeningValue(gate),4.5);edit('gateOpening',4);
+edit('gatePostThickness',2.7);edit('gatePostKind','zinc-square');assert.equal(gate.gatePostThickness,2.7);assert.equal(gate.gatePostShape,'square');
+edit('gateFrameKind','galv-round');edit('railDia',101);edit('railThickness',2.1);edit('gateFoundationNote','門柱基礎依現場確認 <保留>');
+for(const [key,value]of [['gatePostThickness','2.9'],['railThickness','2.4'],['gateFoundationNote','未離開欄位也保留']])handlers.input({target:{tagName:key==='gateFoundationNote'?'TEXTAREA':'INPUT',type:key==='gateFoundationNote'?'textarea':'number',dataset:{key},value,validity:{valid:true},closest:()=>({dataset:{index:'1'}})}});
+assert.equal(gate.gatePostThickness,2.9);assert.equal(gate.railThickness,2.4);assert.equal(gate.gateFoundationNote,'未離開欄位也保留');edit('gatePostThickness',2.7);edit('railThickness',2.1);edit('gateFoundationNote','門柱基礎依現場確認 <保留>');
+assert.equal(JSON.stringify(job.segments[0]),originalFence);
+let d=api.design(),edge=d.edges[1];assert.equal(edge.postShape,'square');assert.equal(edge.material,'zinc');assert.equal(edge.railShape,'round');assert.equal(edge.railMaterial,'galv');assert.equal(edge.railDia,101);assert.equal(edge.railThickness,2.1);assert.equal(edge.gateFoundationNote,gate.gateFoundationNote);assert.equal(edge.gateType,'sliding');
+const fields=api.segmentSpecs(gate);assert.ok(fields.includes('門柱管材')&&fields.includes('門框種類')&&fields.includes('基礎工法備註'));assert.ok(!fields.includes('埋入深度')&&!fields.includes('value="direct"'));assert.ok(fields.includes('value="101"')&&fields.includes('value="114"'));assert.ok(fields.includes('data-key="railThickness"')&&!fields.includes('data-pipe="railThickness"'));
+const old=api.fresh(),legacy=old.segments.find(s=>s.type==='gate'),oldGeometry=legacy.length;api.migrate(old);assert.equal(legacy.length,oldGeometry);assert.ok(!Object.hasOwn(legacy,'gateOpening'));assert.ok(api.segmentSpecs(legacy).includes('原案工法（保留）'));
+const roundTrip=api.validate(api.migrate(JSON.parse(JSON.stringify(job))));assert.equal(roundTrip.segments[1].gateOpening,4);assert.equal(roundTrip.segments[1].gatePostShape,'square');assert.equal(roundTrip.segments[1].gateFrameMaterial,'galv');
+const bad=structuredClone(job);bad.segments[1].gatePostShape='triangle';assert.throws(()=>api.validate(bad));
+
+const html=fs.readFileSync(__dirname+'/studio.html','utf8'),script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const sc={document:{getElementById:()=>({getContext:()=>({})})},sqFenceMaterials:materials};vm.createContext(sc);
+const names=['length','endpointShared','availableNode','detachEndpoint','moveSegmentEndpoint','resizeSegment'];
+const functions=names.map(name=>script.match(new RegExp('^function '+name+'\\([^\\n]+','m'))[0]).join('\n');
+vm.runInContext(script.slice(0,script.indexOf('try{const s=localStorage'))+functions+script.slice(script.indexOf('const meshNames='),script.indexOf('const {cadSVG'))+';globalThis.api={validate,setSegmentSpec,setGateKind,customerReport,exportDesign,length};',sc);
+const studio=sc.api;studio.validate(d);const existingFence=JSON.stringify(d.edges[0]),gateIndex=1;
+for(const diameter of [101,114,119.2]){studio.setSegmentSpec(d,gateIndex,'postDia',diameter);studio.validate(d);assert.ok(Math.abs(studio.length(edge,d)-edge.postDia/1000-4)<1e-7);}
+studio.setGateKind(d,gateIndex,'post','galv-square');studio.setGateKind(d,gateIndex,'frame','zinc-square');assert.equal(edge.thickness,2.7);assert.equal(edge.railThickness,2.1);assert.equal(edge.railMaterial,'zinc');assert.equal(edge.postShape,'square');assert.equal(JSON.stringify(d.edges[0]),existingFence);
+const table=studio.customerReport(d),items=table.displayRows[1];assert.ok(items.some(i=>i.key==='gatePostKind'&&i.value==='鍍鋅方管'));assert.ok(items.some(i=>i.key==='gateFrameKind'&&i.value==='亞方管'));assert.ok(items.some(i=>i.key==='gateWidth'&&i.value==='4 m'));assert.ok(items.some(i=>i.key==='gateFoundationNote'&&i.value===gate.gateFoundationNote));
+const legacySteel=structuredClone(d);legacySteel.edges[1].material='steel';delete legacySteel.edges[1].railMaterial;studio.setGateKind(legacySteel,1,'frame','steel-square');assert.equal(legacySteel.edges[1].railMaterial,undefined);
+const ref=require('./reference-drawing.js')({length:(e,s)=>studio.length(e,s),outputEnabled:()=>true,spanCount:()=>1,railLevels:()=>[],customerReport:s=>studio.customerReport(s),accessoryCount:()=>({items:[]})});
+const groups=ref.specGroups(d,edge,items);assert.equal(groups.find(g=>g.title==='門柱').items[0].key,'gatePostKind');assert.equal(groups.find(g=>g.title==='門框').items[0].key,'gateFrameKind');assert.ok(ref.cadSVG(d,1).includes('門柱 □119.2 mm'));assert.ok(ref.cadSVG(d,1).includes('&lt;保留&gt;'));
+const model=confirmation.model({...job,design:api.design()});assert.ok(model.materials.some(r=>r.name.startsWith('門柱 □114mm')&&r.name.includes('2.7mm 亞管')));assert.ok(model.materials.some(r=>r.name.startsWith('門框 Ø101mm')&&r.name.includes('2.1mm 鍍鋅管')));assert.ok(model.methods.some(r=>r.includes(gate.gateFoundationNote)));
+console.log('PASS 4m gate opening preserved across types, post diameters, pending edits, JSON and studio transfer; independent round/square post/frame materials and custom thickness, foundation choices/notes, legacy geometry and escaped customer specs');

@@ -1,5 +1,16 @@
 # AI 接手文件
 
+
+## 2026-11-05 大門參數與管材（最新）
+
+- app的gateOpening是使用者輸入的淨開口（可選新增欄），length仍是原幾何柱心距。setGateOpening依門柱尺寸同步length；gatePostDia改動先取淨開口再更新，gateOpeningValue對舊案按length−門柱尺寸回推。validate會拒絕不一致的顯式淨開口；migrate不擅自改舊案幾何。新增門淨開口4m、柱心4.0891m。design只把幾何及實際規格交給studio，不帶易過期的gateOpening衍生快取。
+- studio的setSegmentSpec在改門柱postDia時保留淨開口並resizeSegment，只分離／移動本段B端，鄰段不跟著位移。commitPendingGateOpening及commitEditor處理未離欄的開口；門開口顯示到8位有效小數，不因顯示兩位反覆重算。一般圍籬長度顯示規則保留。applyStyle對已是大門的自訂柱徑不再強制拉到89.1。
+- Survey欄位gatePostShape、gateFrameShape、gateFrameMaterial、gateFoundationNote都是選填；門柱仍沿用gatePostMaterial。design對應edge.postShape、railShape、railMaterial、gateFoundationNote，柱材在edge.material。舊資料缺frame材時沿用原柱材；第一次改柱材先固定舊frame材，避免連帶改門框。厚度獨立，gate材料選擇不預帶覆寫1.4／1.8；一般fence原預設規則保留。
+- 兩邊component/style選單的gate-single/gate-double/gate-sliding是UI值，保存仍type=gate + gate/gateType。舊gate UI值仍相容，studio舊gateType控制保留hidden供相容，不能再顯示重複門型。
+- 大門保留基礎選單buried/plate，只移除新選direct與深度控制。舊direct在survey以「原案工法（保留）」相容，在studio為隱藏的selected原案選項；不改舊base/depth。新門預設buried。gateFoundationNote獨立於段落note，輸出CSV、規格卡及確認單工法。隱藏埋深UI不是刪除原深度，不改fence工法。
+- 新gatePostKind/gateFrameKind為規格輸出欄，放在門柱／門框卡第一列，gate不再重複輸出railShape與material。master pipe輸出包含兩個新key，舊material／railShape輸出關閉會連動未明確設定的新key。形狀方管用□、圓管用Ø；3D柱tube使用postShape，門片／推拉門框使用獨立railMaterial。
+- gate-parameters-test.cjs納入test.cjs與37檔AI包。涵蓋4m、101/114/custom柱徑、三種門型、未blur輸入、獨立管材厚度、舊steel相容、JSON與實際studio helpers、輸出與escaping。舊測試改用實際edge.a/b（柱徑改動可能分離B端），不再假設門永遠nodes[1]/[2]。新增門的原3.91期望已改4.00。
+
 統一工具入口是 `tools.html`，唯一工具清單是 `tools.json`，由 `tools.js` 安全建立連結。新增／修改入口只更新這份清單，各工具仍在各自儲存庫維護。Render進銷存的 `public/tools.html` 僅轉址；新版工作室要連 `studio.html`，舊版僅收在legacy群組。不要將工具入口統一誤做成案件或資料庫合併。
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
