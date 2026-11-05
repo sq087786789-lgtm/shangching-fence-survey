@@ -44,8 +44,8 @@
     },
     {
       "path": "gate-frame-test.cjs",
-      "bytes": 3929,
-      "sha256": "7e5765da798a36fc81687c0d7a6cd91896d9b9bb250dc9ea2e543230b5889568",
+      "bytes": 3915,
+      "sha256": "5f50e1b41055cbb21c69ca48ee8afe28c58166ef1eeff8c0bd89f86db873efe5",
       "url": "gate-frame-test.cjs"
     },
     {
@@ -92,8 +92,8 @@
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 21321,
-      "sha256": "47617c4a5626e90ecc5799750f40038b81e074c7e02bdc71fa3e61fc4023aeaf",
+      "bytes": 21218,
+      "sha256": "d82195b60e4ca634234fc14140a7787bb634e12bbc65eea893ab6f3a2ebe0d83",
       "url": "reference-drawing.js"
     },
     {
