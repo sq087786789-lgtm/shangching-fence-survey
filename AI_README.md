@@ -11,7 +11,7 @@
 - 新gatePostKind/gateFrameKind為規格輸出欄，放在門柱／門框卡第一列，gate不再重複輸出railShape與material。master pipe輸出包含兩個新key，舊material／railShape輸出關閉會連動未明確設定的新key。形狀方管用□、圓管用Ø；3D柱tube使用postShape，門片／推拉門框使用獨立railMaterial。
 - gate-parameters-test.cjs納入test.cjs與37檔AI包。涵蓋4m、101/114/custom柱徑、三種門型、未blur輸入、獨立管材厚度、舊steel相容、JSON與實際studio helpers、輸出與escaping。舊測試改用實際edge.a/b（柱徑改動可能分離B端），不再假設門永遠nodes[1]/[2]。新增門的原3.91期望已改4.00。
 
-統一工具入口是 `tools.html`，唯一工具清單是 `tools.json`，由 `tools.js` 安全建立連結。新增／修改入口只更新這份清單，各工具仍在各自儲存庫維護。Render進銷存的 `public/tools.html` 僅轉址；新版工作室要連 `studio.html`，舊版僅收在legacy群組。不要將工具入口統一誤做成案件或資料庫合併。
+統一工具入口是 `tools.html`，唯一工具清單是 `tools.json`，由 `tools.js` 安全建立連結。新增／修改入口只更新這份清單，各工具仍在各自儲存庫維護。Render進銷存的 `public/tools.html` 僅轉址；新版工作室要連 `studio.html`，舊版已從入口移除，請勿重新加入。不要將工具入口統一誤做成案件或資料庫合併。
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 

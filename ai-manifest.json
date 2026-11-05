@@ -158,8 +158,8 @@
     },
     {
       "path": "tools.html",
-      "bytes": 4348,
-      "sha256": "f6d59d0286626406fc03a34857e83f7423294316cc51d04e4a8435acd1d47df9",
+      "bytes": 4357,
+      "sha256": "e73ad28b43c48e771f5d0f1e71e65d4b185ad63f982e13dc4133a9addc52c91a",
       "url": "tools.html"
     },
     {
@@ -170,20 +170,20 @@
     },
     {
       "path": "tools.json",
-      "bytes": 2421,
-      "sha256": "d14a7dc7f13daeea0dd09a4f5129cd184e97d04cb21c5d4ef7db0c92d37293f5",
+      "bytes": 2100,
+      "sha256": "44c30af6053b7e73c7e63e5c4c975d8f32d8a7f580d983d8e2ddeebabeffe062",
       "url": "tools.json"
     },
     {
       "path": "README.md",
-      "bytes": 33300,
-      "sha256": "3d6907ef8d69156f908b33b314dce8e0c0f2ecd5610abaae60705c02166fdff4",
+      "bytes": 33312,
+      "sha256": "f35a164e9824e398c54f0d7cf386d9d86cc97f951a345d6378a32a72a0914429",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 48592,
-      "sha256": "0c13c059f6737a5ff2b176df69282d709a2444785a423509e5546b034dbc5c2b",
+      "bytes": 48610,
+      "sha256": "aa4289a3a68f1c02c762201cd816b303e9e64e0a317feacc10d4060aab0b8b5e",
       "url": "AI_README.md"
     },
     {
@@ -194,8 +194,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 73506,
-      "sha256": "c63704e837b55cb9561b7e8f19e175c0804b595b8125cf04ea76e9b8119f9a2c",
+      "bytes": 74529,
+      "sha256": "c222a353dc67a19c9696a05a1a780d1e1d4ab0dc48131329ed92e01f4606ecda",
       "url": "HANDOFF.md"
     },
     {

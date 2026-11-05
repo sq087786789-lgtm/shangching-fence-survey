@@ -13,6 +13,14 @@
 - 實際下載work/gate-parameters.pdf，pdfinfo一頁A4，Poppler渲染work/gate-parameters.png人工確認4m、門柱亞方114／2.7、門框鍍鋅圓101／2.1與備註正確且無重疊。work/gate-output-browser.png為完整出圖視窗證據；所有測試圖／PDF及fixture只在ignored work，不上傳。8083先用gate-qa.html保存sq-*資料，已從fixture按恢復測試前資料，測試兩分頁已關。未改8080／正式私有案件；最後保留正式驗證分頁。
 - 工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，E槽舊副本不改。Repomix自動監控已產生最新版地圖，不能把地圖代替實際驗證。新增gate-parameters-test使AI來源包37檔，config仍為空白API key模板。快取gate-fields-1涵蓋index app/reference/confirmation及app iframe、studio reference/confirmation；實際發布結果後補。
 
+## 2026-11-05：移除總入口的舊圍籬工具
+
+- 使用者認為舊圍籬工具不需繼續存在於入口。移除tools.json的legacy-studio卡片，總入口只顯示目前7項工具，新版工作室仍連studio.html；無舊項目時，既有程式會自動隱藏舊版區。同步移除頁首舊版引導及更新接手文件。
+- 舊GitHub專案與原有資料未刪除，僅留原始程式備查；本次沒有驗證所有歷史案件遷移或停用舊站。
+- 原E槽checkout有未完成修改且落後遠端18次提交，故從最新origin/main（1f1de27）隔離修改，未混入或覆蓋原工作區。後續須使用最新遠端版本，勿將舊checkout直接發布。
+- 已通過app語法及完整node test.cjs，AI來源以Git已提交位元組重建，避免隔離checkout的Windows換行差異。已上線：功能4660990、索引17c1755，Pages執行41982888145 completed/success；正式tools.json已確認7項工具、legacy-studio為0。未重新進行全部幾何或歷史案件實機操作。
+
+
 ## 2026-11-05：同一雲端案件反覆更新、參考圖樣式資訊卡（最新）
 
 - 使用者明確要Google雲端同案修改可覆蓋；後補截圖要求資訊像淺色橘框卡片，較好辨識。本次同時完成兩項。工作區C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；舊E槽不動。
