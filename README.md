@@ -2,7 +2,7 @@
 
 統一工具入口：https://sq087786789-lgtm.github.io/shangching-fence-survey/tools.html
 
-所有工具連結只維護本專案的 `tools.json`，入口頁由 `tools.html`＋`tools.js` 載入。各工具保留自己的GitHub專案與部署；進銷存舊入口轉到此頁，不再維護另一份清單。新版工作室使用本專案 `studio.html`；舊hongsing-fence-planner只在「舊版工具」內保留。
+所有工具連結只維護本專案的 `tools.json`，入口頁由 `tools.html`＋`tools.js` 載入。各工具保留自己的GitHub專案與部署；進銷存舊入口轉到此頁，不再維護另一份清單。新版工作室使用本專案 `studio.html`；舊hongsing-fence-planner已從入口移除，不再列為使用工具。
 
 手機使用網站：https://sq087786789-lgtm.github.io/shangching-fence-survey/
 
