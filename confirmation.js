@@ -60,7 +60,7 @@ function pdfFromJpegs(images,width=1120,height=1584){
  const count=2+images.length*3,start=length;put('xref\n0 '+(count+1)+'\n0000000000 65535 f \n');for(let i=1;i<=count;i++)put(String(offsets[i]).padStart(10,'0')+' 00000 n \n');put(`trailer\n<< /Size ${count+1} /Root 1 0 R >>\nstartxref\n${start}\n%%EOF`);return new Blob(parts,{type:'application/pdf'});
 }
 if(typeof module==='object'&&module.exports)module.exports={build,model,drawings,pdfFromJpegs,renderPages};
-root.surveyConfirmation={start({snapshot,notice}){
+root.surveyConfirmation={pdfFromJpegs,start({snapshot,notice}){
  const $=id=>document.getElementById(id);let revision=0,html='',files=[],pdf=null,urls=[],frameObserver=null;
  $('confirmFrame').onload=()=>{frameObserver?.disconnect();if(!$('confirmDialog').open)return;const body=$('confirmFrame').contentDocument?.body;if(!body)return;const fit=()=>{const height=Math.ceil(body.getBoundingClientRect().height+16);if(Math.abs($('confirmFrame').getBoundingClientRect().height-height)>1)$('confirmFrame').style.height=height+'px';};fit();frameObserver=new ResizeObserver(fit);frameObserver.observe(body);};
  const actions=['confirmPrint','confirmDownload','confirmImages','confirmPdf','confirmShareImages','confirmSharePdf'];

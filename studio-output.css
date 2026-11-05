@@ -1,0 +1,20 @@
+.studioQuickShare{display:none}
+#studioOutputDialog{width:min(940px,96vw);max-height:94dvh;padding:0;border:1px solid #cbd5e1;border-radius:14px;color:#213547;background:#f1f5f9}
+#studioOutputDialog::backdrop{background:#0f172a99}
+.studioOutputBar{position:sticky;top:0;z-index:2;background:white;border-bottom:1px solid #d8e0ea;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.studioOutputBar strong{flex:1;min-width:150px}
+.studioOutputBar button{min-height:44px;font-size:14px}
+#studioOutputStatus{padding:0 16px;font-size:14px;line-height:1.6}
+#studioOutputPages figure{margin:14px auto;padding:0 12px;max-width:720px}
+#studioOutputPages img{display:block;width:100%;height:auto;box-shadow:0 2px 10px #0f172a18}
+#studioOutputPages figcaption{padding:12px;text-align:center}#studioOutputPages a{color:#155e75;display:inline-block;padding:8px}
+@media(max-width:850px){
+ .studioQuickShare{display:flex;gap:8px;padding:5px 10px;background:#fff;border-bottom:1px solid #d5dfeb}
+ .studioQuickShare button{flex:1;min-height:44px;font-size:14px}
+ body:not(.mobile-tools-open):not(.embed) .main>.sceneCompare>.viewport{height:calc(100dvh - 220px)}
+ #studioOutputDialog{width:100vw;max-width:100vw;max-height:100dvh;height:100dvh;border:0;border-radius:0}
+ .studioOutputBar strong{flex-basis:calc(100% - 150px)}
+ .studioOutputBar #studioOutputShare,.studioOutputBar #studioOutputPdf{flex:1}
+}
+body.embed .studioQuickShare,body.canvas-expanded .studioQuickShare{display:none}
+@media print{.studioQuickShare{display:none!important}}

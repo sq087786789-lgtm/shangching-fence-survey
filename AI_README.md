@@ -4,6 +4,14 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-05 工作室直接分享
+
+- studio-output.js/.css負責客戶出圖dialog與1120×1584分頁。桌機image／studioPdf、手機mobileShareImage／mobileStudioPdf共用prepare；圖片按鈕同步capture／編碼，再於同一點擊直接呼叫navigator.share PNG File列表，盡量保留iPhone使用者啟動資格。失敗或不支援保留圖片及下載連結；AbortError只顯示取消，不自動重送。只能由使用者選LINE及收件人。
+- PDF沿原iPhone已驗證的download/open route，物件URL存活60秒，沒有直接PDF navigator.share。confirmation.js僅將既有pdfFromJpegs公開在surveyConfirmation，供工作室共用；原勘查確認單start、資料與分享流程不變。載入順序必須reference-drawing→fence-materials→confirmation→studio-output→工作室inline，否則confirmation建立共用線稿時會失敗。
+- captureStudioProposal先commitEditor，空設計不出圖；固定1000×650邏輯畫布／1500×975像素，fit(undefined,300)輸出全案，保留目前立體／平面與方向，不沿用手機窄畫布或使用者放大裁切。finally還原W／H、像素尺寸、showDims／showControls、scale／pan／center與原圖，不能改案件／歷史。fit新增maxScale預設90，不改一般看圖；showControls=false不畫編輯端點、橘線與吸附文字。
+- imageSpecLines第二參數compact=true只在新工作室分享使用，移除零用量配件，仍保留非零／手調配件、相關估算說明、備註、既有段與outputFields。原預設／CSV規格不變。PDF與PNG以同一批canvas頁面產生，不含照片或內部價格；內容過多分頁，不縮成不可讀小字。
+- studio-output-test.cjs納主測試與36檔AI來源包，覆蓋分頁／末段保留、PNG分享／PDF下載分流、不支援／取消／失敗、空capture、圖面與相機還原及零配件篩選。快取studio-share-1同步index app／confirmation、app的studio iframe；新studio-output.css／js必須發布。實體iPhone與LINE仍待使用者實機確認，不能以內建窄版當實機。
+
 ## 2026-11-05 實物格柵門片
 
 - reference-drawing.js的createFenceReference回傳gateFrameMembers(width,e)，提供門片局部座標的一道middle及多支vertical；CAD與studio.panel共用，不能各自維護另一套斜撐。單／雙開且brace=true才有格柵；brace=false保留外框與網，sliding沿用原圖形及五金。UI改稱「門片補強」，資料鍵／格式不變。

@@ -1,5 +1,14 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-05：工作室一鍵分享圖片與PDF
+
+- 使用者要求工作室也能一鍵分享。新增studio-output.js/.css與客戶出圖dialog；手機看圖模式常顯「分享圖片／LINE」「開啟PDF」，桌機頁首同功能。PNG同步產生後直接叫系統分享，不支援／失敗保留圖片供長按或逐頁下載；取消不自動重送。PDF直接下載／開啟，再由iPhone底部分享選LINE，沒有PDF Web Share；不自動傳送或選收件人。
+- 固定1120×1584頁面，上方配置全貌，下方沿用材料規格、工法、備註與輸出勾選，超量自動分頁。captureStudioProposal暫用1000×650邏輯畫布、1500×975像素及全案fit，finally還原相機／縮放／原畫布，不改案件／歷史。圖上不帶編輯端點、選取橘線與吸附文字；不含勘場照片或價格。imageSpecLines的compact模式只排除零用量配件，非零配件／手動量與說明保留；原CSV及規格預設不改。
+- confirmation.js僅公開既有pdfFromJpegs供工作室共用，PNG／PDF均由同份頁面產生。載入必須先reference-drawing／fence-materials再confirmation／studio-output，已修正初次本機實測發現的載入順序問題。fit新增maxScale參數預設90，正常UI不變。index app／confirmation與app iframe快取studio-share-1，圖面格柵仍gate-grid-1。
+- 已通過完整node test.cjs、studio-output新分頁／分享分流／取消失敗／相機finally還原與配件篩選測試。內建瀏覽器390×844實測innerWidth=scrollWidth=390，手機按鈕常顯；同一雙開3.20m／高1.65m合成案手機及1280×900桌機均出1頁PNG／A4 PDF。實際下載圖片、PDF並經Poppler渲染人工檢視，圖與規格一致、返回工作室正常，手機PDF快捷可直接下載。原生LINE分享及實體iPhone未測，不把內建瀏覽器當實機。
+- 本機證據work/studio-share-mobile.png、studio-share-preview.png、studio-proposal.png、studio-proposal.pdf及studio-proposal-render.png皆合成資料且忽略，不入公開repo。工作室原測試前設計已透過helper還原，勘查表未更動，viewport已重設。原有Drive／照片／報價功能未改，禁止上傳真實案件或修改舊E槽副本。
+- 發布狀態：本機實作與驗證完成，待GitHub／Pages及正式檔案雜湊確認後更新本節。接手checkout仍為C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；每次完成更新本交接及AI來源包。
+
 ## 2026-11-05：依實物照片改格柵大門
 
 - 使用者提供現場大門與舊3D對照，要求符合自家樣式。單開／雙開改矩形外框、一道中橫桿及多支直向補強，移除門片大斜撐；照片未加入公開repo。保留原圓／方管、管徑、材質、門寬、獨立門高／柱長及開啟方向／角度，不猜照片的實際製作規格。
