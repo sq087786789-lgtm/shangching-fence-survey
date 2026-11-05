@@ -11,7 +11,8 @@
 - 新gate-parameters-test.cjs及既有node test.cjs、drive-test.cjs、JS語法、靜態DOM IDs/綁定均通過。真實瀏覽器使用隔離8083合成案：4m＋114亞方管門柱／厚2.7、101鍍鋅圓管門框／厚2.1、底板與備註；三門型切換保持4，openStudio實際帶入後全部值相符。測試含輸入不blur就換選單、再載入；沒有真實Google／LINE傳訊或客戶案件寫入。
 - 手機尺寸browser viewport高階API未作用，改用有文件的CDP Emulation.setDeviceMetricsOverride核對innerWidth390、scrollWidth390，無橫向溢出；其後clear override及reset。IAB截圖縮放不宜拿來判讀實體iPhone字體大小，實機仍待使用者覆核。原網頁／Chrome案件未編輯。
 - 實際下載work/gate-parameters.pdf，pdfinfo一頁A4，Poppler渲染work/gate-parameters.png人工確認4m、門柱亞方114／2.7、門框鍍鋅圓101／2.1與備註正確且無重疊。work/gate-output-browser.png為完整出圖視窗證據；所有測試圖／PDF及fixture只在ignored work，不上傳。8083先用gate-qa.html保存sq-*資料，已從fixture按恢復測試前資料，測試兩分頁已關。未改8080／正式私有案件；最後保留正式驗證分頁。
-- 工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，E槽舊副本不改。Repomix自動監控已產生最新版地圖，不能把地圖代替實際驗證。新增gate-parameters-test使AI來源包37檔，config仍為空白API key模板。快取gate-fields-1涵蓋index app/reference/confirmation及app iframe、studio reference/confirmation；實際發布結果後補。
+- 工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，E槽舊副本不改。Repomix自動監控已產生最新版地圖，不能把地圖代替實際驗證。新增gate-parameters-test使AI來源包37檔，config仍為空白API key模板。快取gate-fields-1涵蓋index app/reference/confirmation及app iframe、studio reference/confirmation；實際發布結果如下。
+- **已上線：** 功能4be6cdb，與遠端5023bf2的工具入口移除更新合併為42617afadc36ecb2c2331a084c0495083760bd10，正常推送main；保留遠端tools.html/json及README、AI_README、HANDOFF的相關更新，沒有把舊工具加回。Pages執行42014567357 completed/success，正式index、app、studio、confirmation、reference-drawing及tools.json均HTTP200且SHA256與已測提交相符，37檔Git blob來源雜湊檢查通過。正式瀏覽器已確認三種門型選項及app快取gate-fields-1。最後本機8083伺服器已停止，測試資料／viewport均還原；正式勘場分頁保留：https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=gate-fields-1 。實體iPhone與私人Drive操作本次未重新驗證。
 
 ## 2026-11-05：移除總入口的舊圍籬工具
 
