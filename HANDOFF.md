@@ -10,6 +10,10 @@
 - 工作室實際PDF下載成功，work/gate-finish.pdf為2頁A4；Poppler渲染gate-finish-1.png／gate-finish-2.png已人工確認綠門／銀色圍籬、4m、分開的材料卡及工法備註無重疊。work/gate-clean-output-browser.png為出圖視窗。第一次自動化點到桌機隱藏按鈕造成等待失敗，改可見#studioOutputPdf後下載成功，不能誤記為網站輸出失效。
 - 8084測試已透過fixture恢復測試前sq-*資料，未改正式來源或原有案件。work目錄證據不公開；不需要把合成PDF放GitHub。最新快取gate-simple-1、37檔AI來源包；實際發布結果待下方完成紀錄。
 - 功能提交071a4ac4d41e0bf48888e194b8fb8bfccfad7a9e已正常推送main。Pages執行42096669356初次build/report成功，deploy持續updating_pages，600000ms逾時並由action取消。GitHub connector重跑回403 Resource not accessible by integration，已改用登入的GitHub網頁Re-run failed jobs，UI確認Latest #2及Queued。沒有放寬任何權限，沒有force push。後續發布狀態如下；不能把初次建置成功當已上線。
+- **已上線：** 補記提交01f926340db1c974cce7d787ad7d39d7746ae089正常推送後，新Pages執行42099310419 completed/success（22秒）。正式index、app、studio、style、reference-drawing、confirmation、HANDOFF及兩個AI來源包均HTTP200且SHA256與已測提交一致；37檔Git blob來源雜湊核對通過。正式IAB大門選項實際為單開／雙開／推拉門，turn不可見、管材大小與油漆／烤漆／無存在。work/gate-live-fields.png為正式頁唯讀驗證證據；只展開卡片、未改真實案件欄位。正式分頁保留：https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=gate-simple-1 。
+- 先前執行42096669356的第2次嘗試仍Queued，已從Actions清單的run92→More actions→Cancel run送出取消；最後UI仍Queued，**取消未確認**。不要誤記已取消。該執行與已發布版的功能程式相同，差異是部署交接補記；後續AI核對新HEAD及Pages，若舊排程復活造成文件較舊，從最新main正常重發即可，不要改權限或force push。
+- 本次自建預覽node work/preview-server.cjs PID37960已核對命令後停止；8084案件已恢復，手機測試iframe關閉，沒有施加viewport覆寫；實體iPhone、私人Drive連線及LINE送達未重新測試。發布結果補記提交僅更新本文件與AI包，不更動功能程式。
+
 
 
 
