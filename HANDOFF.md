@@ -7,7 +7,8 @@
 - index、app iframe及studio reference快取同步gate-grid-1。新增gate-frame-test.cjs納主測試與AI來源包，涵蓋共享幾何、單／雙開、開門0／60度、管形、窄門／極寬、停用與推拉保留；既有數量／整米進位／照片／高度等測試及Drive序列化通過。
 - 內建瀏覽器桌面實測雙開3.20m、門高1.65m新格柵及開門0～110度正常。單開CAD實際SVG為1道中橫、5支直向、無outline斜線；勘查客戶簡圖仍用原雙開案，1頁圖片，2道中橫、4支直向。390×844手機看全貌innerWidth=scrollWidth=390、畫布約373px，無整頁橫向溢出；截圖work/gate-grid-mobile.png與gate-grid-3d-detail.png、SVG gate-grid-front.svg為本機合成證據，不公開案件／照片。
 - 本機測試前studio設計已透過「取回帶入前的3D設計」恢復，勘查表已透過本機測試helper還原，viewport已重設。未測實體iPhone／LINE／私人Drive授權，功能未改。只使用本Documents/Codex checkout，E槽副本及原資料不變。
-- 發布狀態：本機實作與上述驗證完成，待提交／Pages／正式檔案雜湊確認後更新本節。
+- **已上線：** 功能提交 `c7c8b720a50900cb2e813e7a3b55d9e12cc1e4a6` 正常快轉推送main，Pages執行 `41949120218` completed/success。正式index.html、app.js、studio.html及reference-drawing.js皆HTTP200，原始SHA-256與已測試提交一致。正式內建瀏覽器已確認app及reference載入gate-grid-1；沒有變更正式案件。
+- 正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=gate-grid-1`。README、AI_README、AGENTS及33檔AI來源包同步；接續先核對GitHub HEAD與本節，保留單／雙開共享格柵與推拉門分支。此次本機伺服器已停止，正式分頁保留；實機及雲端未重測的範圍如上。
 
 ## 2026-11-04：大門移除柱距欄、門片高度自由輸入
 
