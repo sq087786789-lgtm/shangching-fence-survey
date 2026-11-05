@@ -1,5 +1,16 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-05：規格一項一列、電腦LINE圖片複製（最新）
+
+- 使用者要求輸出資訊分開，圍籬寫菱形網高1.8m，不要合稱門高；門資訊獨立，進料管長改管長，最底部備註移除。另確認「分享圖片／LINE」失敗是電腦版，工作室及參照線稿兩邊都要修，並非只問手機。
+- 新displaySpec／customerReport.displayRows供CAD與工作室輸出，每項獨立一列。CSV height與gateHeight分欄，門只填門高、圍籬只填菱形網高；gateHeight沿用舊height輸出開關。edge.height及JSON格式不改。CAD用18px字／32px列高、兩欄項目／數值表格；門框／門柱及橫桿／立柱名稱依型別，管長名稱簡化。只改顯示，不改跨數計支、材料量、工法、價格與原圖幾何。
+- 共用線稿、工作室圖片及confirmation HTML／Canvas移除最底部制式備註；imageSpecLines亦不輸出自動配件算法段落，實際手填現場事項、既有範圍及內部CSV算法保留。fence-materials僅改管長名稱，rateKey及估算數字不變；輸出總量與各欄分行。
+- 桌機兩處圖片按鈕均用ClipboardItem(image/png)複製，再提示到LINE電腦版Ctrl＋V，沒有代貼或傳訊。多頁逐頁複製，主鍵複製第1頁並明示剩餘頁數；clipboard拒絕／不支援即下載圖片，提示拖進LINE。新增「儲存圖片」不依賴原生分享成功。手機仍用PNG Web Share並保留取消／失敗處理，桌機不再顯示iPhone步驟。
+- 線稿預先packSource成PNG／PDF File與ASCII native share檔名，cadSharePacket隨revision清理，點圖片按鈕不再轉檔；busy／revision保護分享回呼。studio-output-test新增真實mixed規格、單位、舊開關、現場事項、無footer、預編碼／ASCII名、電腦複製成功及被拒絕改下載等驗證。
+- 內建瀏覽器1280×900實測**工作室主鍵與線稿主鍵都回報複製成功**，包含多頁逐頁提示。合成10m圍籬／3.20m雙開門，實際儲存PNG及兩份PDF；pdfinfo各1頁A4，Poppler渲染人工確認：菱形網高1.8m與門高1.65m各自正確、管長3m、每欄分列、無底部制式備註。390×844版面scrollWidth390，按鈕可用。未操作LINE聊天室／未傳訊，實體LINE貼上及手機原生分享尚待使用者驗證，不能宣稱已成功送達客戶。
+- 忽略目錄證據work/spec-clear-fence.png、spec-clear-fence.pdf、spec-clear-gate.pdf、spec-clear-fence-render.png、spec-clear-gate-render.png、desktop-line-copy.png、linework-desktop-copy.png、spec-clear-mobile.png皆合成資料。已恢復測試前studio設計及viewport；原剪貼簿為空，測試後以空文字復原。勘查表／正式案件／私有Drive未改。工作區仍是C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，舊E槽不改。
+- 發布狀態：本機實作與驗證完成，待完整檢查／GitHub／Pages／正式雜湊確認後更新。快取spec-clear-1，36檔AI來源包須同步重建。
+
 ## 2026-11-05：參照線稿直接分享、儲存PDF（最新需求）
 
 - 使用者澄清要在「參照線稿」分享，再修正文字為「存檔PDF，不是開啟」。cadDialog上方新增常顯「分享線稿圖片／LINE」「儲存PDF」，原SVG／PNG下載及工作室原圖片提案保留。工作室PDF文字亦統一儲存PDF；實際下載檔案，iPhone若出預覽可分享→儲存到檔案，不直接PDF Web Share。

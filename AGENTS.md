@@ -1,5 +1,6 @@
 # 接手規則
 每次完成任務都更新HANDOFF.md，記錄改動、檢查結果、實際發布狀態與下一位AI注意事項，並重建AI來源索引。
+輸出規格一項一列，圍籬用菱形網高、門高單獨門資料，不能再合稱菱形網／門高。gateHeight只是輸出欄，JSON edge.height不改，舊height輸出開關要兼容；管長不寫進料。移除制式底部備註，但不得刪使用者現場事項或改數量／價格。電腦版工作室與線稿「分享圖片／LINE」須複製PNG→LINE Ctrl＋V，不使用手機Web Share作為電腦唯一路徑；拒絕或不支援時下載，保留逐頁複製／儲存。手機保留原生分享與儲存替代方案。線稿分享File在ready前準備，不在點擊時重編碼；不可自動選收件人或傳送。
 參照線稿須可直接分享圖片／儲存PDF，採同一currentCAD SVG的完整內容，不截手機捲動畫面、不混入3D提案。保留原CAD路段／選項／縮放，出圖返回原線稿；非同步轉檔以cadOutputVersion防止舊圖覆蓋最新選項，準備中不可分享。PDF按鈕稱「儲存PDF」且走下載，不直接PDF Web Share；共用pdfFromJpegs須傳實際畫布尺寸。原SVG／PNG下載及工作室出圖保留。
 工作室分享由studio-output共用PNG／PDF頁面，圖片可直接Web Share，PDF仍下載／開啟後iPhone原生分享。captureStudioProposal須在finally還原畫布與相機，不改設計／歷史；空設計不出圖、超量規格分頁，不能只截手機窄畫面或省略末段。保留手機常顯按鈕、返回、非零配件、輸出勾選與不支援分享的儲存方式；不得自動選LINE收件人。confirmation須載於reference-drawing之後。驗證studio-output-test及實際PNG／PDF。
 單／雙開門依現場樣式用一道中橫桿＋直向補強，不再畫門片大斜撐。CAD與3D必須共用reference-drawing.gateFrameMembers，沿用brace鍵及原管形／材質／尺寸；分格僅外觀示意不當裁料數量，推拉門保留原門架／輪組／軌道。修改時執行主測試內的gate-frame-test，核對開門、門高及客戶輸出。雙開中央20mm間隙不應扣到單開門寬。

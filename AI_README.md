@@ -4,6 +4,15 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-05 規格分列與電腦圖片複製（最新）
+
+- specColumns將height稱菱形網高(m)，新增只供輸出的gateHeight／門高(m)；specRows依構件只填其中一欄，edge.height及JSON格式不改。gateHeight未明確設定outputFields時沿用舊height開關，兼容舊案。customerReport另回displayRows，displaySpec將單位移到數值旁，長度去無意義尾零，門框與橫桿名稱依構件分開；原columns／rows仍供CSV，沒有修改數量或價格。
+- reference-drawing用displayRows繪製逐列「項目／數值」表，18px文字、32px列高、交錯底色；每項data-spec-field標示穩定鍵。只有selected edge的規格，正／平面與圖面高度比例不改。無displayRows時仍兼容舊report介面。線稿最底部制式說明刪除；studio imageSpecLines每項一行、總量分行，移除自動估算備註及頁腳制式說明，保留實際e.note／既有施工範圍。
+- fence-materials僅材料名稱「橫桿（管長Xm）」及文字改管長，rateKey／分組／逐段跨數×排數算法不變。confirmation僅共用gateHeight的舊height映射及移除HTML／Canvas最底部制式備註，實際現場注意事項及價格邏輯不改。
+- 使用者確認分享失敗是**電腦版**，工作室與線稿兩個按鈕都不行，名稱須保留「分享圖片／LINE」。studio-output依handheld判斷：電腦以ClipboardItem(image/png)寫入圖片，提示Ctrl＋V貼到LINE，絕不自動送訊；多頁主操作先複製第1頁並提示其餘逐頁複製，頁下提供單頁複製鍵。無clipboard API／被拒絕改下載該頁，提示拖進LINE電腦版。手機仍用PNG Web Share，取消不重送。
+- 線稿ready前由studioOutputController.prepareLinework預先完成PNG／JPEG／PDF與ASCII分享檔名；cadSharePacket與cadOutputVersion同步清理，點擊不重新編碼以保留使用者啟動資格。出圖dialog新增studioOutputSaveImage，手機失敗可獨立儲存。原生分享busy／revision防止重入及舊回呼改新圖狀態；PDF仍走儲存下載。
+- studio-output-test涵蓋實際mixed sample的分別高度、每欄一列、單位／管長、舊開關、資料不變、現場事項保留及無制式footer；另外測cached packet不重編碼、ASCII分享名、儲存圖片、電腦clipboard成功與拒絕下載。官方PNG剪貼簿API參考：https://developer.chrome.com/blog/web-custom-formats-for-the-async-clipboard-api 。快取spec-clear-1涵蓋studio output／reference／materials／confirmation、app iframe與index對應script，36檔AI包不增檔數。實際發布與驗證見HANDOFF。
+
 ## 2026-11-05 參照線稿直接分享（最新澄清）
 
 - 使用者補充是在參照線稿畫面出圖，並要求稱「儲存PDF」。cadDialog上方cadShareBar固定保留cadShareImage與cadSavePdf，原SVG／PNG下載照舊；工作室原出圖亦保留，PDF文字統一改儲存。cadOptions以class限制高度，不能再依nth-child(2)，避免新增分享列後手機設定區擠掉圖面。

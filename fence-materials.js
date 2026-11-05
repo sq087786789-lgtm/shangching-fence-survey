@@ -12,7 +12,7 @@ function railGroups(s,specs=s.edges){
  s.edges.forEach((e,i)=>{
   if(!active(e))return;const spec=specs[i]||e,L=length(e,s),pipe=stock(e),dia=spec.railDia??null,wall=spec.railThickness??null;
   const rateKey='railPiece_'+[pipe,dia??'u',wall??'u'].map(v=>String(v).replaceAll('.','p')).join('_');
-  if(!groups.has(rateKey))groups.set(rateKey,{rateKey,length:pipe,dia,thickness:wall,name:'橫桿（'+pipe+'m進料）／Ø'+(dia??'待確認')+'mm／'+(wall==null?'厚度待確認':'厚'+wall+'mm'+(wall===1.4?' 亞管':wall===1.8?' 鍍鋅管':'')),qty:0,installedLength:0});
+  if(!groups.has(rateKey))groups.set(rateKey,{rateKey,length:pipe,dia,thickness:wall,name:'橫桿（管長 '+pipe+'m）／Ø'+(dia??'待確認')+'mm／'+(wall==null?'厚度待確認':'厚'+wall+'mm'+(wall===1.4?' 亞管':wall===1.8?' 鍍鋅管':'')),qty:0,installedLength:0});
   const group=groups.get(rateKey);group.qty+=spans(L,e.spacing)*(e.railCount??2);group.installedLength+=L*(e.railCount??2);
  });
  return [...groups.values()];
@@ -40,7 +40,7 @@ function accessoryCount(s){
  });
  const adjustment=s.accessoryAdjustments||{};
  const items=Object.entries(names).map(([key,name])=>({key,name,unit:key==='corner'?'組':key==='link'?'片':'個',automatic:auto[key],adjustment:adjustment[key]||0,total:Math.max(0,auto[key]+(adjustment[key]||0))}));
- return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(e=>e.topFix==='ring')?'環帽':edges.every(e=>e.topFix!=='ring')?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'橫桿依各段跨數×排數計支，進料管長只供採購參考；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽式頂排不計中間橫通，上橫桿每個管接頭1片連結片。門本體配件另計；只裝網、既有及無橫桿段排除。不同高度、分岔及混用固定方式請覆核。',items};
+ return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(e=>e.topFix==='ring')?'環帽':edges.every(e=>e.topFix!=='ring')?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'橫桿依各段跨數×排數計支，管長只供採購參考；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽式頂排不計中間橫通，上橫桿每個管接頭1片連結片。門本體配件另計；只裝網、既有及無橫桿段排除。不同高度、分岔及混用固定方式請覆核。',items};
 }
 const api={railGroups,accessoryCount,names};if(typeof module==='object'&&module.exports)module.exports=api;else root.sqFenceMaterials=api;
 })(globalThis);
