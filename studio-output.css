@@ -18,3 +18,5 @@
 }
 body.embed .studioQuickShare,body.canvas-expanded .studioQuickShare{display:none}
 @media print{.studioQuickShare{display:none!important}}
+
+.cadShareBar{display:flex;flex:none;flex-wrap:wrap;gap:8px;padding:8px 16px;border-bottom:1px solid #dce5df;background:#fff}.cadShareBar button{flex:1;min-height:44px;font-size:14px}.cadShareBar #cadShareStatus{flex-basis:100%;font-size:12px;line-height:1.4}

@@ -1,5 +1,14 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-05：參照線稿直接分享、儲存PDF（最新需求）
+
+- 使用者澄清要在「參照線稿」分享，再修正文字為「存檔PDF，不是開啟」。cadDialog上方新增常顯「分享線稿圖片／LINE」「儲存PDF」，原SVG／PNG下載及工作室原圖片提案保留。工作室PDF文字亦統一儲存PDF；實際下載檔案，iPhone若出預覽可分享→儲存到檔案，不直接PDF Web Share。
+- refreshCAD產生同份SVG給預覽與lineworkPage，完整等比放到2240×3168 A4白底；依當下路段、正／平面、局部／整段、網線、尺寸／規格選項，沒有混入3D或截掉捲動區外內容。cadOutputVersion處理快速切換舊非同步結果；未ready／失敗停用按鈕，關閉線稿釋放cache。圖片／PDF同一canvas，PDF writer帶實際寬高。
+- 出圖dialog返回「參照線稿」，原CAD仍開啟，路段／選項／zoom不變；工作室原提案仍返回工作室。手機分享列在頂部獨立顯示，原設定區改cadOptions class限制高度，避免nth-child因新列錯位。快取cad-share-1同步studio新js／css、app iframe、index app；confirmation核心與圖面幾何不改。
+- 通過studio-output-test新增線稿等比、來源命名／返回、PDF下載分流、競態隔離／釋放及原分享取消／失敗／相機還原。內建390×844手機實測scrollWidth375，分享鍵44px高且頂部可見；雙開3.20m／高1.65m實際下載PNG及PDF，pdfinfo為1頁A4，Poppler渲染並人工確認與線稿一致。改平面單獨輸出後來源正確、125%返回仍保留；不把內建測試當實體iPhone／LINE驗證。
+- 本機合成證據work/cad-share-mobile.png、cad-share.png、cad-share.pdf、cad-share-render.png均忽略，不放公開repo。已用helper恢復測試前studio設計、viewport重設，勘查表與真實案件未更動。工作區仍為C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，E槽副本不改；每次完成更新交接與AI來源包。
+- 發布狀態：本機實作及驗證完成，待GitHub／Pages／正式檔案雜湊確認後更新。
+
 ## 2026-11-05：工作室一鍵分享圖片與PDF
 
 - 使用者要求工作室也能一鍵分享。新增studio-output.js/.css與客戶出圖dialog；手機看圖模式常顯「分享圖片／LINE」「開啟PDF」，桌機頁首同功能。PNG同步產生後直接叫系統分享，不支援／失敗保留圖片供長按或逐頁下載；取消不自動重送。PDF直接下載／開啟，再由iPhone底部分享選LINE，沒有PDF Web Share；不自動傳送或選收件人。

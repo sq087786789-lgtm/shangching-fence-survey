@@ -1,5 +1,6 @@
 # 接手規則
 每次完成任務都更新HANDOFF.md，記錄改動、檢查結果、實際發布狀態與下一位AI注意事項，並重建AI來源索引。
+參照線稿須可直接分享圖片／儲存PDF，採同一currentCAD SVG的完整內容，不截手機捲動畫面、不混入3D提案。保留原CAD路段／選項／縮放，出圖返回原線稿；非同步轉檔以cadOutputVersion防止舊圖覆蓋最新選項，準備中不可分享。PDF按鈕稱「儲存PDF」且走下載，不直接PDF Web Share；共用pdfFromJpegs須傳實際畫布尺寸。原SVG／PNG下載及工作室出圖保留。
 工作室分享由studio-output共用PNG／PDF頁面，圖片可直接Web Share，PDF仍下載／開啟後iPhone原生分享。captureStudioProposal須在finally還原畫布與相機，不改設計／歷史；空設計不出圖、超量規格分頁，不能只截手機窄畫面或省略末段。保留手機常顯按鈕、返回、非零配件、輸出勾選與不支援分享的儲存方式；不得自動選LINE收件人。confirmation須載於reference-drawing之後。驗證studio-output-test及實際PNG／PDF。
 單／雙開門依現場樣式用一道中橫桿＋直向補強，不再畫門片大斜撐。CAD與3D必須共用reference-drawing.gateFrameMembers，沿用brace鍵及原管形／材質／尺寸；分格僅外觀示意不當裁料數量，推拉門保留原門架／輪組／軌道。修改時執行主測試內的gate-frame-test，核對開門、門高及客戶輸出。雙開中央20mm間隙不應扣到單開門寬。
 大門不顯示最大柱距，門片高度用可編輯數字（0.5～6m），獨立於門柱管長。舊spacing資料保留供切回圍籬，不能因移除UI而增加門中間柱或改舊案尺寸；一般圍籬的網高與柱距控制保留。

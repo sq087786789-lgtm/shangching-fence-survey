@@ -4,6 +4,14 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-05 參照線稿直接分享（最新澄清）
+
+- 使用者補充是在參照線稿畫面出圖，並要求稱「儲存PDF」。cadDialog上方cadShareBar固定保留cadShareImage與cadSavePdf，原SVG／PNG下載照舊；工作室原出圖亦保留，PDF文字統一改儲存。cadOptions以class限制高度，不能再依nth-child(2)，避免新增分享列後手機設定區擠掉圖面。
+- refreshCAD只產生一次currentCAD SVG，預覽與prepareCADShare使用同一字串。studio-output.lineworkPage將完整SVG等比置入2240×3168白底A4頁，不截手機捲動區，不額外加入3D圖或另一份規格。保留目前路段、局部／全貌、正／平面、網線、尺寸、規格勾選；縮放只改預覽，不影響完整輸出。
+- raster非同步預先準備，cadOutputVersion遞增拒絕舊結果；準備中／失敗停用兩個分享鍵，close釋放canvas並取消舊revision。新頁ready後才允許點擊，studioOutputController.openLinework共用PNG／PDF生成、下載與原生圖片分享。PDF必須傳實際canvas尺寸給pdfFromJpegs，不能沿用1120×1584預設造成影像解碼尺寸錯誤。
+- 出圖dialog疊在cadDialog上，返回文字為「返回參照線稿」，不關閉原CAD／改路段或zoom；工作室原提案仍返回工作室。圖片／PDF內容同頁，存檔名含案件名、第N段及參照線稿；iPhone用下載後儲存到檔案，不能改成PDF navigator.share。圖檔／案件不上傳。
+- studio-output-test新增完整圖等比範圍、來源類型／檔名／返回、PDF與PNG分流、快速換設定舊結果隔離及close釋放；原回歸保留。快取cad-share-1同步studio CSS／JS、app iframe與index app。36檔來源包不新增檔數。實際發布見HANDOFF，實體iPhone／LINE未重測。
+
 ## 2026-11-05 工作室直接分享
 
 - studio-output.js/.css負責客戶出圖dialog與1120×1584分頁。桌機image／studioPdf、手機mobileShareImage／mobileStudioPdf共用prepare；圖片按鈕同步capture／編碼，再於同一點擊直接呼叫navigator.share PNG File列表，盡量保留iPhone使用者啟動資格。失敗或不支援保留圖片及下載連結；AbortError只顯示取消，不自動重送。只能由使用者選LINE及收件人。
