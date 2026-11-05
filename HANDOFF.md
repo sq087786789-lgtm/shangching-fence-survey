@@ -9,7 +9,8 @@
 - 線稿預先packSource成PNG／PDF File與ASCII native share檔名，cadSharePacket隨revision清理，點圖片按鈕不再轉檔；busy／revision保護分享回呼。studio-output-test新增真實mixed規格、單位、舊開關、現場事項、無footer、預編碼／ASCII名、電腦複製成功及被拒絕改下載等驗證。
 - 內建瀏覽器1280×900實測**工作室主鍵與線稿主鍵都回報複製成功**，包含多頁逐頁提示。合成10m圍籬／3.20m雙開門，實際儲存PNG及兩份PDF；pdfinfo各1頁A4，Poppler渲染人工確認：菱形網高1.8m與門高1.65m各自正確、管長3m、每欄分列、無底部制式備註。390×844版面scrollWidth390，按鈕可用。未操作LINE聊天室／未傳訊，實體LINE貼上及手機原生分享尚待使用者驗證，不能宣稱已成功送達客戶。
 - 忽略目錄證據work/spec-clear-fence.png、spec-clear-fence.pdf、spec-clear-gate.pdf、spec-clear-fence-render.png、spec-clear-gate-render.png、desktop-line-copy.png、linework-desktop-copy.png、spec-clear-mobile.png皆合成資料。已恢復測試前studio設計及viewport；原剪貼簿為空，測試後以空文字復原。勘查表／正式案件／私有Drive未改。工作區仍是C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，舊E槽不改。
-- 發布狀態：本機實作與驗證完成，待完整檢查／GitHub／Pages／正式雜湊確認後更新。快取spec-clear-1，36檔AI來源包須同步重建。
+- **已上線：** 功能提交 `88b5cc1f87fb4a51be91e34d456fc3c1614d070c` 正常快轉推送main，Pages執行 `41957690415` completed/success。正式index.html、app.js、studio.html、reference-drawing.js、studio-output.js、confirmation.js、fence-materials.js皆HTTP200，原始SHA-256與測試提交一致。完整node test.cjs、drive-test.cjs、所有改動JS語法與靜態DOM綁定通過，36檔AI包與Git blob雜湊一致。
+- 正式內建瀏覽器已確認21個獨立規格欄、沒有菱形網／門高合稱、cadError空白；線稿圖片／PDF ready、儲存圖片控制存在，新script為spec-clear-1。正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=spec-clear-1`，正式分頁保留，本機伺服器已停止。沒有在正式頁複製／傳送真實案件；LINE貼上與送出仍由使用者操作，不能把瀏覽器複製成功當成送達。
 
 ## 2026-11-05：參照線稿直接分享、儲存PDF（最新需求）
 
