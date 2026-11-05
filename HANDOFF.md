@@ -9,6 +9,7 @@
 - 實際UI完成預設／其他切換、114.5自訂柱徑、厚度回1.8收起、4m淨開口持續保持、兩則備註更新無重複、油漆→無→烤漆保留色號、重載與帶入studio參數一致。390px iframe檢查innerWidth390／scrollWidth375，沒有橫向溢出，截圖work/gate-mobile-fields.png；不是實體iPhone測試。
 - 工作室實際PDF下載成功，work/gate-finish.pdf為2頁A4；Poppler渲染gate-finish-1.png／gate-finish-2.png已人工確認綠門／銀色圍籬、4m、分開的材料卡及工法備註無重疊。work/gate-clean-output-browser.png為出圖視窗。第一次自動化點到桌機隱藏按鈕造成等待失敗，改可見#studioOutputPdf後下載成功，不能誤記為網站輸出失效。
 - 8084測試已透過fixture恢復測試前sq-*資料，未改正式來源或原有案件。work目錄證據不公開；不需要把合成PDF放GitHub。最新快取gate-simple-1、37檔AI來源包；實際發布結果待下方完成紀錄。
+- 功能提交071a4ac4d41e0bf48888e194b8fb8bfccfad7a9e已正常推送main。Pages執行42096669356初次build/report成功，deploy持續updating_pages，600000ms逾時並由action取消。GitHub connector重跑回403 Resource not accessible by integration，已改用登入的GitHub網頁Re-run failed jobs，UI確認Latest #2及Queued。沒有放寬任何權限，沒有force push。後續發布狀態如下；不能把初次建置成功當已上線。
 
 
 
