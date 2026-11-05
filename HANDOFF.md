@@ -1,5 +1,15 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-05：同一雲端案件反覆更新、參考圖樣式資訊卡（最新）
+
+- 使用者明確要Google雲端同案修改可覆蓋；後補截圖要求資訊像淺色橘框卡片，較好辨識。本次同時完成兩項。工作區C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；舊E槽不動。
+- drive.js現在首次建姓名｜地點｜台灣建立時間｜案名根資料夾，之後按「儲存變更／更新原案」沿用同根。案內每次完整新資料版，成功才切sqCurrent，sqPrevious可回復；新增「另存新案」「載入上一版備份」。無刪除／搬移／覆寫既有備份。舊直接放根的JSON以legacy處理，首次更新仍可取回原版。根名稱不隨後續編輯姓名地址改名。
+- app.fresh/migrate/validate加入caseId與cloudCase來源連結，匯出完整JSON保留，載入／新案重畫Drive狀態。saved回呼以開始存檔的caseId檢查，切案後不誤綁，localStorage寫入失敗提示下次從雲端載入。Drive檢查parent/caseId/canEdit/canAddChildren與過期revision，上傳完重查，有ETag附If-Match；不宣稱有完整多人原子鎖或編輯合併。提交回應不明確時必須載回確認，不保證當次未更新。
+- 真實index UI在隔離8082 mock API測試：初存1案1版→修改再存1案2版→上一版／最新版備註正確→另存2案3版→重整載入連結再存2案4版。390×844無溢出。模擬multipart保留真照片位元組，測試另覆蓋部分失敗不切指標、照片移除隔離、舊格式、過期／錯資料夾、ETag412、分頁等。**本次沒有實際Google登入及雲端案件寫入；新版同案更新仍待帳號實測，不得宣稱已覆寫私人案。** OAuth仍drive.file、token只記憶體、config不改。
+- 參照線稿與3D工作室提案共用reference-drawing.specGroups：菱形網／立柱／橫桿／工法，門片／門柱／門框／工法獨立；米底橘框，標籤灰、值粗深藍，高度紅，土面上與入土橘，線稿藍圖例。管長、間距簡稱，土面上按實際管長−有效埋深（底板0）推導。隱藏depth不能洩漏postAbove；不改幾何、報價或材料量。未知舊欄保留在工法。studio capture只把配件／現場事項放rows，規格改cardSections避免重複，超量兩欄自動續頁。
+- 實際下載3份PDF：10m圍籬線稿1頁、3.20m／高1.65m雙開門線稿1頁、混合3D提案2頁。Poppler渲染人工檢查卡片／完整末段／分離門資料，沒有重疊或裁字。合成證據work/cards-fence.pdf/png、cards-gate.pdf/png、cards-proposal.pdf及cards-proposal-1/2.png、cards-preview-browser.png、cloud-update-mobile.png均忽略不公開。已恢復8082測試前表單／studio與viewport，未動8080使用者案件或正式私人資料；沒有本次剪貼簿／LINE傳訊測試。既有圖片複製與PDF下載路徑維持。
+- 快取case-cards-1用於app、iframe、drive、reference、studio-output；36檔AI包同步重建且config API key保持空白模板。README及AGENTS已改同案更新規則，舊每次新增頂層資料夾說明已修正。node test.cjs、drive-test.cjs、4支改動JS語法及靜態DOM綁定均通過；卡片測試另涵蓋depth隱藏、底板0、既有柱及多段續頁不遺失末段。GitHub Pages狀態待本次發布後補記，不可先稱已上線。
+
 ## 2026-11-05：規格一項一列、電腦LINE圖片複製（最新）
 
 - 使用者要求輸出資訊分開，圍籬寫菱形網高1.8m，不要合稱門高；門資訊獨立，進料管長改管長，最底部備註移除。另確認「分享圖片／LINE」失敗是電腦版，工作室及參照線稿兩邊都要修，並非只問手機。

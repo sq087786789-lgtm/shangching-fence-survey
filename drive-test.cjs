@@ -1,28 +1,39 @@
 'use strict';
 const assert=require('node:assert/strict'),{createStore,caseFolderName}=require('./drive.js');
-assert.equal(caseFolderName({client:'王先生',address:'內埔鄉／農地',name:'東側圍籬'},new Date('2026-10-24T03:04:05Z')),'王先生｜內埔鄉／農地｜2026-10-24_11-04-05｜東側圍籬');
-assert.match(caseFolderName({},new Date('2026-10-24T16:00:00Z')),/未填姓名｜未填地點｜2026-10-25_00-00-00｜未命名案件/);
-(async()=>{
- const calls=[],uploads=[];let n=0,fail='',token='test-token';
- const fetch=async(url,options)=>{
-  calls.push({url,options});assert.equal(options.headers.Authorization,'Bearer test-token');
-  if(fail&&url.includes(fail))return {ok:false,status:503};
-  if(url.includes('uploadType=multipart')){assert.match(options.headers['Content-Type'],/^multipart\/related/);const raw=await options.body.text(),boundary=options.headers['Content-Type'].split('boundary=')[1],parts=raw.split('--'+boundary);uploads.push({metadata:JSON.parse(parts[1].split('\r\n\r\n')[1].trim()),file:new Blob([parts[2].slice(parts[2].indexOf('\r\n\r\n')+4,-2)])});return {ok:true,json:async()=>({id:'file'+(++n)})}}
-  if(options.method==='POST')return {ok:true,json:async()=>({id:'folder'+(++n),name:JSON.parse(options.body).name})};
-  if(options.method==='PATCH')return {ok:true,json:async()=>({})};
-  if(url.includes('alt=media'))return {ok:true,text:async()=>JSON.stringify({format:'sq-field-survey',photos:[{caption:'測試照片'}]})};
-  return {ok:true,json:async()=>({files:[{id:'test-file',name:'完整勘查資料.json',size:'99'}],nextPageToken:'page2'})};
- };
- const store=createStore({fetch,getToken:()=>token});
- const snapshot={project:{name:'合成測試案件'},design:{edges:[{length:150,note:'內部備註',excavator:'需要怪手'}]},photos:[{id:'test-photo',caption:'測試照片',dataUrl:'data:image/jpeg;base64,/9j/'}]};
- const saved=await store.save(snapshot,'root-test');assert.ok(saved.id);assert.match(saved.name,/未填姓名｜未填地點｜.*｜合成測試案件/);
- assert.deepEqual(uploads.map(x=>x.metadata.name),['完整勘查資料.json','3D設計參數.json','01-test-photo.jpg','照片說明.json']);
- const restored=JSON.parse(await uploads[0].file.text());assert.equal(restored.photos[0].dataUrl,snapshot.photos[0].dataUrl);
- const design=JSON.parse(await uploads[1].file.text());assert.equal(design.edges[0].length,150);assert.equal(design.edges[0].note,undefined);assert.equal(design.edges[0].excavator,undefined);assert.equal(snapshot.design.edges[0].note,'內部備註');
- assert.equal(calls.at(-1).options.method,'PATCH');assert.equal(JSON.parse(calls.at(-1).options.body).appProperties.sqComplete,'yes');
- const before=calls.length;fail='uploadType';await assert.rejects(store.save(snapshot,'root-test'),/未完成/);assert.equal(calls.slice(before).some(x=>x.options.method==='PATCH'),false);fail='';
- await store.list('root-test','next-page');const query=new URL(calls.at(-1).url).searchParams;assert.match(query.get('q'),/sqComplete/);assert.match(query.get('q'),/root-test/);assert.equal(query.get('pageToken'),'next-page');
- assert.equal((await store.load('folder-test')).photos[0].caption,'測試照片');
- token='';await assert.rejects(store.list('root-test'),/登入/);await assert.rejects(store.list("bad' injection"),/識別碼/);
- console.log('PASS Drive: complete backup + 3D + separate photos; immutable versions; interrupted uploads excluded; pagination; load; expired login and invalid identifiers');
-})().catch(error=>{console.error(error);process.exitCode=1});
+function createDriveMock(){
+ let counter=0;const files=new Map(),requests=[],uploads=[];const mock={files,requests,uploads,fail:'',beforePatch:null};
+ function add(file){const f={id:'mock'+(++counter),name:'',mimeType:'application/json',parents:[],appProperties:{},trashed:false,capabilities:{canEdit:true,canAddChildren:true},version:1,modifiedTime:new Date().toISOString(),...file};files.set(f.id,f);return f;}
+ add({id:'root-test',name:'合成雲端根目錄',mimeType:'application/vnd.google-apps.folder'});mock.add=add;
+ const clean=f=>{const {body,...metadata}=f;return {...metadata,size:body?String(body.size):'0'};},reply=(data,status=200,headers={})=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json',...headers}});
+ const find=(bytes,needle,start=0)=>{for(let i=start;i<=bytes.length-needle.length;i++){let same=true;for(let j=0;j<needle.length;j++)if(bytes[i+j]!==needle[j]){same=false;break;}if(same)return i;}return -1;};
+ mock.fetch=async(url,options={})=>{
+  requests.push({url,options});if(mock.fail&&url.includes(mock.fail))return reply({},503);const u=new URL(url),method=options.method||'GET',match=u.pathname.match(/\/drive\/v3\/files\/([^/]+)$/),fileId=match?.[1];
+  if(u.searchParams.get('uploadType')==='multipart'){
+   const boundary=options.headers['Content-Type'].split('boundary=')[1],bytes=new Uint8Array(await options.body.arrayBuffer()),enc=new TextEncoder(),sep=enc.encode('\r\n\r\n'),first=find(bytes,sep)+4,divider=find(bytes,enc.encode('\r\n--'+boundary),first),info=JSON.parse(new TextDecoder().decode(bytes.slice(first,divider))),begin=find(bytes,sep,divider)+4,end=bytes.length-enc.encode('\r\n--'+boundary+'--').length,body=new Blob([bytes.slice(begin,end)]),file=add({...info,body});uploads.push(file);return reply(clean(file));
+  }
+  if(method==='POST'&&!fileId)return reply(clean(add(JSON.parse(options.body))));
+  if(fileId){const file=files.get(fileId);if(!file)return reply({},404);if(method==='PATCH'){if(mock.beforePatch)await mock.beforePatch(file,options);const tag=options.headers?.['If-Match'];if(tag&&tag!==('"mock-'+file.version+'"'))return reply({},412);const body=JSON.parse(options.body);if(body.appProperties){for(const [key,value]of Object.entries(body.appProperties)){if(value===null)delete file.appProperties[key];else file.appProperties[key]=value;}delete body.appProperties;}Object.assign(file,body);file.version++;return reply(clean(file));}
+   if(u.searchParams.get('alt')==='media')return new Response(file.body||'{}');return reply(clean(file),200,{ETag:'"mock-'+file.version+'"'});
+  }
+  const q=u.searchParams.get('q')||'',parent=q.match(/'([^']+)' in parents/)?.[1],name=q.match(/name = '([^']+)'/)?.[1],mime=q.match(/mimeType = '([^']+)'/)?.[1],props=[...q.matchAll(/key\s*=\s*'([^']+)'\s+and\s+value\s*=\s*'([^']+)'/g)];
+  let found=[...files.values()].filter(f=>!f.trashed&&(!parent||f.parents.includes(parent))&&(!name||f.name===name)&&(!mime||f.mimeType===mime)&&props.every(p=>f.appProperties[p[1]]===p[2])).sort((a,b)=>b.modifiedTime.localeCompare(a.modifiedTime));const offset=Number(u.searchParams.get('pageToken')||0),size=Number(u.searchParams.get('pageSize')||100),next=offset+size<found.length?String(offset+size):undefined;return reply({files:found.slice(offset,offset+size).map(clean),...(next?{nextPageToken:next}:{})});
+ };return mock;
+}
+async function run(){
+ assert.equal(caseFolderName({client:'王先生',address:'內埔鄉／農地',name:'東側圍籬'},new Date('2026-10-24T03:04:05Z')),'王先生｜內埔鄉／農地｜2026-10-24_11-04-05｜東側圍籬');
+ const mock=createDriveMock();let token='test-token';const store=createStore({fetch:mock.fetch,getToken:()=>token}),snapshot={caseId:'case-test',format:'sq-field-survey',project:{name:'合成測試案件'},design:{edges:[{length:150,note:'內部備註',excavator:'需要怪手'}]},photos:[{id:'test-photo',caption:'測試照片',dataUrl:'data:image/jpeg;base64,/9j/'}]};
+ const first=await store.save(snapshot,'root-test');assert.ok(first.id);assert.match(first.name,/未填姓名｜未填地點｜.*｜合成測試案件/);assert.equal(first.updated,false);assert.equal((await store.list('root-test')).files.length,1);assert.deepEqual(mock.uploads.map(f=>f.name),['完整勘查資料.json','3D設計參數.json','01-test-photo.jpg','照片說明.json']);const design=JSON.parse(await mock.uploads[1].body.text());assert.equal(design.edges[0].note,undefined);assert.equal(snapshot.design.edges[0].note,'內部備註');assert.deepEqual([...new Uint8Array(await mock.uploads[2].body.arrayBuffer())],[255,216,255]);
+ const loaded=await store.load(first.id);assert.equal(loaded.photos[0].dataUrl,snapshot.photos[0].dataUrl);assert.equal(loaded.cloudCase.revisionId,first.currentFolderId);
+ loaded.project.name='修改多次';loaded.design.edges[0].length=168;const second=await store.save(loaded,'root-test');assert.equal(second.id,first.id);assert.notEqual(second.currentFolderId,first.currentFolderId);assert.equal(second.updated,true);assert.equal((await store.list('root-test')).files.length,1);assert.equal((await store.load(first.id)).design.edges[0].length,168);assert.equal((await store.loadPrevious(first.id)).design.edges[0].length,150);assert.equal((await store.loadPrevious(first.id)).cloudCase.revisionId,second.currentFolderId);
+ const writes=mock.requests.filter(r=>r.options.method==='POST').length;await assert.rejects(store.save(loaded,'root-test'),/較新/);assert.equal(mock.requests.filter(r=>r.options.method==='POST').length,writes);
+ const current=await store.load(first.id);current.photos=[];const third=await store.save(current,'root-test');assert.equal((await store.load(first.id)).photos.length,0);assert.equal((await store.loadPrevious(first.id)).photos.length,1);assert.equal((await store.list('root-test')).files.length,1);assert.ok(mock.files.get(third.id).appProperties.sqPrevious);
+ const stable=await store.load(first.id),oldPointer=stable.cloudCase.revisionId;mock.fail='uploadType';await assert.rejects(store.save(stable,'root-test'),/尚未確認/);mock.fail='';assert.equal(mock.files.get(first.id).appProperties.sqCurrent,oldPointer);assert.equal((await store.load(first.id)).cloudCase.revisionId,oldPointer);
+ const another=await store.save(stable,'root-test',()=>{},{asNew:true});assert.notEqual(another.id,first.id);assert.notEqual(another.caseId,stable.caseId);assert.equal((await store.list('root-test')).files.length,2);
+ await assert.rejects(store.save(snapshot,'root-test'),/已有這個案件/);await assert.rejects(store.save(stable,'another-root'),/另一個/);
+ const legacy=mock.add({name:'舊版案件',mimeType:'application/vnd.google-apps.folder',parents:['root-test'],appProperties:{sqKind:'survey-case',sqComplete:'yes'}});mock.add({name:'完整勘查資料.json',parents:[legacy.id],body:new Blob([JSON.stringify({...snapshot,caseId:undefined})])});const old=await store.load(legacy.id);assert.equal(old.cloudCase.revisionId,'legacy');old.project.name='舊案繼續修改';const migrated=await store.save(old,'root-test');assert.equal(migrated.id,legacy.id);assert.equal((await store.loadPrevious(legacy.id)).project.name,'合成測試案件');
+ const conflict=await store.load(first.id);mock.beforePatch=file=>{if(file.id===first.id){file.version++;mock.beforePatch=null;}};await assert.rejects(store.save(conflict,'root-test'),/較新/);assert.equal(mock.files.get(first.id).appProperties.sqCurrent,conflict.cloudCase.revisionId);mock.beforePatch=null;
+ const invalid={...snapshot,photos:[{id:'bad',dataUrl:'bad'}]},start=mock.requests.length;await assert.rejects(store.save(invalid,'root-test'),/照片/);assert.equal(mock.requests.length,start);token='';await assert.rejects(store.list('root-test'),/登入/);await assert.rejects(store.list("bad' injection"),/識別碼/);
+ const list=await (await mock.fetch('https://www.googleapis.com/drive/v3/files?'+new URLSearchParams({q:"'root-test' in parents",pageSize:'1'}))).json();assert.ok(list.nextPageToken);const next=await (await mock.fetch('https://www.googleapis.com/drive/v3/files?'+new URLSearchParams({q:"'root-test' in parents",pageSize:'1',pageToken:list.nextPageToken}))).json();assert.notEqual(next.files[0].id,list.files[0].id);
+ console.log('PASS Drive: one stable case folder, staged complete revisions, snapshot/photos/3D, repeated update/load/previous, removed-photo isolation, stale/ETag conflict guards, interrupted upload preservation, Save As, legacy migration, pagination and invalid/expired login');
+}
+module.exports={createDriveMock,run};if(require.main===module)run().catch(error=>{console.error(error);process.exitCode=1;});

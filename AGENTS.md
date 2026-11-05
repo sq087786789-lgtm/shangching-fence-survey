@@ -1,5 +1,6 @@
 # 接手規則
 每次完成任務都更新HANDOFF.md，記錄改動、檢查結果、實際發布狀態與下一位AI注意事項，並重建AI來源索引。
+工作室及CAD資訊採共用specGroups分組卡（菱形網／立柱／橫桿／工法，大門分開），項目數值逐列，高度及入土色彩突出；共享outputFields不能洩漏隱藏值。土面上由實際管長減有效埋深推導，不改案件數量／價格。保留使用者事項與多頁完整輸出。
 輸出規格一項一列，圍籬用菱形網高、門高單獨門資料，不能再合稱菱形網／門高。gateHeight只是輸出欄，JSON edge.height不改，舊height輸出開關要兼容；管長不寫進料。移除制式底部備註，但不得刪使用者現場事項或改數量／價格。電腦版工作室與線稿「分享圖片／LINE」須複製PNG→LINE Ctrl＋V，不使用手機Web Share作為電腦唯一路徑；拒絕或不支援時下載，保留逐頁複製／儲存。手機保留原生分享與儲存替代方案。線稿分享File在ready前準備，不在點擊時重編碼；不可自動選收件人或傳送。
 參照線稿須可直接分享圖片／儲存PDF，採同一currentCAD SVG的完整內容，不截手機捲動畫面、不混入3D提案。保留原CAD路段／選項／縮放，出圖返回原線稿；非同步轉檔以cadOutputVersion防止舊圖覆蓋最新選項，準備中不可分享。PDF按鈕稱「儲存PDF」且走下載，不直接PDF Web Share；共用pdfFromJpegs須傳實際畫布尺寸。原SVG／PNG下載及工作室出圖保留。
 工作室分享由studio-output共用PNG／PDF頁面，圖片可直接Web Share，PDF仍下載／開啟後iPhone原生分享。captureStudioProposal須在finally還原畫布與相機，不改設計／歷史；空設計不出圖、超量規格分頁，不能只截手機窄畫面或省略末段。保留手機常顯按鈕、返回、非零配件、輸出勾選與不支援分享的儲存方式；不得自動選LINE收件人。confirmation須載於reference-drawing之後。驗證studio-output-test及實際PNG／PDF。
@@ -30,7 +31,7 @@
 
 - 新圍籬立柱外徑預設48.6mm，後續新增沿用第一段；門柱維持獨立規格（新門預設至少89.1mm）。已儲存／匯入案件保留原柱徑，不自動改寫。
 
-- Google Drive 僅用 drive.file，OAuth token只留記憶體；每次儲存新增版本，成功後才標記完成。禁止把 client secret 或實際案件寫入公開原始碼。變更雲端功能須執行 drive-test.cjs，實際連線另行覆核。
+- Google Drive 僅用 drive.file，OAuth token只留記憶體；同案沿用案件根，案內先寫新revision，全部成功才更新sqCurrent／sqPrevious；另存新案才新根。舊legacy及完整備份保留，禁止先刪舊檔再上傳。過期revision拒絕覆寫、可用ETag時附If-Match，不宣稱多人合併鎖。禁止把 client secret 或實際案件寫入公開原始碼。變更雲端功能須執行 drive-test.cjs，實際連線另行覆核。
 
 - 確認單依最新需求直接帶入現場／路段備註；輸出不含勘場照片及照片備註，不要求重填；客戶版只排除價格。相同規格加總、不同規格分列。PNG／PDF須使用同份model；不得自動發LINE，分享由使用者在系統面板決定。
 

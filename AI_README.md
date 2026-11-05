@@ -4,6 +4,16 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-05 同案更新與共用資訊卡（最新）
+
+- app.fresh/migrate補caseId，cloudCase={parentId,folderId,revisionId}記錄雲端來源。完整JSON會保存此連結，resetScene通知Drive重畫狀態；saved回呼只在當前caseId等於開始存檔的來源caseId時綁定，避免非同步儲存誤綁另一案。Save As生成新caseId，原案保留。舊JSON無ID仍可載入。
+- Drive根案件維持sqKind=survey-case，sqCurrent/sqPrevious指向案內資料版本；首次完成才sqComplete=yes。新版子資料夾sqKind=survey-revision、sqOwner=案件ID，完整JSON／去內部備註3D JSON／照片及說明全部上傳完再完成子版，最後切根指標。備份不刪除；根名稱保留首次姓名地點時間，不因每次儲存新增頂層案件。legacy表示舊版資料直接在案根；loadPrevious將來源資料附上當前revision，允許取回後重新儲存同案。
+- 只用drive.file，權杖記憶體；目錄、caseId、權限與revision先驗證，完稿前再查revision，有HTTP ETag才附If-Match。這是過期編輯防護，不是完整多人原子鎖；未實作跨裝置合併。無連結但同caseId已存在時拒絕盲寫。上傳／提交回應不明確時要求重新載入確認，不宣稱雲端一定未更新。
+- createDriveMock模擬真實multipart位元組／appProperties合併／分頁／ETag；drive-test涵蓋更新同根、上一版、刪除照片隔離、失敗、舊格式、Save As、錯誤parent及過期revision。本機8082以mock接入真實index UI完成首次保存→修改→同案保存→載入上一版與最新版→另存新案→重整再更新。**沒有實際Google登入或私人Drive寫入，不得將模擬測試當雲端實證。**
+- reference-drawing.specGroups是CAD SVG與studio Canvas共同分組入口，複製displayRows不改原資料。橘框米底、灰標籤深藍值，高度紅、土面上／入土橘；大門分開門片／門柱／門框。管長、間距統一簡稱；有效埋深依底板0計算，depth隱藏時不能推導顯示postAbove。舊未知欄保留在工法，不遺失。CAD藍色圖例會區分既有柱／地面／地下段。
+- captureStudioProposal帶cardSections，rows只保留配件及手填事項，避免規格重複。renderPages按兩欄卡列分頁、跨頁重複段標題，原rows-only呼叫相容；圖面最大高520px保持比例。Clipboard／原生手機圖片分享、PDF儲存路徑與返回保持既有功能。確認單仍用原彙總版型；本次主要修改工作室／參照線稿資訊。
+- 實際下載圍籬線稿PDF1頁、雙開門線稿PDF1頁與3D提案PDF2頁，Poppler渲染人工確認無重疊／裁字，大門獨立頁。測試前8082資料已還原，viewport重設；8080與正式私人案件未改。本地證據work/cards-*.pdf／png與cloud-update-mobile.png不入公開repo。快取case-cards-1，36檔AI包不新增生產檔案。
+
 ## 2026-11-05 規格分列與電腦圖片複製（最新）
 
 - specColumns將height稱菱形網高(m)，新增只供輸出的gateHeight／門高(m)；specRows依構件只填其中一欄，edge.height及JSON格式不改。gateHeight未明確設定outputFields時沿用舊height開關，兼容舊案。customerReport另回displayRows，displaySpec將單位移到數值旁，長度去無意義尾零，門框與橫桿名稱依構件分開；原columns／rows仍供CSV，沒有修改數量或價格。
@@ -142,7 +152,7 @@ openStudio 按鈕先 validate 表單及埋深，將 design() 去除段落內部�
 ## Drive 整合接手
 - drive.js：GIS token client + Google Picker + Drive REST v3；createStore 可在 Node 用模擬 fetch 測試。drive-config.js 僅公開瀏覽器設定；任何 client secret／token 禁止寫入來源及 AI manifest。
 - app.js fullSnapshot() 在 await 前複製表單並計算衍生資料，再透過 photoLibrary.expand 嵌入照片；restoreSnapshot() 先移轉並驗證、原子寫入照片，backupAndReplace 成功備份目前案才換案。JSON 匯入與雲端載入共用此路徑。
-- 只按儲存時上傳。每次新資料夾 appProperties={sqKind:survey-case,sqComplete:no}；完整JSON、去除內部段備註的3D設計JSON、影像子資料夾及照片說明全部成功後才 PATCH sqComplete=yes。載入清單只查成功版本，支援下一頁。中斷不刪檔、不覆寫舊案，可手動整理殘留未完成資料夾。
+- 只按儲存時上傳。2026-11-05起使用同一案件根資料夾＋案內staged revisions；全部成功才更新sqCurrent及sqPrevious，清單只查已完成案件，支援下一頁。中斷不刪舊版本。詳見本文最新同案更新章節。
 - 權杖只在記憶體，Google操作只用 https://www.googleapis.com 的固定路徑與 Bearer header，雲端ID限制字元避免路徑／查詢注入。照片及JSON延用20張/15MB限制，載入後由表單validate覆核，雲端衍生小計不可信。
 - 根資料夾不硬編碼：使用者以相同帳號從Picker選取，才授予該網站drive.file的存取權。聊天插件的Drive連線不能代替網站授權。只顯示網站建立且完成的案件，不任意掃描整顆Drive。
 - 檢查：node --check drive.js、node test.cjs、node drive-test.cjs、node build-handoff.cjs。模擬測試不是Google實際連線證明，發布後仍需實際登入、選資料夾、儲存含照片合成案並載入覆核。
@@ -167,7 +177,7 @@ confirmation.js model為HTML與Canvas圖片共用資料來源；不把原始案�
 立柱、橫桿分別選外徑及厚度；常用48.6／60.5mm，支援其他自訂。厚度按業主用語標示1.4mm亞管、1.8mm鍍鋅管，其他厚度亦可填。新段沿用第一段；無橫桿不列材料。JSON、雲端、3D與確認單保留規格。舊案新增欄位保留待確認，不將工具幾何預設視為實際材料；管種名稱依厚度快捷標籤，不代表材料認證。
 
 ## 手機勘場與公司接續（2026-10-24）
-每次雲端存檔建立姓名｜地點｜台灣儲存時間｜案件名資料夾，完整JSON含參數及照片，另有3D JSON及照片子資料夾；保留歷次版本，不覆寫舊案。缺姓名／地點會明確標未填。公司電腦登入相同Google帳號、選相同根資料夾，可搜尋已載入案件的姓名地點日期，較舊版本用載入更多；舊命名仍可載入。手機客戶簡版使用全案路線簡圖，合併材料工法與地形，保留全部交代事項，優先一頁；超量自動續頁以維持可讀。公司完整版保留詳細線稿和報價。照片備份保留，不放客戶PDF。iPhone原生分享及本次命名雲端實際連線另行覆核。
+首次雲端存檔建立姓名｜地點｜台灣建立時間｜案件名資料夾；後續更新同一案件，完整JSON含參數及照片，另有3D JSON及照片子資料夾，歷次資料版本保留案內。另存新案才新增案件根。缺姓名／地點會明確標未填。公司電腦登入相同Google帳號、選相同根資料夾，可搜尋已載入案件的姓名地點日期，較舊版本用載入更多；舊命名仍可載入。手機客戶簡版使用全案路線簡圖，合併材料工法與地形，保留全部交代事項，優先一頁；超量自動續頁以維持可讀。公司完整版保留詳細線稿和報價。照片備份保留，不放客戶PDF。iPhone原生分享及本次命名雲端實際連線另行覆核。
 
 ## 客戶輸出返回鍵（2026-10-24）
 confirmDialog使用flex固定頂部與底部返回列，只有confirmBody滾動；預覽iframe與展開圖片皆不遮住返回。三個返回鍵共用returnToSurvey：關閉對話框、取消待完成的渲染、釋放輸出暫存並回焦點，案件資料與照片保持原值。Escape保留可用。
