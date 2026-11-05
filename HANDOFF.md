@@ -8,7 +8,8 @@
 - 真實index UI在隔離8082 mock API測試：初存1案1版→修改再存1案2版→上一版／最新版備註正確→另存2案3版→重整載入連結再存2案4版。390×844無溢出。模擬multipart保留真照片位元組，測試另覆蓋部分失敗不切指標、照片移除隔離、舊格式、過期／錯資料夾、ETag412、分頁等。**本次沒有實際Google登入及雲端案件寫入；新版同案更新仍待帳號實測，不得宣稱已覆寫私人案。** OAuth仍drive.file、token只記憶體、config不改。
 - 參照線稿與3D工作室提案共用reference-drawing.specGroups：菱形網／立柱／橫桿／工法，門片／門柱／門框／工法獨立；米底橘框，標籤灰、值粗深藍，高度紅，土面上與入土橘，線稿藍圖例。管長、間距簡稱，土面上按實際管長−有效埋深（底板0）推導。隱藏depth不能洩漏postAbove；不改幾何、報價或材料量。未知舊欄保留在工法。studio capture只把配件／現場事項放rows，規格改cardSections避免重複，超量兩欄自動續頁。
 - 實際下載3份PDF：10m圍籬線稿1頁、3.20m／高1.65m雙開門線稿1頁、混合3D提案2頁。Poppler渲染人工檢查卡片／完整末段／分離門資料，沒有重疊或裁字。合成證據work/cards-fence.pdf/png、cards-gate.pdf/png、cards-proposal.pdf及cards-proposal-1/2.png、cards-preview-browser.png、cloud-update-mobile.png均忽略不公開。已恢復8082測試前表單／studio與viewport，未動8080使用者案件或正式私人資料；沒有本次剪貼簿／LINE傳訊測試。既有圖片複製與PDF下載路徑維持。
-- 快取case-cards-1用於app、iframe、drive、reference、studio-output；36檔AI包同步重建且config API key保持空白模板。README及AGENTS已改同案更新規則，舊每次新增頂層資料夾說明已修正。node test.cjs、drive-test.cjs、4支改動JS語法及靜態DOM綁定均通過；卡片測試另涵蓋depth隱藏、底板0、既有柱及多段續頁不遺失末段。GitHub Pages狀態待本次發布後補記，不可先稱已上線。
+- 快取case-cards-1用於app、iframe、drive、reference、studio-output；36檔AI包同步重建且config API key保持空白模板。README及AGENTS已改同案更新規則，舊每次新增頂層資料夾說明已修正。node test.cjs、drive-test.cjs、4支改動JS語法及靜態DOM綁定均通過；卡片測試另涵蓋depth隱藏、底板0、既有柱及多段續頁不遺失末段。GitHub Pages實際結果記於下列發布紀錄。
+- **已上線：** 功能提交0314e0f98f025dc0c65499f12afba4a2a7ca9afe正常快轉推送main，Pages執行41981580318 completed/success。正式index.html、app.js、drive.js、studio.html、reference-drawing.js、studio-output.js皆HTTP200且SHA-256與本次測試提交一致。正式瀏覽器已讀到「另存新案」「載入上一版備份」，線稿4群組、管長簡稱、cadError空白且PDF ready。沒有登入Google或修改正式案件。390px本機線稿scrollWidth375、分享與返回可見，證據work/cards-mobile.png；正式截圖work/cards-live.png。測試伺服器8080／8082均已停止、viewport已還原。正式工作室分頁保留：https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=case-cards-1 。下一步如需驗證真實雲端同案更新，請用使用者同意的測試案，重複存後檢查同根及上一版，不要直接拿真客戶資料測試。
 
 ## 2026-11-05：規格一項一列、電腦LINE圖片複製（最新）
 
