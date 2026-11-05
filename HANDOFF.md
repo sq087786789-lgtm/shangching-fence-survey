@@ -9,6 +9,7 @@
 - 本機測試前studio設計已透過「取回帶入前的3D設計」恢復，勘查表已透過本機測試helper還原，viewport已重設。未測實體iPhone／LINE／私人Drive授權，功能未改。只使用本Documents/Codex checkout，E槽副本及原資料不變。
 - **已上線：** 功能提交 `c7c8b720a50900cb2e813e7a3b55d9e12cc1e4a6` 正常快轉推送main，Pages執行 `41949120218` completed/success。正式index.html、app.js、studio.html及reference-drawing.js皆HTTP200，原始SHA-256與已測試提交一致。正式內建瀏覽器已確認app及reference載入gate-grid-1；沒有變更正式案件。
 - 正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=gate-grid-1`。README、AI_README、AGENTS及33檔AI來源包同步；接續先核對GitHub HEAD與本節，保留單／雙開共享格柵與推拉門分支。此次本機伺服器已停止，正式分頁保留；實機及雲端未重測的範圍如上。
+- 來源包注意：本checkout設core.autocrlf=false，保留既有混合行尾；Windows全域autocrlf=true曾在切回main時轉換新檔／共用圖檔工作副本，已還原為Git原始位元組並重建索引，33檔雜湊與提交一致。以後建包前核對工作檔與Git blob，不把行尾轉換當功能修改。
 
 ## 2026-11-04：大門移除柱距欄、門片高度自由輸入
 
