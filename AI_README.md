@@ -4,6 +4,14 @@
 
 接續前先讀 [HANDOFF.md](HANDOFF.md)，核對本機與正式部署狀態、正確工作室網址及待驗證事項。
 
+## 2026-11-05 實物格柵門片
+
+- reference-drawing.js的createFenceReference回傳gateFrameMembers(width,e)，提供門片局部座標的一道middle及多支vertical；CAD與studio.panel共用，不能各自維護另一套斜撐。單／雙開且brace=true才有格柵；brace=false保留外框與網，sliding沿用原圖形及五金。UI改稱「門片補強」，資料鍵／格式不變。
+- 直向分格ceil((門片寬−1e-8)/0.6)，至少1、最多40跨，處理浮點邊界與超大門寬性能；中橫桿在0.08m到height−0.025m之間的中點，直向補強同範圍。中橫／直管徑暫依外框0.8／0.65比例示意；這些是外觀參照，不能直接當裁料表或變更估料與報價。保留原railShape／railDia／material，不憑照片猜實際管材規格。
+- drawGate只有雙開才扣中央20mm間隙，單開不再多扣2cm，對齊CAD原本的單開淨寬。兩側各30mm、離地80mm、門高／門柱管長與開啟方向／角度仍獨立；推拉分支不改。
+- gate-frame-test.cjs納入test.cjs及build-handoff.cjs，驗證共享格柵、尺寸比例、窄門／浮點／極寬上限、CAD無大斜撐、實際panel／drawGate開門與管形、停用補強、推拉門不受影響與輸入不變。快取gate-grid-1須同步index、app內studio iframe及studio共用reference script。
+- 工作區維持C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；照片只用於外觀參考，未放入公開repo。HANDOFF記錄實際發布與手機驗證，不能以本機測試當成實機iPhone／LINE通過。
+
 2026-11-04大門尺寸欄修正：app.render的gate不產生spacing欄，height用數字input（0.5～6m、step0.01），圍籬仍用原網高及柱距選單。資料鍵height／spacing均不刪除或遷移，舊spacing保留供切回圍籬；大門計數原本就僅兩端柱。design／3D／確認單沿用height，門柱postLength仍獨立。此次只改app與index的app快取gate-height-1，既有studio支援自訂門高且會隱藏spacingfield，不需修改。
 
 ## 2026-11-04 線徑與網目選項

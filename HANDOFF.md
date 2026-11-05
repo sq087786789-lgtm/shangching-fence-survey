@@ -1,5 +1,14 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-05：依實物照片改格柵大門
+
+- 使用者提供現場大門與舊3D對照，要求符合自家樣式。單開／雙開改矩形外框、一道中橫桿及多支直向補強，移除門片大斜撐；照片未加入公開repo。保留原圓／方管、管徑、材質、門寬、獨立門高／柱長及開啟方向／角度，不猜照片的實際製作規格。
+- reference-drawing新增gateFrameMembers供CAD與studio.panel共用；格柵依門片寬約0.6m平均分格、最多40跨，窄門及浮點邊界有保護，屬外觀示意不變更材料量／價格。brace資料鍵不變，UI「門片補強」；停用只留原外框網片。推拉門原補強、輪組、軌道不改。drawGate僅雙開扣中央20mm，修正單開原先多扣2cm使CAD與3D一致。
+- index、app iframe及studio reference快取同步gate-grid-1。新增gate-frame-test.cjs納主測試與AI來源包，涵蓋共享幾何、單／雙開、開門0／60度、管形、窄門／極寬、停用與推拉保留；既有數量／整米進位／照片／高度等測試及Drive序列化通過。
+- 內建瀏覽器桌面實測雙開3.20m、門高1.65m新格柵及開門0～110度正常。單開CAD實際SVG為1道中橫、5支直向、無outline斜線；勘查客戶簡圖仍用原雙開案，1頁圖片，2道中橫、4支直向。390×844手機看全貌innerWidth=scrollWidth=390、畫布約373px，無整頁橫向溢出；截圖work/gate-grid-mobile.png與gate-grid-3d-detail.png、SVG gate-grid-front.svg為本機合成證據，不公開案件／照片。
+- 本機測試前studio設計已透過「取回帶入前的3D設計」恢復，勘查表已透過本機測試helper還原，viewport已重設。未測實體iPhone／LINE／私人Drive授權，功能未改。只使用本Documents/Codex checkout，E槽副本及原資料不變。
+- 發布狀態：本機實作與上述驗證完成，待提交／Pages／正式檔案雜湊確認後更新本節。
+
 ## 2026-11-04：大門移除柱距欄、門片高度自由輸入
 
 - 使用者指出大門沒有最大柱距，門片高度須能調整。app.render的gate不再產生spacing欄；門片height改數字input，0.5～6m、step0.01，支援1.65m等非原選單高度。一般圍籬保留原網高及柱距選單。
