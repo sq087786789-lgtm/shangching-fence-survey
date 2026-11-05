@@ -7,7 +7,8 @@
 - 出圖dialog返回「參照線稿」，原CAD仍開啟，路段／選項／zoom不變；工作室原提案仍返回工作室。手機分享列在頂部獨立顯示，原設定區改cadOptions class限制高度，避免nth-child因新列錯位。快取cad-share-1同步studio新js／css、app iframe、index app；confirmation核心與圖面幾何不改。
 - 通過studio-output-test新增線稿等比、來源命名／返回、PDF下載分流、競態隔離／釋放及原分享取消／失敗／相機還原。內建390×844手機實測scrollWidth375，分享鍵44px高且頂部可見；雙開3.20m／高1.65m實際下載PNG及PDF，pdfinfo為1頁A4，Poppler渲染並人工確認與線稿一致。改平面單獨輸出後來源正確、125%返回仍保留；不把內建測試當實體iPhone／LINE驗證。
 - 本機合成證據work/cad-share-mobile.png、cad-share.png、cad-share.pdf、cad-share-render.png均忽略，不放公開repo。已用helper恢復測試前studio設計、viewport重設，勘查表與真實案件未更動。工作區仍為C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，E槽副本不改；每次完成更新交接與AI來源包。
-- 發布狀態：本機實作及驗證完成，待GitHub／Pages／正式檔案雜湊確認後更新。
+- **已上線：** 功能提交 `9a8a46bd79294af230c53559154999e6ae79126b` 正常快轉推送main，Pages執行 `41953714724` completed/success。正式index.html、app.js、studio.html、studio-output.js／css皆HTTP200，原始SHA-256與測試提交一致；36檔來源包與Git blob核對通過。
+- 正式內建瀏覽器已打開參照線稿，確認兩個按鈕為「分享線稿圖片／LINE」「儲存PDF」、新script為cad-share-1、轉檔ready且cadError空白。正式網址 `https://sq087786789-lgtm.github.io/shangching-fence-survey/studio.html?v=cad-share-1`；正式線稿分頁保留，本機伺服器已停止。未測實體iPhone／LINE，沒有更動正式案件／雲端；後續先核對GitHub HEAD及本交接再修改。
 
 ## 2026-11-05：工作室一鍵分享圖片與PDF
 
