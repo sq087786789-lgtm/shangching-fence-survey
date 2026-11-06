@@ -1,5 +1,8 @@
 # 接手規則
 
+確認單LINE最新規則（2026-11-06）：勘查表confirmation、工作室、線稿的桌機圖片均須走PNG剪貼簿，失敗下載；不能只修studio-output而留下confirmation桌機Web Share。桌機顯示複製圖片／LINE及Ctrl＋V說明，多頁逐頁保留，不宣稱送達。手機保留PNG原生分享與保存備援，PDF維持native下載／開啟流程。主測試納入confirmation-share-test，AI包38檔。
+
+
 大門簡化最新規則（2026-11-06）：門樣式只顯示單開／雙開／推拉門；門轉角UI隱藏而原turn與幾何保留。預設選項有值時隱藏自訂欄，選其他或載入自訂值才顯示。門框尺寸叫管材大小。gateFinish=none/paint/baked與gateFinishColor選填，無時隱藏但保留色名，JSON／3D／輸出保留；不自動計價。現場補充事項下方用siteNoteRows衍生各段note及門基礎備註，不能附加進data.notes造成重複，保留原輸出／studio傳輸的備註邊界。執行主測試、gate-parameters-test及實際手機／PDF核對。
 
 大門最新規則：開口是淨開口，改門柱尺寸須保留淨開口，length仍是柱心距；新增門4m淨開口，舊案不自動改幾何。構件樣式直接選單開／雙開／推拉，不重複顯示門型。門柱與門框管材、圓方形狀及自訂厚度獨立；新增101／114常用尺寸。門的材質改選不得覆寫手填厚度。大門基礎保留buried／plate、備註，移除新選direct及depth UI，原案base/depth保留；一般圍籬direct預設與深度欄不變。執行gate-parameters-test、主測試並重建37檔AI包。

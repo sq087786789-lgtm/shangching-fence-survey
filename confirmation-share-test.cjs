@@ -1,0 +1,29 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const source=fs.readFileSync(__dirname+'/confirmation.js','utf8');
+function setup(userAgent='Windows NT'){
+ const nodes={},downloaded=[],shared=[],written=[],urls=new Map();let sequence=0,snapshotFailure=false;
+ function node(id){return nodes[id]??={id,children:[],hidden:true,value:'customer',disabled:false,textContent:'',append(...items){this.children.push(...items)},replaceChildren(){this.children=[]},querySelector(){return node('shareHelp')},addEventListener(type,fn){this[type]=fn},showModal(){this.open=true},close(){this.open=false},focus(){},scrollIntoView(){this.scrolled=true}};}
+ const scope={module:{exports:{}},require,Blob,File,Uint8Array,TextEncoder,atob,Date,setTimeout:()=>{},navigator:{userAgent,share:async packet=>shared.push(packet),canShare:()=>true,clipboard:{write:async items=>written.push(items)}},ClipboardItem:class{constructor(items){this.items=items}},ResizeObserver:class{observe(){}disconnect(){}},URL:{createObjectURL:file=>{const url='blob:fixture-'+(++sequence);urls.set(url,file);return url},revokeObjectURL:url=>urls.delete(url)},document:{getElementById:node,createElement:tag=>tag==='a'?{click(){downloaded.push(urls.get(this.href))}}:node('created-'+(++sequence))},__pages:[{png:'data:image/png;base64,YQ==',jpeg:'data:image/jpeg;base64,Yg=='},{png:'data:image/png;base64,Yw==',jpeg:'data:image/jpeg;base64,ZA=='}]};
+ vm.createContext(scope);
+ // Exercise the actual start/refresh/event handlers with deterministic report rendering.
+ const uiSource=source.replace('root.surveyConfirmation={','build=()=>"<p>合成案件</p>";model=()=>({project:{name:"合成測試／圖片"}});renderPages=async()=>__pages;root.surveyConfirmation={');
+ vm.runInContext(uiSource,scope);scope.surveyConfirmation.start({snapshot:async()=>{if(snapshotFailure)throw Error('fixture failure');return{}},notice(){}});
+ const settle=()=>new Promise(resolve=>setImmediate(resolve));
+ return {scope,nodes,node,downloaded,shared,written,settle,failSnapshot:()=>snapshotFailure=true,async open(){node('confirmation').onclick();await settle()}};
+}
+(async()=>{
+ const d=setup();await d.open();assert.match(d.nodes.confirmShareImages.textContent,/複製/);assert.match(d.nodes.shareHelp.textContent,/Ctrl＋V/);assert.equal(d.nodes.confirmShareImages.disabled,false);
+ await d.nodes.confirmShareImages.onclick();assert.equal(d.written.length,1);assert.equal(d.shared.length,0,'desktop must not launch native sharing');assert.equal(d.written[0][0].items['image/png'].type,'image/png');assert.match(d.nodes.confirmStatus.textContent,/第 1 頁/);assert.match(d.nodes.confirmStatus.textContent,/共 2 頁/);assert.match(d.nodes.confirmStatus.textContent,/Ctrl＋V/);
+ const second=d.nodes.confirmImagesList.children[1];await second.children.find(x=>x.textContent==='複製第 2 頁圖片').onclick();assert.equal(d.written.length,2);assert.match(d.nodes.confirmStatus.textContent,/第 2 頁/);
+ d.scope.navigator.clipboard.write=async()=>{throw Error('denied')};await d.nodes.confirmShareImages.onclick();assert.equal(d.downloaded.length,1);assert.equal(d.downloaded[0].type,'image/png');assert.match(d.nodes.confirmStatus.textContent,/拖進 LINE/);assert.equal(d.nodes.confirmImagesList.hidden,false);
+ d.scope.navigator.clipboard=null;await d.nodes.confirmShareImages.onclick();assert.equal(d.downloaded.length,2);
+ d.nodes.confirmSharePdf.onclick();assert.equal(d.downloaded.at(-1).type,'application/pdf');assert.equal(d.shared.length,0);
+ const m=setup('iPhone');await m.open();delete m.scope.navigator.canShare;await m.nodes.confirmShareImages.onclick();assert.equal(m.shared.length,1);assert.ok(m.shared[0].files.every(f=>/^SQ-confirmation-\d+\.png$/.test(f.name)&&f.type==='image/png'));assert.match(m.nodes.confirmStatus.textContent,/無法確認是否送達/);
+ m.scope.navigator.canShare=()=>false;await m.nodes.confirmShareImages.onclick();assert.equal(m.shared.length,1);assert.equal(m.nodes.confirmImagesList.hidden,false);assert.match(m.nodes.confirmStatus.textContent,/附加傳送/);
+ m.scope.navigator.canShare=()=>true;m.scope.navigator.share=async()=>{const e=Error();e.name='AbortError';throw e};await m.nodes.confirmShareImages.onclick();assert.match(m.nodes.confirmStatus.textContent,/已取消/);assert.equal(m.downloaded.length,0);
+ m.scope.navigator.share=async()=>{throw Error('rejected')};await m.nodes.confirmShareImages.onclick();assert.match(m.nodes.confirmStatus.textContent,/未完成/);assert.equal(m.nodes.confirmShareImages.disabled,false);
+ let resolveShare;m.scope.navigator.share=()=>new Promise(resolve=>resolveShare=resolve);const pending=m.nodes.confirmShareImages.onclick();const waiting=m.nodes.confirmStatus.textContent;await m.nodes.confirmShareImages.onclick();assert.equal(m.nodes.confirmShareImages.disabled,true);assert.equal(m.nodes.confirmStatus.textContent,waiting);m.nodes.confirmBackTop.onclick();await m.open();const currentStatus=m.nodes.confirmStatus.textContent;resolveShare();await pending;assert.equal(m.nodes.confirmStatus.textContent,currentStatus,'old share must not overwrite newly generated report');assert.equal(m.nodes.confirmShareImages.disabled,false);
+ m.failSnapshot();await m.nodes.confirmRefresh.onclick();await m.settle();assert.match(m.nodes.confirmStatus.textContent,/尚未產生/);assert.equal(m.nodes.confirmShareImages.disabled,true);const count=m.shared.length;await m.nodes.confirmShareImages.onclick();assert.equal(m.shared.length,count,'no old file after failed regeneration');
+ console.log('PASS confirmation desktop PNG clipboard/per-page/download fallback, mobile prebuilt PNG share/unsupported/cancel/error, duplicate tap and stale-result guards, PDF native route and cleared failed reports');
+})().catch(e=>{console.error(e);process.exitCode=1});

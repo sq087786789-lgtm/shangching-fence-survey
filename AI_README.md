@@ -1,5 +1,14 @@
 # AI 接手文件
 
+## 2026-11-06 確認單電腦圖片／LINE（最新）
+
+- 使用者明確確認是電腦「給客戶看」選LINE並傳送後未收到。此前桌機clipboard修正僅在studio-output，confirmation.start仍對桌機navigator.share；這次補齊勘查表確認單，不推斷LINE伺服器或客戶帳號故障。
+- confirmation.start對desktop用ClipboardItem(image/png)複製、拒絕／缺API下載PNG；按鈕標籤及底部help明確提示Ctrl＋V、看到圖片再送。多頁主鍵只複製第1頁並明示其餘頁，逐頁copy/save保留；PDF流程不變。不要把Promise成功當成送達，也不要自動操作LINE收件人。
+- 手機shareFiles預先產生ASCII檔名，canShare缺少時仍可嘗試share。分享前不await重新轉圖，保留取消／錯誤提示、sharing防連點與revision防舊完成回呼污染新報告。clear同時清files/shareFiles，產生失敗不能分享前案。
+- 新confirmation-share-test.cjs載入實際start/refresh/event handlers、替換繪圖為確定fixture，涵蓋desktopclipboard/per-page/拒絕fallback、手機PNG／缺canShare／取消／錯誤、重複點擊／舊回呼／生成失敗清空及PDFnative；主測試及AI包已納入，現38檔。快取confirm-line-1。
+
+
+
 ## 2026-11-06 大門簡化、備註彙整與塗裝（最新）
 
 - componentStyleField對大門僅列gate-single/gate-double/gate-sliding，標籤單開／雙開／推拉門；一般圍籬保留舊選擇。門的turn控制隱藏但資料及幾何不刪除。studio隱藏／停用非門選項，不改保存格式。

@@ -1,5 +1,16 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-06：勘查表客戶確認單電腦 LINE 分享（最新）
+
+- 使用者回報「給客戶看的LINE又不行」，進一步確認：電腦系統選單選LINE、已選收件人並按傳送但未收到。源碼查到confirmation仍直接navigator.share，而前次電腦clipboard修正在studio-output。這可解釋桌機仍出現系統分享；無LINE送達紀錄，不能斷言LINE伺服器故障或已替使用者傳成功。
+- confirmation.start依handheld分流，桌機按鈕改「複製圖片／LINE」、底部說明Ctrl＋V，copyImage用真PNG ClipboardItem，缺API／拒絕則下載並展開圖片，提示拖入LINE。多頁首鍵複製第1頁並提示總頁數，逐頁都有複製／儲存。一般PNG檔名保留案件名，手機shareFiles預編碼ASCII名稱；canShare缺少不再直接判失敗，取消／錯誤有明確提示。sharing防連點與revision限制舊回呼，clear清空所有前案檔案。
+- 新confirmation-share-test.cjs納入主測試及38檔AI包。真實UI事件控制配確定繪圖fixture測desktop clipboard／缺API／拒絕download、多頁、手機share／無canShare／cancel／error、busy與stale callback、失敗再生及PDFnative；node test.cjs、語法與DOM綁定檢查通過。報價、門幾何、照片及雲端程式未改。
+- 本機8085隔離fixture備份sq-*後載入合成4m案件；真實按「給客戶看→複製圖片／LINE」成功，原生clipboard.read取得image/png約284412bytes，存work/confirmation-line-copied.png人工查看為完整1120×1584確認單。按逐頁儲存實際下載PNG成功，返回可用。work/confirmation-line-copy.png為提示／按鈕證據。原剪貼簿已恢復；fixture恢復測試前資料，未操作LINE聊天室、收件人或傳送，不宣稱已送達客戶。
+- 使用者ambient的127.0.0.1:8080與8083目前瀏覽器顯示無法連線，是舊暫時預覽；正式網站才是GitHub Pages。未刪除這些來源的本機資料，也未把測試案寫入正式來源。正式驗證將只讀打開確認單，不複製或傳送使用者真實案件。
+- 快取confirm-line-1更新index app/confirmation、app內嵌studio及studio confirmation引用。工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，舊E槽副本未改。實際上線結果補記如下。
+
+
+
 ## 2026-11-06：大門欄位簡化、現場備註彙整與顏色（最新）
 
 - 依使用者最新要求，大門樣式僅單開／雙開／推拉門，隱藏turn數字及快捷轉角，原案turn和幾何保留。常用門高／柱管長／厚度改preset＋其他；管徑預設不顯示第二個自訂欄，匯入自訂值會展開。門框常用邊長改管材大小。一般圍籬尺寸與工法保留。
