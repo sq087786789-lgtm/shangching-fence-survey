@@ -7,6 +7,10 @@
 - node test.cjs與JS語法通過；fitting-library-test已改單開關與實際BOM案例，涵蓋直線、彎折、環帽／結合片、設計切換時關閉保留、無橫桿／只裝網／既有排除、調整正負量、pending guard、7已知id一附頁及原CAD canvas不變。修正隔離環境globalThis及無模組不新增await微任務，舊CAD過期測試照常。
 - PDF技能marker本回合成功一次，預期4份：work/auto-customer-2.pdf、auto-customer-7.pdf、auto-linework-2.pdf、auto-linework-7.pdf。原生控制器混合門／圍籬與環帽轉角案驗開關關閉前後首頁JPG bytes相同、CAD首頁bytes相同、PNG剪貼簿不變；環帽轉角自動5種，1資料＋1配件，約213KB，auto-fittings-preview.png人工檢查名稱、圖樣完整。混合門例2資料＋1配件約226KB。未動真案或送LINE。
 - 快取auto-fittings-1。工作目錄E:/GPT/shangching-fence-survey；發布與正式驗證補記如下。
+- **已上線：** 功能5affc4c91c373d46e2cd72aaac1775e72d3e6f7e正常推main，Pages42193552065 completed/success，正式6來源HTTP200／SHA256一致；44來源＋7素材Git blob核對通過。
+- 正式IAB勘查picker只1個checkbox、0張選擇小圖，標示自動2種配件，預設ON為3頁（2資料＋1配件），OFF變2頁且HTML無附圖section，ON恢復3頁且只尾管夾／橫通管夾，圖片載入成功。390×844截圖work/auto-fitting-toggle-live.png。已reset viewport、返回勘查表。
+- 正式studio也只有1開關、同樣自動2種；實際開參照線稿後status可分享／儲存PDF且cadSavePdf enabled=true，console error=[]；未按分享或儲存、未操作LINE／雲端／改案件欄位。關閉線稿並回勘查入口https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=auto-fittings-1 。最後補記僅交接／AI包。
+
 
 ## 2026-11-06：配件獨立一頁、分類資料與緊湊基本資料（最新）
 
