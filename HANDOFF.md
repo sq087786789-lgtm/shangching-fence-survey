@@ -8,6 +8,9 @@
 - 用PDF技能產work/compressed-customer-test.pdf及compressed-linework-test.pdf，pdfinfo均8頁A4；Poppler渲染頁1及尾管夾附頁人工看中文、線條清楚且不裁切。work/compressed-main-inspect.png與compressed-fitting-inspect.png為證據。第一輪native測試器缺system-ui中文字型導致方框，已僅在測試器註冊msjh別名重測，正式程式字型未改。
 - 不修改真實案件、Drive或傳LINE；原回歸測試含手機分享／錯誤備援，實體iPhone與LINE送達沒有宣稱已驗證。使用者要求額度恢復自喚醒，但本聊天沒有此條件喚醒能力，未建立替代的輪詢自動化；若中斷依此交接續做。工作目錄E:/GPT/shangching-fence-survey。
 - 快取compressed-output-1，AI文字來源新增壓縮helper及test，素材assets欄同步新路徑／bytes／雜湊。實際發布結果補記如下。
+- **已上線：** 功能be4549d0414757314070db552501f3e2489c3297正常快轉main推送，Pages執行42179874955 completed/success。正式index、studio、fittings、library、compression、confirmation、studio-output及7張JPEG均HTTP200、SHA256與測試提交一致；44文字來源＋7素材Git blob一致。正式圖庫實際7張皆載入、長邊1600，管帽1408×1600放大及返回正常。work/compressed-gallery-live.png為證據。
+- 圖片URL追加素材SHA前12碼版本，避免使用者繼續取舊大圖快取；新helper／script／iframe快取compressed-output-1。GitHub最新網站素材僅7個JPEG，cap.png已移除。正式入口：https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=compressed-output-1 ，圖庫fittings.html?v=compressed-output-1。發布補記只更新交接及AI包，未代傳LINE。
+
 
 ## 2026-11-06：採用使用者7張配件原圖（最新）
 
