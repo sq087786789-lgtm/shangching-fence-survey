@@ -7,6 +7,9 @@
 - node test.cjs及JS語法通過。material-test新增混合門／圍籬分類守恆與原資料不變；fitting-library-test驗7張只1附頁、CAD原canvas物件不變、圖片不裁、取消不附頁。原生Canvas實際控制器驗選／取消前的主資料頁JPG bytes完全相同、CAD首頁bytes相同、PNG剪貼簿保留；一般studio也驗主圖pixels相同。
 - PDF技能marker本回合已成功一次，預期4路徑：work/separate-customer-2.pdf、separate-customer-7.pdf、separate-linework-2.pdf、separate-linework-7.pdf；後續沿同路徑改混合測例。單圍籬＋7圖=2頁（1資料＋1配件、約222KB）；含雙開門／電話地址測例=3頁（2資料＋1配件、約226KB）。資料多自然續頁，未刪條件／備註硬塞1頁。CAD2頁且原線稿無縮小。人工看separate-main-preview.png、separate-accessory-preview.png、grouped-main-preview.png、grouped-page2-preview.png，中文線條與內容完整。
 - 未改實際案件、Google雲端或傳LINE；壓縮、價格與材料計算保留。CodeGraph查mergeInlinePages呼叫者定位，再讀局部原碼。工作目錄E:/GPT/shangching-fence-survey，快取fitting-page-1；發布與正式驗證補記如下。
+- **已上線：** 功能70a7414ee6f66d4999fbd069c98fd8b4ff86a5ce正常推main，Pages42189315870 completed/success；正式6個來源HTTP200、SHA256一致，44來源＋7素材Git blob通過。
+- 正式IAB載入confirmation.js?v=fitting-page-1；確認圍籬／大門／配件3個h3分區、picker名「配件參照頁（可複選）」。原案2頁資料，實選尾管夾＋橫通管夾變3頁，status明說最後1配件頁，HTML配件區在現場注意事項後。390×844下body寬326／scrollWidth326無橫向溢出，電話等原資料未改；截圖work/grouped-phone-live.png及separate-fitting-page-live.png。已取消兩選、返回並reset viewport，未改真實案件或送LINE。正式網址https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=fitting-page-1 。這次最後補記僅文件與AI包。
+
 
 ## 2026-11-06：配件縮圖再縮小（最新）
 
