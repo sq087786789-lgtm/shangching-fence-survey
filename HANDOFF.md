@@ -1,4 +1,11 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：Repomix 技能省 Token 實測
+
+- 使用者要求結束後檢測技能是否省Token；讀repomix SKILL.md，以MCP pack_codebase比較相同36根目錄JS／CJS／HTML／CSS，compress:false／true，清單一致。
+- Repomix回報144734→63075 Token，少81659（56.42%）。是程式打包輸入估計，不代表聊天／配額／費用；HTML與CSS部分未壓縮，不保證70～85%。
+- grep地圖找到inlineRows／drawInlineRow／mergeInlinePages；仍需局部讀原碼，事後測試不追認之前每一步皆讀地圖。未啟動監控或改配置。
+- 詳細報告REPOMIX_TOKEN_CHECK.md、機讀work/repomix-token-benchmark.json。功能已發布與UI驗證見下一節，本次僅交接／報告及AI包。
+
 ## 2026-11-06：配件同欄位小圖（最新要求）
 
 - 使用者在精簡入口工作中進一步明確更正：不是「每圖附一頁」，要直接小圖、能看清楚，同一欄位可有多個配件。已取消confirmation refresh與studio pack逐圖附頁，保留選擇Set但顯示名改「配件小圖（可複選）」、預設展開。隱藏確認配置及移除獨立圖庫入口的前一修改持續包含。
