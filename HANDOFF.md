@@ -1,4 +1,12 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：每段圍籬四方向、大門沿前段（最新）
+
+- 使用者指出新增圍籬未套用前次四向UI，並要求大門不用角度、沿圍籬接續。已將startDirectionField(s,i)套所有非gate段，刪除重複相對轉角／常用角度區；每段上／下／左／右按圖面絕對方向，其他角度才展開，其他欄位大小維持。
+- 新segmentHeading／setSegmentHeading將絕對方向轉為相對前段turn存檔；UI custom key為heading但不寫進JSON。載入原角度與幾何不變，畫面以累積方向顯示。第一段aria原名稱保留，後段加第N段標籤方便操作；UI Set依segment id獨立。
+- 新增大門原本turn=0持續沿前段；使用者把構件改為gate或切gate樣式時turn=0，從圍籬改gate初始angle=0。勘查門不顯示方向／自訂角度或門開啟角度，只留「沿前一段圍籬方向接續」；推拉百分比／推拉方向照常。舊案載入有非0 gate.turn仍保留，避免不經操作改圖，後續主動切gate樣式才對齊。
+- node test.cjs與app語法通過，gate-parameters-test補實際segment click與change事件：新增段四方向、37.5自訂轉換、relative JSON無heading欄、插門共線同向、切gate歸零、舊gate載入不默改；work/test-start-directions.cjs與HTML閉合／旁欄父層驗證同樣通過。
+- 工作目錄E:/GPT/shangching-fence-survey，快取all-directions-1。未改實際案件、雲端或LINE；發布與正式手機驗證補記如下。
+
 ## 2026-11-06：起始方向四小按鈕，其他欄位不縮（最新）
 
 - 使用者要求起始角度直接選上／下／左／右四按鈕並常駐，其他角度選後才展開輸入；隨後更正「不是壓縮其他欄位，是四按鈕不要擠壓其他欄位」。已以獨立整列startDirectionField呈現，四顆44×36按鈕＋其他角度按鈕，僅這組控制套小型樣式；原其他欄位網格、寬高字體均保留。
