@@ -7,6 +7,8 @@
 - 合成22m／柱距2m／網高1.8m／柱長2m／底板案，實際confirmation.drawings產出前後SVG，以ignored work/svg-render內官方npm @resvg/resvg-js離線轉PNG；人工檢視work/lower-rail-after.png（1100×560）下桿留離地空間，網片仍到底、無新高度標註。before.png／SVG亦在work；實際studio.railLevels讀入VM回傳[0.18,1.775…]。只修改顯示，不把18cm當施工承諾。
 - 本次本機8086預覽被保存的網站權限拒絕，未嘗試替換連接埠／瀏覽器或改權限繞行，改用純離線產圖。Cua本回合未成功載入測試頁，因此沒有改任何sq-*資料、剪貼簿或真實案件，也未進行iPhone、LINE傳送或實際PDF下載驗證。預覽session56610已Ctrl＋C停止；生成fixture及SVG/PNG只在ignored work，不公開。
 - 最新快取lower-rail-1更新index app/confirmation、app內嵌studio與studio confirmation。38檔AI包照常重建。工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；實際發布結果補記如下。
+- **已上線：** 功能提交a77a880d824d18617ac6eb0af71e9062ff6cefcb已正常快轉推送main，Pages執行42160565274 completed/success。正式index.html、app.js、confirmation.js、studio.html均HTTP200且SHA256與已測提交一致；38檔Git blob雜湊檢查通過。正式網址：https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=lower-rail-1 。最後交接補記只更新本文件與AI來源包，沒有額外功能變更。
+
 
 
 
