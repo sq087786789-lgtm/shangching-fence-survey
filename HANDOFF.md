@@ -1,4 +1,11 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：CodeGraph 功能與 Token 實測（使用者指定）
+
+- 使用者澄清主要要測CodeGraph，前次56.42%僅Repomix，不能套用。現已實際MCP測CodeGraph v0.21.0，graph-only；沒有改配置／引擎／監控或網站功能。
+- 最新三配件函式找到；drawInlineRow原碼與磁碟一致，三呼叫者正確。另抓到誤連：mergeInlinePages內ctx.save()被連至drive.js.save。line文件0-based但本樣本實際1-based，優先用當次搜尋nodeId並核對原碼。semantic unavailable，未驗語意搜尋。
+- o200k_base同任務內容：3完整檔14698 Token；CodeGraph搜尋＋詳細symbol1703，少88.41%；精準rg僅852，所以小範例rg更省，不宣稱所有任務固定省88%。完整診斷回應5756；非帳號／費用或整聊天用量。
+- 簡單定位先rg，跨檔關聯再CodeGraph，結果核對原碼。完整報告CODEGRAPH_TOKEN_CHECK.md；ignored work有codegraph-token-evidence.json、codegraph-token-benchmark.json及measure-codegraph-tokens.cjs。此次僅檢測／交接與AI包。
+
 ## 2026-11-06：Repomix 技能省 Token 實測
 
 - 使用者要求結束後檢測技能是否省Token；讀repomix SKILL.md，以MCP pack_codebase比較相同36根目錄JS／CJS／HTML／CSS，compress:false／true，清單一致。
