@@ -1,4 +1,10 @@
 # AI 接手文件
+## 2026-11-06 配件同欄位小圖（最新）
+
+- 使用者更正不需每個配件一頁，要直接小圖、同一欄位多個。picker改標題「配件小圖（可複選）」並預設展開。inlineRows每列2圖、drawInlineRow以完整圖片contain繪製；inlineHTML給確認預覽同樣並排。confirmation先ready再build/render，不再refresh後附selectedPages整頁；材料下方畫配件區，compact有配件時線稿限制300高預留同頁空間。
+- studio-output.renderPages同樣畫配件區；CAD來源pages用mergeInlinePages，最多2列時和原線稿合成一頁，多於2列保留原線稿並以一張配件總覽頁承載所有圖，不縮小原圖到無法閱讀。selectedPages僅留舊helper相容，不在目前出圖流程呼叫。壓縮／PNG剪貼簿／PDFnative照常。
+- 真實native Canvas／PDF測2選同頁、7選2頁，取消回1頁；同一欄內兩圖已有單元測試。快取inline-fittings-1。
+
 ## 2026-11-06 配件選項直接可見（最新）
 
 - 使用者找不到選項，實際正式DOM確認picker有7項但details預設關閉。改detail.open=true；confirmation開客戶／報價單時重置.confirmBody.scrollTop=0，避免上次捲動藏住選項。index apply及applyStatus用hidden保留舊綁定與相容，主流程不顯示；index/studio移除獨立配件圖庫入口，picker內查看連結保留。快取fitting-options-1。

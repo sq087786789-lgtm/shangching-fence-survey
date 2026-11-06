@@ -1,4 +1,11 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：配件同欄位小圖（最新要求）
+
+- 使用者在精簡入口工作中進一步明確更正：不是「每圖附一頁」，要直接小圖、能看清楚，同一欄位可有多個配件。已取消confirmation refresh與studio pack逐圖附頁，保留選擇Set但顯示名改「配件小圖（可複選）」、預設展開。隱藏確認配置及移除獨立圖庫入口的前一修改持續包含。
+- 新inlineRows／drawInlineRow／inlineHTML將兩圖一列合併在配件參照欄；confirmation材料下方顯示，compact線稿有圖時限300高以便同頁。HTML預覽同區並排，JPG／PDF共用同樣的欄位繪圖。內容超頁只正常續頁，不為每圖開頁。studio提案同樣加欄；CAD2列以內與原線稿同頁，超過2列則保留原線稿＋一頁配件總覽，避免原圖過度縮小。
+- 主測試與語法通過；fitting-library-test驗同列可有兩個、HTML含兩名稱，confirmation-share-test確認refresh不再直接附整頁。實際native控制器測2選客戶1頁PDF（約133KB）、7選客戶2頁（約190KB）；CAD對應約33KB／80KB。取消選擇回1頁，案件資料不變、剪貼簿仍PNG。
+- 本回合PDF marker已成功一次、預期4份PDF；work/inline-customer-2.pdf、inline-customer-7.pdf、inline-linework-2.pdf、inline-linework-7.pdf。Poppler人工檢查inline-two-preview.png、inline-seven-preview.png：兩小圖同欄且完整，7選續頁不是7頁。未傳LINE或改真實案件。快取inline-fittings-1；發布結果補記如下。
+
 ## 2026-11-06：配件選項直接展開與精簡操作（最新）
 
 - 使用者回報看不到配件選項，並要求「配件圖庫 ↗」「確認目前配置 ✓」不用出現。正式瀏覽器只讀確認主頁picker存在7個checkbox但details.open=false，根因是預設收合，而非素材缺失。
