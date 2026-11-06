@@ -1,4 +1,13 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：配件獨立一頁、分類資料與緊湊基本資料（最新）
+
+- 使用者更正：配件全部合成一張獨立頁，不能占資料頁版面；追加參考工作室分組，圍籬／大門／配件各自集中，基本資料減留白且中間圖放大。此要求取代前面同欄三圖規則。
+- fitting-library新增overviewPages、attachmentHTML：最多7選合成一張雙欄參照頁，等比contain、不裁原文字；mergeInlinePages保留相容名但現在只追加1張，完全不縮／改CAD原頁。勘查render先完成所有資料頁再附1頁，studio一般提案與CAD同樣追加；HTML附頁在所有資訊後，break-before:page。picker改「配件參照頁（可複選）」，狀態與逐頁圖片標明最後配件頁。
+- confirmation.model保留materials／methods等舊API，新增materialSections，分圍籬、大門、配件三區；門柱／門框／門片／塗裝集中大門區，工法分屬圍籬或大門，配件數量單獨。基本資料HTML雙欄格、Canvas對齊欄位並實測日期座標；電話地址與日期保留、長字串換行。移除因附圖縮線稿300高的規則，簡版最大560高、能滿寬時滿寬，不為附圖壓縮資料。
+- node test.cjs及JS語法通過。material-test新增混合門／圍籬分類守恆與原資料不變；fitting-library-test驗7張只1附頁、CAD原canvas物件不變、圖片不裁、取消不附頁。原生Canvas實際控制器驗選／取消前的主資料頁JPG bytes完全相同、CAD首頁bytes相同、PNG剪貼簿保留；一般studio也驗主圖pixels相同。
+- PDF技能marker本回合已成功一次，預期4路徑：work/separate-customer-2.pdf、separate-customer-7.pdf、separate-linework-2.pdf、separate-linework-7.pdf；後續沿同路徑改混合測例。單圍籬＋7圖=2頁（1資料＋1配件、約222KB）；含雙開門／電話地址測例=3頁（2資料＋1配件、約226KB）。資料多自然續頁，未刪條件／備註硬塞1頁。CAD2頁且原線稿無縮小。人工看separate-main-preview.png、separate-accessory-preview.png、grouped-main-preview.png、grouped-page2-preview.png，中文線條與內容完整。
+- 未改實際案件、Google雲端或傳LINE；壓縮、價格與材料計算保留。CodeGraph查mergeInlinePages呼叫者定位，再讀局部原碼。工作目錄E:/GPT/shangching-fence-survey，快取fitting-page-1；發布與正式驗證補記如下。
+
 ## 2026-11-06：配件縮圖再縮小（最新）
 
 - 使用者認為配件圖仍太大，要求再縮小。inlineLayout統一columns=3、imageHeight=120、rowHeight=160、rowStep=166；舊版2欄／190高／235列。配件照片等比contain、不裁圖，名稱仍獨立22px；單張最大高度縮約37%，同欄一列最多3張。
