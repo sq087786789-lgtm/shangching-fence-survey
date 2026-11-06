@@ -5,8 +5,12 @@
 - 新fittings.html原圖圖庫可點圖放大、Esc／返回關閉、下載原檔，勘查及工作室各有入口。新增選填picker預設不附圖；勘查確認單及工作室／CAD輸出可按選擇附上原圖，每張另附A4頁。選圖只在當頁記憶體，不存案件JSON或改BOM；結合片只改圖庫用語，原數量鍵link及計價不動。工作室與勘查選擇各自獨立。
 - fitting-library.ready只載入選中原圖；selectedPages保持完整原比例、白底、不裁切原文字箭頭。confirmation等ready後附同批PNG/JPEG/PDF，revision保護；studio預載快取後同步pack，CAD附頁2240×3168跟首頁一致，維持分享使用者點擊時機。載入失敗明確拒絕出圖，可取消選擇恢復原簡版。
 - 主node test.cjs、語法、新fitting-library-test及confirmation-share-test附頁測試通過。離線以實際library＋@napi-rs/canvas載入七原檔，產7頁PDF；pdfinfo確認7頁A4、Poppler渲染首／末頁人工確認完整，work/original-fitting-pdf-first.png與last.png、overview.png為證據。第一版總覽未等native Image載入而空白，已用await loadImage修正重產，非網站圖片失效。輔助npm僅ignored work/svg-render，不增加正式頁外部依賴。
-- 不重試之前被拒絕的localhost瀏覽器預覽；本回合採純離線原圖與PDF驗證，未修改真實案件、剪貼簿、Drive或LINE聊天室。未宣稱iPhone原生分享或LINE送達已實測；原有桌機複製與iPhone PDFnative路徑保留。PDF技能marker本回合已成功一次。
+- 不重試之前被拒絕的localhost瀏覽器預覽；發布前採純離線原圖與PDF驗證，未修改真實案件、剪貼簿、Drive或LINE聊天室。未宣稱iPhone原生分享或LINE送達已實測；原有桌機複製與iPhone PDFnative路徑保留。PDF技能marker本回合已成功一次。
 - AI包42文字來源＋assets列7個binary原圖，含manifest／URL／雜湊；原圖不以UTF8讀入或base64膨脹原始碼包。保留位置統一與前兩次盤點／更正的未提交交接，未回退其他使用者改動。快取original-fittings-1；實際發布結果補記如下。
+- **已上線：** 功能提交bc1e4a336aeaeedb995aaaa0de5abf050fb1c79f正常快轉main推送，Pages執行42170907982 completed/success。正式index、studio、fittings、fitting-library、confirmation、studio-output與7個原圖均HTTP200、SHA256一致；Git blob檢查含42來源＋7原圖均通過。新圖庫：https://sq087786789-lgtm.github.io/shangching-fence-survey/fittings.html?v=original-fittings-1 。
+- 發布後正式IAB實際核對7張img皆complete且naturalWidth>0，束夾放大2400×1792原圖載入成功、返回正常，正式圖庫分頁保留。work/original-fittings-live.png為正式截圖；因CUA對E槽寫入權限不足，先存工具暫存目錄，再經已核准exec Copy-Item回E槽work，未另建開發副本。此前localhost權限拒絕未繞過，這次只檢查正式公開圖庫。
+- 圖庫真實UI已測；客戶附圖／PDF採前述實際離線Canvas與PDF、VM事件整合測試，沒有拿真實案件測試或傳LINE。一般3D安裝位置的小符號未換成整張多視圖，原圖用於獨立圖庫及選填附頁。附圖選擇當頁有效，重新開頁需重選，未改案件格式。發布補記僅文件／AI包。
+
 
 
 ## 2026-11-06：配件圖來源待核對（更正）
