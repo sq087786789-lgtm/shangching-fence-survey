@@ -1,5 +1,8 @@
 # 接手規則
 
+下橫桿最新規則（2026-11-06）：studio與confirmation兩處railLevels保持同步，下橫桿圖面上移留離地空間（繪圖中心0.18m）。不在客戶圖／規格顯示固定離地數字，不新增欄位，現場判斷施工。網片繼續延伸到地面，0／1排與門框底緣不變，材料與報價不得連帶修改。
+
+
 確認單LINE最新規則（2026-11-06）：勘查表confirmation、工作室、線稿的桌機圖片均須走PNG剪貼簿，失敗下載；不能只修studio-output而留下confirmation桌機Web Share。桌機顯示複製圖片／LINE及Ctrl＋V說明，多頁逐頁保留，不宣稱送達。手機保留PNG原生分享與保存備援，PDF維持native下載／開啟流程。主測試納入confirmation-share-test，AI包38檔。
 
 

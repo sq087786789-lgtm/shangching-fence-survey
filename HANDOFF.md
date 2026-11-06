@@ -1,5 +1,15 @@
 # 圍籬工作室交接紀錄
 
+## 2026-11-06：下橫桿圖面上移（最新）
+
+- 使用者提供底板圍籬線稿，要求下橫桿一般提高15～20cm、圖中上移，不顯示提高多少，現場決定。兩個繪圖railLevels的low由0.05改為0.18m：studio inline函式與confirmation建立reference的callback；上橫桿仍height−0.025。2～4排維持均分、1排只有上桿、0排／meshOnly無桿；門框獨立0.08不改。
+- 不新增資料／表單欄／對外標註，網片仍從0到height，立柱、底板、幾何段長不改。CAD與3D的管夾沿同一railLevels跟著上移，材料量與報價算法未改；主node test.cjs及confirmation語法通過。與HEAD舊model比較materials／methods／summary完全相同。
+- 合成22m／柱距2m／網高1.8m／柱長2m／底板案，實際confirmation.drawings產出前後SVG，以ignored work/svg-render內官方npm @resvg/resvg-js離線轉PNG；人工檢視work/lower-rail-after.png（1100×560）下桿留離地空間，網片仍到底、無新高度標註。before.png／SVG亦在work；實際studio.railLevels讀入VM回傳[0.18,1.775…]。只修改顯示，不把18cm當施工承諾。
+- 本次本機8086預覽被保存的網站權限拒絕，未嘗試替換連接埠／瀏覽器或改權限繞行，改用純離線產圖。Cua本回合未成功載入測試頁，因此沒有改任何sq-*資料、剪貼簿或真實案件，也未進行iPhone、LINE傳送或實際PDF下載驗證。預覽session56610已Ctrl＋C停止；生成fixture及SVG/PNG只在ignored work，不公開。
+- 最新快取lower-rail-1更新index app/confirmation、app內嵌studio與studio confirmation。38檔AI包照常重建。工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote；實際發布結果補記如下。
+
+
+
 ## 2026-11-06：勘查表客戶確認單電腦 LINE 分享（最新）
 
 - 使用者回報「給客戶看的LINE又不行」，進一步確認：電腦系統選單選LINE、已選收件人並按傳送但未收到。源碼查到confirmation仍直接navigator.share，而前次電腦clipboard修正在studio-output。這可解釋桌機仍出現系統分享；無LINE送達紀錄，不能斷言LINE伺服器故障或已替使用者傳成功。

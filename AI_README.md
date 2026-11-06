@@ -1,5 +1,13 @@
 # AI 接手文件
 
+## 2026-11-06 下橫桿離地示意（最新）
+
+- studio.railLevels與confirmation建立reference時的railLevels，最低橫桿中心示意由0.05改0.18m。這是繪圖位置，使用者明確不要標註提高多少，不可新增對外高度欄位、尺寸線或固定施工數值。實際依現場判斷。
+- 0排仍無橫桿、1排仍只有上橫桿；2～4排保留原內插規則。門框仍用獨立0.08m底框，不連帶改門。網片0～height、柱管長與地面／底板位置保持原規則；管夾座標沿用railLevels一起上移。材料數量、報價、資料鍵及JSON版本不變，AI包38檔，快取lower-rail-1。
+- 本次瀏覽器local8086因保存的網站權限拒絕，沒有改權限或改用其他瀏覽器／連接埠繞行。用實際confirmation.drawings前後產出SVG，以離線Resvg轉PNG核對；主測試通過，既有model的材料／工法／總長前後相同。不能將此紀錄寫成實際瀏覽器／iPhone／PDF下載測試成功。
+
+
+
 ## 2026-11-06 確認單電腦圖片／LINE（最新）
 
 - 使用者明確確認是電腦「給客戶看」選LINE並傳送後未收到。此前桌機clipboard修正僅在studio-output，confirmation.start仍對桌機navigator.share；這次補齊勘查表確認單，不推斷LINE伺服器或客戶帳號故障。
