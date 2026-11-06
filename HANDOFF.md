@@ -6,6 +6,9 @@
 - customStartDirections僅當頁UI Set；選其他不改參數，選四方向會關閉自訂欄。全套node test.cjs、app.js語法通過；work/test-start-directions.cjs呼叫實際segments click處理器，四向座標正確、其他參數及金額不變，舊37.5度保留。此為低影響UI，沒有新增鏡像正式測試檔。
 - 工作目錄E:/GPT/shangching-fence-survey，快取start-directions-2（主app／style／index及嵌入來源URL）。未改實際案件、雲端或LINE。發布及手機UI驗證補記如下。
 - 第一輪d03f4eb正式手機驗證發現cardinalButtons少一個div閉合，使後續高度與柱距被包入整列；已在交付前修正，升start-directions-2，增加work HTML標籤／後續欄位父層檢查，再跑全套與實際方向事件測試。最終欄位寬度需和原版154.8px核對後才交付。
+- **已上線與完成驗證：** 修正6aa75aea7ed77352127d1b9aa220cfb7b6cd507c正常推main，Pages42212266047 completed/success。正式index／app／style HTTP200及SHA256一致，44來源＋7素材Git blob通過。工作區只有正式來源，沒有第二副本。
+- 正式IAB390×844對照舊版與最終版：圍籬長度、菱形網高度、柱距寬都154.8px，原版／新版完全相同；四按鈕同一y、各44×36，沒有橫向overflow。其他角度點開顯示原0值，四按鈕仍在，其他欄寬不變；再點原本已選右方收起。實測只重選原0與開關UI，未改幾何／其他參數或操作雲端、LINE。已reset viewport，截圖work/start-direction-buttons-live.png，網址https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=start-directions-2 。本補記僅交接及AI包。
+
 
 
 ## 2026-11-06：自動帶出實際配件、只留顯示開關（最新）
