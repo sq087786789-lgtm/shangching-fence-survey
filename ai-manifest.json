@@ -73,8 +73,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13428,
-      "sha256": "b0ec19a990c5c8d012dfdc4e833aaf7a545d73300dc24b90b42fdbcee9827a87",
+      "bytes": 13334,
+      "sha256": "9ed687aca275da2b3e4f7606e12d63e3554bbff47b8dda94c147c37f436a92cf",
       "url": "index.html"
     },
     {
@@ -97,8 +97,8 @@
     },
     {
       "path": "fitting-library.js",
-      "bytes": 7280,
-      "sha256": "fd44cd271f78e955e046d624ce82fd71b37e845a07524091c79a3a58ac81b5be",
+      "bytes": 7297,
+      "sha256": "bb942f00aa29de3343999efd17894fe1d834d678343b7b4bc3157ee31aa49106",
       "url": "fitting-library.js"
     },
     {
@@ -175,8 +175,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 46027,
-      "sha256": "0574114aeb820393ff7771568c45928872fba9796e50acf278869c9edb402b34",
+      "bytes": 46023,
+      "sha256": "d6936ff846a6e8b4779126e0bcefcb8a7261cb6773f4c48c4be4648751d45fed",
       "url": "app.js"
     },
     {
@@ -211,8 +211,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 27345,
-      "sha256": "399de54635b1cf3807b07852996a86868695dc45ce6c3585ff1bf7a05b6016d9",
+      "bytes": 27467,
+      "sha256": "17ca529ffae72e945767955db6c2ba65572432cfc1b84854234b665154b3bdb9",
       "url": "confirmation.js"
     },
     {
@@ -259,8 +259,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 135277,
-      "sha256": "410ad9fcf84d2a1a31aef0f67551a06c13e3dc9492d66297339ee1b39b4c65e8",
+      "bytes": 135191,
+      "sha256": "3c2fb9f93a73b9ee3fa1a7f958a39c018f7ab4b56f858459b69e852e7782fda7",
       "url": "studio.html"
     },
     {
@@ -289,20 +289,20 @@
     },
     {
       "path": "AI_README.md",
-      "bytes": 56403,
-      "sha256": "84e581bb0db52f4e62b4188eede4e3cea97c8720abfa0aaa7fc0452f590070aa",
+      "bytes": 56852,
+      "sha256": "2adefdd1075eaaff832e817516c1eafd362a3d80ad62bf8340e29f18dbed64fe",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 13878,
-      "sha256": "8ecf62d3d51c7c67035b4ff93525048ab0d482e49668a7aacdc5b6e7a06c3696",
+      "bytes": 14219,
+      "sha256": "193de8c7484f6084d3998148205e784b6344129c4a48b3e026198a64ce36be72",
       "url": "AGENTS.md"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 95832,
-      "sha256": "6416dd12b7b0744a956e7d605735629bf1a2ebce26e51f4492f21797c4eef605",
+      "bytes": 96721,
+      "sha256": "0ed8282bd5ee9024ba44ae73129f2b00fad45255e5419ecd80f7757971a8642a",
       "url": "HANDOFF.md"
     },
     {

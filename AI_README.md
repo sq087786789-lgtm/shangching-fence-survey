@@ -1,4 +1,8 @@
 # AI 接手文件
+## 2026-11-06 配件選項直接可見（最新）
+
+- 使用者找不到選項，實際正式DOM確認picker有7項但details預設關閉。改detail.open=true；confirmation開客戶／報價單時重置.confirmBody.scrollTop=0，避免上次捲動藏住選項。index apply及applyStatus用hidden保留舊綁定與相容，主流程不顯示；index/studio移除獨立配件圖庫入口，picker內查看連結保留。快取fitting-options-1。
+
 ## 2026-11-06 壓縮與整合驗收（最新）
 
 - 使用者最新指示「輸出先壓縮、不必保留原圖，留壓縮的就好」。網站assets現7張JPEG，長邊最多1600、品質80；cap.png已由cap.jpg取代，其餘同名替換。manifest更新compressed／尺寸／bytes／SHA256，sourceSha256只保留來源辨識碼，不含原始大檔。不要再依舊交接宣稱站上是byte-for-byte原檔。
