@@ -4,7 +4,9 @@
 - 使用者要求起始角度直接選上／下／左／右四按鈕並常駐，其他角度選後才展開輸入；隨後更正「不是壓縮其他欄位，是四按鈕不要擠壓其他欄位」。已以獨立整列startDirectionField呈現，四顆44×36按鈕＋其他角度按鈕，僅這組控制套小型樣式；原其他欄位網格、寬高字體均保留。
 - 第一段非門圍籬用startDirectionField取代原數字起始方向，隱藏第一段下方重複的常用彎折UI；後續段相對角度與大門既有規則不改。按目前平面座標：上90、下-90、左180（舊-180也選左）、右0。按鈕aria-pressed，其他角度aria-expanded；自訂輸入只在選其他或載入非四方向值時顯示，保留原turn／JSON，不遷移或量化舊角度。
 - customStartDirections僅當頁UI Set；選其他不改參數，選四方向會關閉自訂欄。全套node test.cjs、app.js語法通過；work/test-start-directions.cjs呼叫實際segments click處理器，四向座標正確、其他參數及金額不變，舊37.5度保留。此為低影響UI，沒有新增鏡像正式測試檔。
-- 工作目錄E:/GPT/shangching-fence-survey，快取start-directions-1（主app／style／index及嵌入來源URL）。未改實際案件、雲端或LINE。發布及手機UI驗證補記如下。
+- 工作目錄E:/GPT/shangching-fence-survey，快取start-directions-2（主app／style／index及嵌入來源URL）。未改實際案件、雲端或LINE。發布及手機UI驗證補記如下。
+- 第一輪d03f4eb正式手機驗證發現cardinalButtons少一個div閉合，使後續高度與柱距被包入整列；已在交付前修正，升start-directions-2，增加work HTML標籤／後續欄位父層檢查，再跑全套與實際方向事件測試。最終欄位寬度需和原版154.8px核對後才交付。
+
 
 ## 2026-11-06：自動帶出實際配件、只留顯示開關（最新）
 
