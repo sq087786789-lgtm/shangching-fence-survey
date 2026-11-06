@@ -1,4 +1,13 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：自動帶出實際配件、只留顯示開關（最新）
+
+- 使用者不要逐張勾圖，只需一個小欄位選是否顯示；有用到就自動帶出。已移除七卡、圖庫連結與逐件checkbox，改單一「顯示配件圖」checkbox，預設開啟；狀態只提示自動帶入幾種／不附圖／無對應配件。沿用最後一張獨立頁、資料分類與較大線稿。
+- fitting-library新setUsed(parts)依BOM實際total／qty>0選對應id，setVisible控制是否附圖。setUsed每次清掉舊案id，關閉狀態跨設計更新保持關閉；不寫案件JSON、單價或數量。confirmation.snapshot後同步accessoryCount(data.design).items再ready；studio.sync預載、capture同步、CAD等ready後製圖；開關改變若CAD已開則refresh，保留version防過期。
+- 僅依既有BOM可確認用量，未假造管帽／束夾估算：目前自動計量鍵through/tail/ring/link/corner，cap/band資產保留，未有正用量就不亂附。setUsed支援七個已知id未來明確傳入正用量。門本體配件仍依原計算規則另計，沒有因顯圖新增報價或配件量。
+- node test.cjs與JS語法通過；fitting-library-test已改單開關與實際BOM案例，涵蓋直線、彎折、環帽／結合片、設計切換時關閉保留、無橫桿／只裝網／既有排除、調整正負量、pending guard、7已知id一附頁及原CAD canvas不變。修正隔離環境globalThis及無模組不新增await微任務，舊CAD過期測試照常。
+- PDF技能marker本回合成功一次，預期4份：work/auto-customer-2.pdf、auto-customer-7.pdf、auto-linework-2.pdf、auto-linework-7.pdf。原生控制器混合門／圍籬與環帽轉角案驗開關關閉前後首頁JPG bytes相同、CAD首頁bytes相同、PNG剪貼簿不變；環帽轉角自動5種，1資料＋1配件，約213KB，auto-fittings-preview.png人工檢查名稱、圖樣完整。混合門例2資料＋1配件約226KB。未動真案或送LINE。
+- 快取auto-fittings-1。工作目錄E:/GPT/shangching-fence-survey；發布與正式驗證補記如下。
+
 ## 2026-11-06：配件獨立一頁、分類資料與緊湊基本資料（最新）
 
 - 使用者更正：配件全部合成一張獨立頁，不能占資料頁版面；追加參考工作室分組，圍籬／大門／配件各自集中，基本資料減留白且中間圖放大。此要求取代前面同欄三圖規則。
