@@ -5,6 +5,9 @@
 - 新inlineRows／drawInlineRow／inlineHTML將兩圖一列合併在配件參照欄；confirmation材料下方顯示，compact線稿有圖時限300高以便同頁。HTML預覽同區並排，JPG／PDF共用同樣的欄位繪圖。內容超頁只正常續頁，不為每圖開頁。studio提案同樣加欄；CAD2列以內與原線稿同頁，超過2列則保留原線稿＋一頁配件總覽，避免原圖過度縮小。
 - 主測試與語法通過；fitting-library-test驗同列可有兩個、HTML含兩名稱，confirmation-share-test確認refresh不再直接附整頁。實際native控制器測2選客戶1頁PDF（約133KB）、7選客戶2頁（約190KB）；CAD對應約33KB／80KB。取消選擇回1頁，案件資料不變、剪貼簿仍PNG。
 - 本回合PDF marker已成功一次、預期4份PDF；work/inline-customer-2.pdf、inline-customer-7.pdf、inline-linework-2.pdf、inline-linework-7.pdf。Poppler人工檢查inline-two-preview.png、inline-seven-preview.png：兩小圖同欄且完整，7選續頁不是7頁。未傳LINE或改真實案件。快取inline-fittings-1；發布結果補記如下。
+- **已上線：** 功能4704ea723faaa1eba261f7d8cfb8bfe9cb349473正常快轉main推送，Pages執行42181656214 completed/success。正式index／studio／app／library／confirmation／studio-output均HTTP200且SHA256一致；44文字來源＋7壓縮素材Git blob一致。
+- 正式IAB實測applyVisible=false、獨立圖庫link=0；給客戶看後picker open=true、7項、標題「配件小圖（可複選）」。實際選尾管夾＋橫通管夾，兩個HTML img同欄各寬413px且載入成功，status確認1頁輸出。已取消兩選項並返回，未改案件欄位、剪貼簿或傳LINE。正式截圖work/inline-options-live.png，1頁範例PDF為work/inline-customer-2.pdf；正式網址https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=inline-fittings-1 。最後補記僅交接與AI包。
+
 
 ## 2026-11-06：配件選項直接展開與精簡操作（最新）
 
