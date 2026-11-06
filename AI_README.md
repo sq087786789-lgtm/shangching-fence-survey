@@ -1,4 +1,5 @@
 # AI 接手文件
+配件縮圖最新規則（2026-11-06）：同欄每列最多3張，圖高120、列高160、步距166（1120頁寬基準），比前版再小；沿用inlineLayout供預覽／客戶圖PDF／studio／CAD，等比不裁圖與獨立名稱。舊2欄190高記錄不再適用。
 ## 2026-11-06 配件同欄位小圖（最新）
 
 - 使用者更正不需每個配件一頁，要直接小圖、同一欄位多個。picker改標題「配件小圖（可複選）」並預設展開。inlineRows每列2圖、drawInlineRow以完整圖片contain繪製；inlineHTML給確認預覽同樣並排。confirmation先ready再build/render，不再refresh後附selectedPages整頁；材料下方畫配件區，compact有配件時線稿限制300高預留同頁空間。

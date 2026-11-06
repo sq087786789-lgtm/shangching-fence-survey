@@ -1,4 +1,12 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：配件縮圖再縮小（最新）
+
+- 使用者認為配件圖仍太大，要求再縮小。inlineLayout統一columns=3、imageHeight=120、rowHeight=160、rowStep=166；舊版2欄／190高／235列。配件照片等比contain、不裁圖，名稱仍獨立22px；單張最大高度縮約37%，同欄一列最多3張。
+- confirmation HTML預覽、客戶圖片／PDF、studio提案與CAD線稿均同步三欄；分頁預留與CAD保留高度改共用rowStep。CAD以reserve>600決定是否另附總覽，7張可同原線稿頁，不逐圖另開頁；不強制壓小主線稿塞全部文字。
+- 主node test.cjs與三JS語法通過。以原生Canvas實際控制器測2／7圖、取消後回1頁、JSON不變、剪貼簿PNG不變；2選客戶1頁約127KB、7選客戶2頁約166KB，CAD兩者各1頁約26KB／48KB。7張客戶第1頁含全部配件＋工法，第2頁為地形／注意事項，未漏內容。
+- PDF技能marker本回合已成功一次、預期4PDF；work/small-customer-2.pdf、small-customer-7.pdf、small-linework-2.pdf、small-linework-7.pdf。Poppler小圖small-seven-preview.png、small-seven-page2.png與small-linework-preview.png人工檢查，名稱線條完整。未動實際案件、Google雲端或發LINE。
+- 本次用CodeGraph搜尋drawInlineRow與呼叫者確認影響範圍，再rg局部原碼；未新增Repomix大包。工作目錄E:/GPT/shangching-fence-survey，快取compact-fittings-2。發布與正式驗證結果補記如下。
+
 ## 2026-11-06：CodeGraph 功能與 Token 實測（使用者指定）
 
 - 使用者澄清主要要測CodeGraph，前次56.42%僅Repomix，不能套用。現已實際MCP測CodeGraph v0.21.0，graph-only；沒有改配置／引擎／監控或網站功能。

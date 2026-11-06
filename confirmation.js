@@ -48,7 +48,7 @@ async function renderPages(m,{createCanvas=()=>document.createElement('canvas'),
  for(const drawing of drawings(m.design,m.compact)){let svg=drawing.svg.replace('Microsoft JhengHei,Arial,sans-serif',fontFamily.replaceAll('"',"'"));const img=await loadImage('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)),w=W-2*M,h=img.height*w/img.width,drawH=compact&&(m.prices.length||fittingRows.length)?Math.min(h,fittingRows.length?300:400):h,drawW=w*drawH/h;space(drawH+65);text(drawing.label,23,true);ctx.drawImage(img,M+(w-drawW)/2,y,drawW,drawH);y+=drawH+12}
  text(compact?'局部樣式參照；其餘差異依下方規格，詳細可開師傅討論大圖。':'同規格合併參照；長段正面顯示局部2跨。尺寸mm／總長m，非固定比例。',20);
  heading('材料規格與數量加總');for(const r of m.materials){if(compact){text(r.name+'　合計 '+num(r.qty)+' '+r.unit,24)}else{space(150);text(r.name,24,true);text('合計 '+num(r.qty)+' '+r.unit,23);y+=12}}
- if(fittingRows.length){space(290);heading('配件參照');for(const row of fittingRows){if(y+240>limit){fresh();heading('配件參照（續）')}root.sqFittingLibrary.drawInlineRow(ctx,row,M,y,W-2*M);y+=240}}
+ if(fittingRows.length){const step=root.sqFittingLibrary.inlineLayout.rowStep;space(step+65);heading('配件參照');for(const row of fittingRows){if(y+step>limit){fresh();heading('配件參照（續）')}root.sqFittingLibrary.drawInlineRow(ctx,row,M,y,W-2*M);y+=step}}
  for(const [h,items]of [['工法彙整',m.methods],['地形與施工條件',m.compact?[m.conditions.join('；')]:m.conditions],['現場注意事項',m.notices],...(m.prices.length?[['報價試算（新臺幣）',m.prices]]:[])]){heading(h);for(const line of items){if(line.startsWith('未稅金額'))space(110);text(line,24,/^(未稅金額|稅金|含稅總額)/.test(line));y+=compact?3:10}}
 
  finish();return pages;
