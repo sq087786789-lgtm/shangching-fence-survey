@@ -73,8 +73,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13328,
-      "sha256": "20ce791792822d94eb0f18cad5f7779e11b307f0faf953fb41d36b789cdb1374",
+      "bytes": 13342,
+      "sha256": "8168e874516d56dc1ca4e30143115b0d79508c9a8dc4a7c9f36f6658bfc1fdc7",
       "url": "index.html"
     },
     {
@@ -175,8 +175,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 46019,
-      "sha256": "938cda6a4f83bce7d20b91d9de1b255ef61db8d79007f036f930d9db3d125585",
+      "bytes": 47449,
+      "sha256": "d354ed23c12e333e4e0f295b5a37ff43936dfc1652675cce979d4cfd8a08da83",
       "url": "app.js"
     },
     {
@@ -253,8 +253,8 @@
     },
     {
       "path": "style.css",
-      "bytes": 20032,
-      "sha256": "e6e7c3b2a760dc8ac18209d4edf867e6326ad6ba74538ee8be90f1f832bccde8",
+      "bytes": 20884,
+      "sha256": "f573463247daa4693aa58ac3625a1042341f98b4746e54c718a2ad0dd144d21a",
       "url": "style.css"
     },
     {
@@ -283,26 +283,26 @@
     },
     {
       "path": "README.md",
-      "bytes": 36986,
-      "sha256": "b312eac3f53ce8b7290c5d49f81e33d3c22f25b24830ac3c40253e358629c71a",
+      "bytes": 37246,
+      "sha256": "35d7192d47a7b217798a29127b40472eeedecca34d990157837b60abe530ebf0",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 58644,
-      "sha256": "48c963e78e8d3db1c6a23356c0ddc15c37d3898eb38d06175cbeb22ab42cc872",
+      "bytes": 58904,
+      "sha256": "b6dfb64e5e187bd77e9abeb17f1b903145af743959e52e7a529a15416eb2b825",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 15324,
-      "sha256": "c00c8ae014fb3c72248de37453d2cfe1734d90d9fe34f73d102a61c88823e026",
+      "bytes": 15584,
+      "sha256": "a998828aaed9171290e2fd9bd8ee591f9ed7d7cf6a75e2b423544c5759828c08",
       "url": "AGENTS.md"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 109318,
-      "sha256": "9b222c8415843c15204c901b9cde6e9c8472cfafab281a59679b1d24abb649f0",
+      "bytes": 110714,
+      "sha256": "6fb95f202b7d085021a739d9188c8542e4add95b686cc7d91bed8aaa2258eb6e",
       "url": "HANDOFF.md"
     },
     {
