@@ -1,4 +1,5 @@
 # 接手規則
+壓縮優先（2026-11-06最新）：網站素材只用壓縮JPEG版配件圖，依manifest新版雜湊；不要重放原始大檔或回退cap.jpg。客戶圖片用壓縮JPG、PDF用同批JPEG，桌機剪貼簿仍取File.clipboardImage的PNG。保持每頁比例、不裁文字、預設不附圖與取消恢復簡版。
 配件圖以使用者2026-11-06指定的7張原檔為準，assets/fittings及manifest保留byte-for-byte來源與雜湊，不以舊cadFittingSymbol代替。勘查／工作室選填附圖預設空、每圖一頁、完整保留標示；不能改BOM或把3D安裝小符號替換成整張多視圖圖片。PDF所有附頁尺寸跟首張一致，手機分享先預載，保留原LINE剪貼簿／PDFnative。AI文字來源與binary assets分開索引。
 
 ## 本機開發位置（2026-11-06 使用者要求）

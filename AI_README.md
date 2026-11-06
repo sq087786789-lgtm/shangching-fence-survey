@@ -1,4 +1,10 @@
 # AI 接手文件
+## 2026-11-06 壓縮與整合驗收（最新）
+
+- 使用者最新指示「輸出先壓縮、不必保留原圖，留壓縮的就好」。網站assets現7張JPEG，長邊最多1600、品質80；cap.png已由cap.jpg取代，其餘同名替換。manifest更新compressed／尺寸／bytes／SHA256，sourceSha256只保留來源辨識碼，不含原始大檔。不要再依舊交接宣稱站上是byte-for-byte原檔。
+- output-compression.encode以白底等比壓至1120×1584範圍、JPEG .78；confirmation及studio-output／線稿同步用此編碼產JPG與PDF。File.clipboardImage是同頁PNG，電腦ClipboardItem必須傳它；不能把JPEG標成image/png。手機share檔名／type同步jpg。原SVG下載與設計參數不改。
+- 主測試含output-compression-test，原圖庫7圖hash驗證沿manifest新版，44文字來源與7張壓縮素材；選圖／取消、多頁／比例與LINE/PDF路徑均保留。實際native Canvas整合測試在work/test-compressed-native.cjs，文字型映射需本機Microsoft JhengHei；僅測試器，正式網站使用瀏覽器字型。
+
 ## 2026-11-06 使用者配件原圖（最新）
 
 - 已取得使用者明確指定的7張線條原圖，assets/fittings/manifest.json記id／名稱／原檔名／路徑／原始SHA256。資產byte-for-byte複製；不能再把cadFittingSymbol的舊簡化符號當作使用者原稿。link輸出圖庫稱結合片，數量資料原link鍵／連結片名稱不改。

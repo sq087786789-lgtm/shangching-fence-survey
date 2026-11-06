@@ -1,4 +1,14 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：完整測試及網站／輸出壓縮（最新）
+
+- 使用者要求測試，期間追加「輸出檔太大先壓縮」及「不必保留原圖、留壓縮的就好」。已將網站7張素材原位替換為長邊1600／JPEG品質80的壓縮版；assets cap.png刪除、cap.jpg取代。來源外部OneDrive檔與Git歷史未清除；目前網站／專案最新素材僅壓縮版，舊「原檔完全相同」描述由本紀錄取代。
+- 素材合計11008551→547650 bytes，約少95%。output-compression.js讓客戶確認單、工作室與線稿的圖片／PDF先等比縮至1120×1584範圍，JPEG品質.78；圖面及JSON不改。輸出JPG；電腦複製仍預建PNG的File.clipboardImage，避免LINE ClipboardItem格式不符；手機share名稱與MIME改JPG。
+- 主node test.cjs通過；新增output-compression-test檢查尺寸／品質／不改source／不放大／JPEG與PNG剪貼簿。完整原生Canvas VM載入實際app、confirmation.start、library、compression與studio-output控制器：合成4m、7附圖產8頁，取消7圖回1頁，確認圖面資料不變，桌機複製payload是PNG，CAD2240來源壓至同尺寸JPEG生成8頁PDF。
+- 實際8頁案例（含已壓縮素材）圖片合計1595859→559151bytes，少65%；PDF836253→563094bytes，少33%；CAD＋7圖PDF426947bytes。結果work/compression-acceptance.json、素材比較asset-compression-result.json。與最初未壓縮素材的舊版圖像比較降幅更大，對外統一用上述同條件數字，不把樣本當所有案件保證。
+- 用PDF技能產work/compressed-customer-test.pdf及compressed-linework-test.pdf，pdfinfo均8頁A4；Poppler渲染頁1及尾管夾附頁人工看中文、線條清楚且不裁切。work/compressed-main-inspect.png與compressed-fitting-inspect.png為證據。第一輪native測試器缺system-ui中文字型導致方框，已僅在測試器註冊msjh別名重測，正式程式字型未改。
+- 不修改真實案件、Drive或傳LINE；原回歸測試含手機分享／錯誤備援，實體iPhone與LINE送達沒有宣稱已驗證。使用者要求額度恢復自喚醒，但本聊天沒有此條件喚醒能力，未建立替代的輪詢自動化；若中斷依此交接續做。工作目錄E:/GPT/shangching-fence-survey。
+- 快取compressed-output-1，AI文字來源新增壓縮helper及test，素材assets欄同步新路徑／bytes／雜湊。實際發布結果補記如下。
+
 ## 2026-11-06：採用使用者7張配件原圖（最新）
 
 - 使用者提供桌面配件圖/線條圖內7張附件並明確要求「用這些圖」：束夾.jpg、結合片.jpg、橫通直管.jpg、環帽.jpg、轉角.jpg、尾管夾.jpg、管帽.png。已原樣複製至E:/GPT/shangching-fence-survey/assets/fittings，英文檔名對應id，原檔名／SHA256／bytes記manifest；未移動或修改OneDrive原稿，不使用舊示意當其原稿。

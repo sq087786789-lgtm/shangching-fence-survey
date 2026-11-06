@@ -9,8 +9,8 @@
     {
       "path": "assets/fittings/tail.jpg",
       "url": "assets/fittings/tail.jpg",
-      "bytes": 1004472,
-      "sha256": "a9f5491f6e3649283d4c2f832d19027227b0ed4d910f6a27ffe44503f1a4e0dd",
+      "bytes": 99383,
+      "sha256": "4bcf9016dc3cff75bd3b333e4c1adcc26e198dae7dadb566ae371c3d58ef7783",
       "name": "尾管夾",
       "original": "尾管夾.jpg",
       "binary": true
@@ -18,8 +18,8 @@
     {
       "path": "assets/fittings/through.jpg",
       "url": "assets/fittings/through.jpg",
-      "bytes": 1284484,
-      "sha256": "0ac39e9039e31715746ce3f59770c7981a3a48973e9fbc869d774a53ee46389a",
+      "bytes": 93456,
+      "sha256": "09b1da565c17b977b28362de16216cc3e3fb552e5ea3654aea0353c043760793",
       "name": "橫通管夾",
       "original": "橫通直管.jpg",
       "binary": true
@@ -27,8 +27,8 @@
     {
       "path": "assets/fittings/ring.jpg",
       "url": "assets/fittings/ring.jpg",
-      "bytes": 1260487,
-      "sha256": "0924a4672fe311b3f8791b4f32f475973dc80f8d0078e16cf1d6417a988d1e66",
+      "bytes": 79807,
+      "sha256": "3cf3f6beb6bd0bca6e8961e445e54d871e4141e2eeab0113818a56084c5df9d2",
       "name": "環帽",
       "original": "環帽.jpg",
       "binary": true
@@ -36,8 +36,8 @@
     {
       "path": "assets/fittings/link.jpg",
       "url": "assets/fittings/link.jpg",
-      "bytes": 1324178,
-      "sha256": "18fafa80ffee9f1b85c01b353c7d09e5709825ff263f3c07ad91438b539da6c6",
+      "bytes": 40411,
+      "sha256": "c8a94946c742a0bc445b2fc716338ab187be1a86890b700243c7b67dd789d5b5",
       "name": "結合片",
       "original": "結合片.jpg",
       "binary": true
@@ -45,17 +45,17 @@
     {
       "path": "assets/fittings/corner.jpg",
       "url": "assets/fittings/corner.jpg",
-      "bytes": 1454751,
-      "sha256": "93ca61e2d3ae20f2fe28548622d18673535d1943f8e9908899af8650f34f055e",
+      "bytes": 79170,
+      "sha256": "2f12bb0c08c6a346cc081fd3fbc4fd1be213f28be6a236b2fa6f5227019ef067",
       "name": "轉角",
       "original": "轉角.jpg",
       "binary": true
     },
     {
-      "path": "assets/fittings/cap.png",
-      "url": "assets/fittings/cap.png",
-      "bytes": 3539620,
-      "sha256": "668f5552a90cea3ba2349a8f4d66a13598067b2b9afb9a62145190d5726940a9",
+      "path": "assets/fittings/cap.jpg",
+      "url": "assets/fittings/cap.jpg",
+      "bytes": 78329,
+      "sha256": "be50fb14d451efd6c436e4127a6b6ffa3e0adbeba47c90a1ecfcba13c518095c",
       "name": "管帽",
       "original": "管帽.png",
       "binary": true
@@ -63,8 +63,8 @@
     {
       "path": "assets/fittings/band.jpg",
       "url": "assets/fittings/band.jpg",
-      "bytes": 1140559,
-      "sha256": "49e00f0c00b00b8c75f052f37e6d032eac4943a2231367a7595a28f96227b02a",
+      "bytes": 77094,
+      "sha256": "dd041de4ee5e6213764cd7e6bec554395150299cff04ee1d03f17ff90e08d178",
       "name": "束夾",
       "original": "束夾.jpg",
       "binary": true
@@ -73,32 +73,44 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13367,
-      "sha256": "d31e9efbfdd91ffc19280b9e9ee2301a8b9c33b4137fed09c046b506fa23d672",
+      "bytes": 13428,
+      "sha256": "b0ec19a990c5c8d012dfdc4e833aaf7a545d73300dc24b90b42fdbcee9827a87",
       "url": "index.html"
     },
     {
+      "path": "output-compression.js",
+      "bytes": 1219,
+      "sha256": "e3248ad77d87df22f8bbbcf2e0ffb318f24fd6009a857528393b20cd35b35670",
+      "url": "output-compression.js"
+    },
+    {
+      "path": "output-compression-test.cjs",
+      "bytes": 1135,
+      "sha256": "d35d9e8bd01ab33c391707c0b9d0112c714fa5dfd0910c3af96c9ad891c8c544",
+      "url": "output-compression-test.cjs"
+    },
+    {
       "path": "fittings.html",
-      "bytes": 1180,
-      "sha256": "5e9b0d15215d566103c2c238aaa90c1580134eac55b00128ccd3e5940169481f",
+      "bytes": 1168,
+      "sha256": "b2ef5a26d2a7077bd2aec6690bb4dc9dacb76babb0f937695725a1c460308850",
       "url": "fittings.html"
     },
     {
       "path": "fitting-library.js",
-      "bytes": 6340,
-      "sha256": "85162097edee1bdc41460fa49a7e8086d6564d5428b0b10acbbe71568e96819c",
+      "bytes": 7280,
+      "sha256": "fd44cd271f78e955e046d624ce82fd71b37e845a07524091c79a3a58ac81b5be",
       "url": "fitting-library.js"
     },
     {
       "path": "fitting-library-test.cjs",
-      "bytes": 2129,
-      "sha256": "96def384e75ab860778897115c680273512bbd040a487421964990657cec15ec",
+      "bytes": 2143,
+      "sha256": "18005328e152d5323f25aa1424f41f4bc8408dc870498bd174df326c67c7efaa",
       "url": "fitting-library-test.cjs"
     },
     {
       "path": "assets/fittings/manifest.json",
-      "bytes": 1763,
-      "sha256": "46f5ab18e23e4505c7e8ca7b1870e728cfac47c05091d48891afa2e17240454b",
+      "bytes": 2884,
+      "sha256": "4d4a7adcd3a915a1fc44a9b677b333dd7dc33b9b122b9a40522f2484b4473e08",
       "url": "assets/fittings/manifest.json"
     },
     {
@@ -145,8 +157,8 @@
     },
     {
       "path": "studio-output.js",
-      "bytes": 11070,
-      "sha256": "9694ff26c6646d40079d53443c27c328e8b5238e7156285c55a8607cfe0017cd",
+      "bytes": 11350,
+      "sha256": "43aaa7a97b5167554186d59755d77e77556f76e5572ff9b68fcd3cb5f5f90bdf",
       "url": "studio-output.js"
     },
     {
@@ -164,7 +176,7 @@
     {
       "path": "app.js",
       "bytes": 46027,
-      "sha256": "aba0f57d9f25c70d3f0ac8ed0dfe02a5e435511b99daad951446997b776a072f",
+      "sha256": "0574114aeb820393ff7771568c45928872fba9796e50acf278869c9edb402b34",
       "url": "app.js"
     },
     {
@@ -199,8 +211,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 27092,
-      "sha256": "7c77268d9396d828a7c2b4e5c6ba20fabe4216949f39e86a3e9731601cada94c",
+      "bytes": 27345,
+      "sha256": "399de54635b1cf3807b07852996a86868695dc45ce6c3585ff1bf7a05b6016d9",
       "url": "confirmation.js"
     },
     {
@@ -247,8 +259,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 135216,
-      "sha256": "35e3f177f2280186223beb134df4fc71c5c9597d6c1f03d31f52e7795ea1a218",
+      "bytes": 135277,
+      "sha256": "410ad9fcf84d2a1a31aef0f67551a06c13e3dc9492d66297339ee1b39b4c65e8",
       "url": "studio.html"
     },
     {
@@ -271,38 +283,38 @@
     },
     {
       "path": "README.md",
-      "bytes": 35539,
-      "sha256": "21865900413427e6ac4059bf60de38bdc2c3a5c581e35b4fb1dc752a4b626150",
+      "bytes": 35815,
+      "sha256": "55faea2b5604362f1f362636d4da6cc368094d351355baeefca5d71942f887c5",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 55320,
-      "sha256": "e2a0be91f8738bafe16a24c059dc70ca2298d0418b6541df479f7275636a4e67",
+      "bytes": 56403,
+      "sha256": "84e581bb0db52f4e62b4188eede4e3cea97c8720abfa0aaa7fc0452f590070aa",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 13558,
-      "sha256": "12a5a068b0436966c36880c994ea9c724552f4c5b30724d3e6d1914dce188ab5",
+      "bytes": 13878,
+      "sha256": "8ecf62d3d51c7c67035b4ff93525048ab0d482e49668a7aacdc5b6e7a06c3696",
       "url": "AGENTS.md"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 92560,
-      "sha256": "3836bc78cb72a6559b1a8f877a8221560b38cf8ad7662b2f665a9ebd6bab15b4",
+      "bytes": 94989,
+      "sha256": "8bd79287392d8fd6eed0e6d97fe45455d479c1e2cecef6c570778e4604519408",
       "url": "HANDOFF.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 71192,
-      "sha256": "b892536771f531f42ff5629a03b6bcf3705d60f6883935de2e498d0b662a4e41",
+      "bytes": 71233,
+      "sha256": "0ac327aec423eb36ce23e672f2d88fad07aa27268e5a9c5164bdc7663d9c5951",
       "url": "test.cjs"
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 2328,
-      "sha256": "788ef303f8349f749c4738a139522b95178e3e3b9bda2fc71c6fc76cb70da48b",
+      "bytes": 2382,
+      "sha256": "ef78db74b881b7226661e8e651c58544d5bff2b0db9bcbff80a2db3b31bd15f3",
       "url": "build-handoff.cjs"
     },
     {
