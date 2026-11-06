@@ -8,6 +8,9 @@
 - 本機8085隔離fixture備份sq-*後載入合成4m案件；真實按「給客戶看→複製圖片／LINE」成功，原生clipboard.read取得image/png約284412bytes，存work/confirmation-line-copied.png人工查看為完整1120×1584確認單。按逐頁儲存實際下載PNG成功，返回可用。work/confirmation-line-copy.png為提示／按鈕證據。原剪貼簿已恢復；fixture恢復測試前資料，未操作LINE聊天室、收件人或傳送，不宣稱已送達客戶。
 - 使用者ambient的127.0.0.1:8080與8083目前瀏覽器顯示無法連線，是舊暫時預覽；正式網站才是GitHub Pages。未刪除這些來源的本機資料，也未把測試案寫入正式來源。正式驗證將只讀打開確認單，不複製或傳送使用者真實案件。
 - 快取confirm-line-1更新index app/confirmation、app內嵌studio及studio confirmation引用。工作區仍C:/Users/nosa/Documents/Codex/2026-11-04/shangching-span-quote，舊E槽副本未改。實際上線結果補記如下。
+- **已上線：** 功能提交40bdd6872a36eb9caaa5f98195bf3b2c455ac66b正常快轉main並推送，Pages執行42145736613 completed/success。正式index、app、confirmation、studio均HTTP200且SHA256與已測提交一致；38檔Git blob來源雜湊一致。正式IAB已打開「給客戶看」並確認實際按鈕為「複製圖片／LINE」、底部有Ctrl＋V說明，新script為confirmation.js?v=confirm-line-1。正式驗證未複製真實案件，也未開LINE聊天室或送訊；真正貼上／送達仍由使用者操作確認。
+- 自建8085預覽session53547已Ctrl＋C停止，測試sq-*與原剪貼簿已恢復，沒有改使用者原8080／8083來源資料；正式分頁保留：https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=confirm-line-1 。發布補記提交僅更新本文件與AI包。桌機會複製首張，若多頁請依提示逐頁處理，不能宣稱一次複製整案或LINE已收到。
+
 
 
 
