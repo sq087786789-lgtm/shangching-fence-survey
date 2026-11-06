@@ -6,6 +6,9 @@
 - 主node test.cjs與三JS語法通過。以原生Canvas實際控制器測2／7圖、取消後回1頁、JSON不變、剪貼簿PNG不變；2選客戶1頁約127KB、7選客戶2頁約166KB，CAD兩者各1頁約26KB／48KB。7張客戶第1頁含全部配件＋工法，第2頁為地形／注意事項，未漏內容。
 - PDF技能marker本回合已成功一次、預期4PDF；work/small-customer-2.pdf、small-customer-7.pdf、small-linework-2.pdf、small-linework-7.pdf。Poppler小圖small-seven-preview.png、small-seven-page2.png與small-linework-preview.png人工檢查，名稱線條完整。未動實際案件、Google雲端或發LINE。
 - 本次用CodeGraph搜尋drawInlineRow與呼叫者確認影響範圍，再rg局部原碼；未新增Repomix大包。工作目錄E:/GPT/shangching-fence-survey，快取compact-fittings-2。發布與正式驗證結果補記如下。
+- **已上線：** 功能7d8deed10a885be49c48719204252e052a2ae354正常推main，Pages42186650496 completed/success。正式6個來源HTTP200且SHA256一致，44來源＋7素材Git blob核對通過。一般studio render另以7圖三列測1頁JPG成功（work/small-studio-proposal.jpg）。
+- 正式IAB載入fitting-library.js?v=compact-fittings-2；實際選尾管夾／橫通管夾／環帽，三img皆120px高、約180px寬，figure同一y=1445，三欄同列且圖完整；畫面status確認1頁。已取消3選並返回勘查表，未改案件或傳LINE。work/small-fittings-live.png為正式截圖。網址https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=compact-fittings-2 。本段補記僅交接與AI包。
+
 
 ## 2026-11-06：CodeGraph 功能與 Token 實測（使用者指定）
 
