@@ -1,4 +1,22 @@
 # AI 接手文件
+## 2026-11-06 使用者配件原圖（最新）
+
+- 已取得使用者明確指定的7張線條原圖，assets/fittings/manifest.json記id／名稱／原檔名／路徑／原始SHA256。資產byte-for-byte複製；不能再把cadFittingSymbol的舊簡化符號當作使用者原稿。link輸出圖庫稱結合片，數量資料原link鍵／連結片名稱不改。
+- fittings.html＋fitting-library.js提供原圖放大／下載，兩工具有入口。選填picker只保存當頁記憶體Set，預設空；ready載入選中原圖，selectedPages依原比例contain到A4畫布，不裁切。尚未載入拒絕出圖，失敗可取消勾選重試；UI載入狀態有ticket防舊回呼。
+- confirmation.refresh等待原圖ready後把選定PNG/JPEG附頁加入同一files/pdf，保留原revision／busy／LINE clipboard及PDFnative流程。studio-output.packSource同步使用預載頁，附頁尺寸依sourcePages首張（工作室1120×1584、CAD2240×3168），避免PDF影像Width/Height錯配；不在分享點擊時await圖片載入。可選參照圖不改3D構件或BOM；舊配件獨立CAD卡仍fittings:false，安裝位置小符號保留。
+- AI包42文字來源，另有assets列7個二進位原圖URL／bytes／SHA256，不把JPG當UTF8或塞base64到原始碼包。重建後新AI應另下載assets並核對。fitting-library-test驗原圖雜湊、預設無圖、選中載入／取消、比例與CAD尺寸；confirmation-share-test驗附頁整合。快取original-fittings-1。
+
+
+## 2026-11-06 本機開發位置統一（最新）
+
+- 使用者要求所有本機開發來源集中 E:\GPT。此專案現在唯一正式工作目錄為 E:\GPT\shangching-fence-survey，搬移基準 HEAD 9897bc6（下橫桿發布完成交接）。
+- 先前因當時可寫區改為 Documents\Codex，才建立 shangching-span-quote checkout，並保留 E 槽未提交內容。現在已按使用者要求統一，不得再以舊交接的「E槽副本不改」或 Documents 路徑建立第二份工作副本。
+- 舊 C:\Users\nosa\Documents\Codex\2026-11-04\shangching-span-quote 為 Junction，指向此 E 槽專案，舊對話可繼續使用同份來源。
+- 原 E 槽 checkout 與其六個已修改檔、未追蹤 repomix-output.xml 完整保存於 E:\GPT\.backups\20261106-project-location\old-E-shangching-fence-survey。不要直接把其未提交修改覆蓋新版，應另行比對需求是否已包含。
+- 原 C 槽整份程式、Git、work 資料完整備份於同備份根的 original-sources\fence-current；搬移前後逐檔 SHA256 及 Git HEAD、乾淨狀態已核對。Git status 自動更新 .git/index 時戳快取屬正常，原始碼相同。
+- 本次只整理本機位置與接手文件，未變更網站功能，未提交、推送或重新發布；原功能的發布狀態仍看下方歷史紀錄。CodeGraph 與 Repomix 路徑已配合更新，測試結果見本任務搬移交接。
+
+
 
 ## 2026-11-06 下橫桿離地示意（最新）
 

@@ -1,4 +1,41 @@
 # 圍籬工作室交接紀錄
+## 2026-11-06：採用使用者7張配件原圖（最新）
+
+- 使用者提供桌面配件圖/線條圖內7張附件並明確要求「用這些圖」：束夾.jpg、結合片.jpg、橫通直管.jpg、環帽.jpg、轉角.jpg、尾管夾.jpg、管帽.png。已原樣複製至E:/GPT/shangching-fence-survey/assets/fittings，英文檔名對應id，原檔名／SHA256／bytes記manifest；未移動或修改OneDrive原稿，不使用舊示意當其原稿。
+- 新fittings.html原圖圖庫可點圖放大、Esc／返回關閉、下載原檔，勘查及工作室各有入口。新增選填picker預設不附圖；勘查確認單及工作室／CAD輸出可按選擇附上原圖，每張另附A4頁。選圖只在當頁記憶體，不存案件JSON或改BOM；結合片只改圖庫用語，原數量鍵link及計價不動。工作室與勘查選擇各自獨立。
+- fitting-library.ready只載入選中原圖；selectedPages保持完整原比例、白底、不裁切原文字箭頭。confirmation等ready後附同批PNG/JPEG/PDF，revision保護；studio預載快取後同步pack，CAD附頁2240×3168跟首頁一致，維持分享使用者點擊時機。載入失敗明確拒絕出圖，可取消選擇恢復原簡版。
+- 主node test.cjs、語法、新fitting-library-test及confirmation-share-test附頁測試通過。離線以實際library＋@napi-rs/canvas載入七原檔，產7頁PDF；pdfinfo確認7頁A4、Poppler渲染首／末頁人工確認完整，work/original-fitting-pdf-first.png與last.png、overview.png為證據。第一版總覽未等native Image載入而空白，已用await loadImage修正重產，非網站圖片失效。輔助npm僅ignored work/svg-render，不增加正式頁外部依賴。
+- 不重試之前被拒絕的localhost瀏覽器預覽；本回合採純離線原圖與PDF驗證，未修改真實案件、剪貼簿、Drive或LINE聊天室。未宣稱iPhone原生分享或LINE送達已實測；原有桌機複製與iPhone PDFnative路徑保留。PDF技能marker本回合已成功一次。
+- AI包42文字來源＋assets列7個binary原圖，含manifest／URL／雜湊；原圖不以UTF8讀入或base64膨脹原始碼包。保留位置統一與前兩次盤點／更正的未提交交接，未回退其他使用者改動。快取original-fittings-1；實際發布結果補記如下。
+
+
+## 2026-11-06：配件圖來源待核對（更正）
+
+- 使用者指出自己曾設計配件圖，質疑上一輪7圖總覽。需明確更正：7個僅是目前cadFittingSymbol的程式示意，不代表已找到使用者原始設計，也不能將7視為使用者設計張數。
+- 查目前專案、E槽非歷史專案的相關圖檔名稱與交接，尚未定位另一組原稿。fence-planner及hongsing-fence-planner的SPECIFICATION只記錄環帽／橫通管夾／尾管夾已呈現，轉角／束夾／放大圖待提供；這屬舊工具紀錄，不是最新版或原稿證明。沒有修改或覆蓋任何圖樣。
+- 原ChatGPT thread ID不能由Codex read_thread讀取；目前這個Codex session的user message搜尋未找出更早的配件原稿附件。仍需使用者指出設計所在的工具、專案或圖檔位置，再讀實際來源比對。上輪總覽保留為程式符號盤點，不得當使用者原稿展示。
+- 本次只追加更正交接與重建AI來源包，保留既有未提交改動，不提交、推送或發布。
+
+
+## 2026-11-06：現有配件線稿盤點與總覽（最新）
+
+- 使用者只要求「目前有幾張配件圖可以使用，我看一下」，本次未新增圖樣、修改功能或開啟配件卡。工作目錄明確使用E:/GPT/shangching-fence-survey，已先讀E:/GPT/專案位置總表.md與本交接；沒有另建Documents副本，也沒有使用備份／歷史來源。
+- 目前reference-drawing.js的cadFittingSymbol有7種：tail尾管夾、through橫通管夾、ring環帽、link連結片、corner轉角配件、cap管帽、band束夾。前5種對應fence-materials的數量估算；管帽／束夾只有外觀，程式明示不新增估算數量。這是內建向量線稿，不是7張實物照片。
+- 獨立配件卡目前由cadSVG強制fittings:false、studio.currentCAD傳fittings:false關閉；不要將「有7種圖樣」誤寫成客戶報告一定顯示7張卡。安裝位置的小圖與數量估算為另一層功能。
+- 用實際cadFittingSymbol直接產生work/fittings-overview-20261106.svg及PNG（1320×710），並離線Resvg渲染、人工檢查7張皆有圖形、中文標籤清楚。重建腳本work/render-fittings-overview.cjs，使用原本ignored work/svg-render套件；未用AI重畫。只供這次預覽，work檔不公開。
+- 本次僅追加本交接並重建AI來源包，38檔清單不變；保留先前位置統一造成的AGENTS.md、AI_README.md、HANDOFF與AI包未提交改動，不提交／推送／發布。此環境普通git status報非worktree；明確使用git --git-dir=E:/GPT/shangching-fence-survey/.git --work-tree=E:/GPT/shangching-fence-survey status可正常檢查，未修改Git設定。
+
+
+## 2026-11-06 本機開發位置統一（最新）
+
+- 使用者要求所有本機開發來源集中 E:\GPT。此專案現在唯一正式工作目錄為 E:\GPT\shangching-fence-survey，搬移基準 HEAD 9897bc6（下橫桿發布完成交接）。
+- 先前因當時可寫區改為 Documents\Codex，才建立 shangching-span-quote checkout，並保留 E 槽未提交內容。現在已按使用者要求統一，不得再以舊交接的「E槽副本不改」或 Documents 路徑建立第二份工作副本。
+- 舊 C:\Users\nosa\Documents\Codex\2026-11-04\shangching-span-quote 為 Junction，指向此 E 槽專案，舊對話可繼續使用同份來源。
+- 原 E 槽 checkout 與其六個已修改檔、未追蹤 repomix-output.xml 完整保存於 E:\GPT\.backups\20261106-project-location\old-E-shangching-fence-survey。不要直接把其未提交修改覆蓋新版，應另行比對需求是否已包含。
+- 原 C 槽整份程式、Git、work 資料完整備份於同備份根的 original-sources\fence-current；搬移前後逐檔 SHA256 及 Git HEAD、乾淨狀態已核對。Git status 自動更新 .git/index 時戳快取屬正常，原始碼相同。
+- 本次只整理本機位置與接手文件，未變更網站功能，未提交、推送或重新發布；原功能的發布狀態仍看下方歷史紀錄。CodeGraph 與 Repomix 路徑已配合更新，測試結果見本任務搬移交接。
+
+
 
 ## 2026-11-06：下橫桿圖面上移（最新）
 

@@ -5,12 +5,101 @@
   "handoff": "AI_README.md",
   "source": "ai-source.json",
   "repository": "https://github.com/sq087786789-lgtm/shangching-fence-survey",
+  "assets": [
+    {
+      "path": "assets/fittings/tail.jpg",
+      "url": "assets/fittings/tail.jpg",
+      "bytes": 1004472,
+      "sha256": "a9f5491f6e3649283d4c2f832d19027227b0ed4d910f6a27ffe44503f1a4e0dd",
+      "name": "尾管夾",
+      "original": "尾管夾.jpg",
+      "binary": true
+    },
+    {
+      "path": "assets/fittings/through.jpg",
+      "url": "assets/fittings/through.jpg",
+      "bytes": 1284484,
+      "sha256": "0ac39e9039e31715746ce3f59770c7981a3a48973e9fbc869d774a53ee46389a",
+      "name": "橫通管夾",
+      "original": "橫通直管.jpg",
+      "binary": true
+    },
+    {
+      "path": "assets/fittings/ring.jpg",
+      "url": "assets/fittings/ring.jpg",
+      "bytes": 1260487,
+      "sha256": "0924a4672fe311b3f8791b4f32f475973dc80f8d0078e16cf1d6417a988d1e66",
+      "name": "環帽",
+      "original": "環帽.jpg",
+      "binary": true
+    },
+    {
+      "path": "assets/fittings/link.jpg",
+      "url": "assets/fittings/link.jpg",
+      "bytes": 1324178,
+      "sha256": "18fafa80ffee9f1b85c01b353c7d09e5709825ff263f3c07ad91438b539da6c6",
+      "name": "結合片",
+      "original": "結合片.jpg",
+      "binary": true
+    },
+    {
+      "path": "assets/fittings/corner.jpg",
+      "url": "assets/fittings/corner.jpg",
+      "bytes": 1454751,
+      "sha256": "93ca61e2d3ae20f2fe28548622d18673535d1943f8e9908899af8650f34f055e",
+      "name": "轉角",
+      "original": "轉角.jpg",
+      "binary": true
+    },
+    {
+      "path": "assets/fittings/cap.png",
+      "url": "assets/fittings/cap.png",
+      "bytes": 3539620,
+      "sha256": "668f5552a90cea3ba2349a8f4d66a13598067b2b9afb9a62145190d5726940a9",
+      "name": "管帽",
+      "original": "管帽.png",
+      "binary": true
+    },
+    {
+      "path": "assets/fittings/band.jpg",
+      "url": "assets/fittings/band.jpg",
+      "bytes": 1140559,
+      "sha256": "49e00f0c00b00b8c75f052f37e6d032eac4943a2231367a7595a28f96227b02a",
+      "name": "束夾",
+      "original": "束夾.jpg",
+      "binary": true
+    }
+  ],
   "files": [
     {
       "path": "index.html",
-      "bytes": 13177,
-      "sha256": "4c919d0c89f6bfe77621419287fddd2cce09677c4408ccbcb49b0d104f9c5ddb",
+      "bytes": 13367,
+      "sha256": "d31e9efbfdd91ffc19280b9e9ee2301a8b9c33b4137fed09c046b506fa23d672",
       "url": "index.html"
+    },
+    {
+      "path": "fittings.html",
+      "bytes": 1180,
+      "sha256": "5e9b0d15215d566103c2c238aaa90c1580134eac55b00128ccd3e5940169481f",
+      "url": "fittings.html"
+    },
+    {
+      "path": "fitting-library.js",
+      "bytes": 6340,
+      "sha256": "85162097edee1bdc41460fa49a7e8086d6564d5428b0b10acbbe71568e96819c",
+      "url": "fitting-library.js"
+    },
+    {
+      "path": "fitting-library-test.cjs",
+      "bytes": 2129,
+      "sha256": "96def384e75ab860778897115c680273512bbd040a487421964990657cec15ec",
+      "url": "fitting-library-test.cjs"
+    },
+    {
+      "path": "assets/fittings/manifest.json",
+      "bytes": 1763,
+      "sha256": "46f5ab18e23e4505c7e8ca7b1870e728cfac47c05091d48891afa2e17240454b",
+      "url": "assets/fittings/manifest.json"
     },
     {
       "path": "fence-materials.js",
@@ -56,8 +145,8 @@
     },
     {
       "path": "studio-output.js",
-      "bytes": 10936,
-      "sha256": "dae53c6cacac2c4522ae8ba50e1e08fd7a2bec1339a7349ec1f836b6bd780b41",
+      "bytes": 11070,
+      "sha256": "9694ff26c6646d40079d53443c27c328e8b5238e7156285c55a8607cfe0017cd",
       "url": "studio-output.js"
     },
     {
@@ -74,8 +163,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 46013,
-      "sha256": "ecb0397963c9875ba4042e821a7d9ba581cfb8b8427515d6d13d90dfe335d6dd",
+      "bytes": 46027,
+      "sha256": "aba0f57d9f25c70d3f0ac8ed0dfe02a5e435511b99daad951446997b776a072f",
       "url": "app.js"
     },
     {
@@ -110,14 +199,14 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 26747,
-      "sha256": "ef2ec9556645f02c0e56fb14fe3ecfffa7e8348c44ef6d58452c081e95706e63",
+      "bytes": 27092,
+      "sha256": "7c77268d9396d828a7c2b4e5c6ba20fabe4216949f39e86a3e9731601cada94c",
       "url": "confirmation.js"
     },
     {
       "path": "confirmation-share-test.cjs",
-      "bytes": 5833,
-      "sha256": "d28e07b6f225e1f2ded8c157504450f1ae7609d3b9e3b1592353a78275a9edd7",
+      "bytes": 6108,
+      "sha256": "f2d319f56c49815b6b788fe3d9bed5cd227f1dc37bc623a7d6112b32925fb48a",
       "url": "confirmation-share-test.cjs"
     },
     {
@@ -158,8 +247,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 135019,
-      "sha256": "008cae6a0bdf4769eec14fb04abf086f2e92dde7efb0a23747ecbc75ca293d64",
+      "bytes": 135216,
+      "sha256": "35e3f177f2280186223beb134df4fc71c5c9597d6c1f03d31f52e7795ea1a218",
       "url": "studio.html"
     },
     {
@@ -182,44 +271,44 @@
     },
     {
       "path": "README.md",
-      "bytes": 34905,
-      "sha256": "bc0efe0a49896677399bfa3b33ed31ab00a5c15779149c8ef3257be26b7fb650",
+      "bytes": 35539,
+      "sha256": "21865900413427e6ac4059bf60de38bdc2c3a5c581e35b4fb1dc752a4b626150",
       "url": "README.md"
     },
     {
       "path": "AI_README.md",
-      "bytes": 52426,
-      "sha256": "395fb334d37ee1e876c922bf2b9009aa4eab0e107a1fa9f6381cf0f19cbbbb08",
+      "bytes": 55320,
+      "sha256": "e2a0be91f8738bafe16a24c059dc70ca2298d0418b6541df479f7275636a4e67",
       "url": "AI_README.md"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 12442,
-      "sha256": "ced9719f7c3ba1874af21894b442c31137e9803ef466f5c8ca04488b5386a26c",
+      "bytes": 13558,
+      "sha256": "12a5a068b0436966c36880c994ea9c724552f4c5b30724d3e6d1914dce188ab5",
       "url": "AGENTS.md"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 84967,
-      "sha256": "1cb6d681a32b8ea81e44d6471fca17cce3ca1667df4f45754c2e6b40d681751e",
+      "bytes": 91385,
+      "sha256": "2a671774979cd3eeea0866fa581618e4c7431e4bfd76cc90e6b9b656a25883a7",
       "url": "HANDOFF.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 71154,
-      "sha256": "dfd0e662f9acde6b894ae447b48ce86ee9074a2ef66ece33a08bb81d2ac581a9",
+      "bytes": 71192,
+      "sha256": "b892536771f531f42ff5629a03b6bcf3705d60f6883935de2e498d0b662a4e41",
       "url": "test.cjs"
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 2013,
-      "sha256": "abadf5f6a0013b3ab592603fcb29ec1d286117368f1762e80cd66840b41938b9",
+      "bytes": 2328,
+      "sha256": "788ef303f8349f749c4738a139522b95178e3e3b9bda2fc71c6fc76cb70da48b",
       "url": "build-handoff.cjs"
     },
     {
       "path": "ai.html",
-      "bytes": 1507,
-      "sha256": "dfa877534ea2b431701a7139c36973a765d76439d5515336e5b1f7f088573d42",
+      "bytes": 1573,
+      "sha256": "a30e08dc3bb56681e05fdc70bbdb93b58c9c6e857369d4d38792b09a1c1943b5",
       "url": "ai.html"
     },
     {

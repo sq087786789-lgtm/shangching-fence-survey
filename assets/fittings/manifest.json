@@ -1,0 +1,61 @@
+{
+  "source": "使用者提供的配件線條原圖",
+  "items": [
+    {
+      "id": "tail",
+      "name": "尾管夾",
+      "original": "尾管夾.jpg",
+      "src": "assets/fittings/tail.jpg",
+      "sha256": "a9f5491f6e3649283d4c2f832d19027227b0ed4d910f6a27ffe44503f1a4e0dd",
+      "bytes": 1004472
+    },
+    {
+      "id": "through",
+      "name": "橫通管夾",
+      "original": "橫通直管.jpg",
+      "src": "assets/fittings/through.jpg",
+      "sha256": "0ac39e9039e31715746ce3f59770c7981a3a48973e9fbc869d774a53ee46389a",
+      "bytes": 1284484
+    },
+    {
+      "id": "ring",
+      "name": "環帽",
+      "original": "環帽.jpg",
+      "src": "assets/fittings/ring.jpg",
+      "sha256": "0924a4672fe311b3f8791b4f32f475973dc80f8d0078e16cf1d6417a988d1e66",
+      "bytes": 1260487
+    },
+    {
+      "id": "link",
+      "name": "結合片",
+      "original": "結合片.jpg",
+      "src": "assets/fittings/link.jpg",
+      "sha256": "18fafa80ffee9f1b85c01b353c7d09e5709825ff263f3c07ad91438b539da6c6",
+      "bytes": 1324178
+    },
+    {
+      "id": "corner",
+      "name": "轉角",
+      "original": "轉角.jpg",
+      "src": "assets/fittings/corner.jpg",
+      "sha256": "93ca61e2d3ae20f2fe28548622d18673535d1943f8e9908899af8650f34f055e",
+      "bytes": 1454751
+    },
+    {
+      "id": "cap",
+      "name": "管帽",
+      "original": "管帽.png",
+      "src": "assets/fittings/cap.png",
+      "sha256": "668f5552a90cea3ba2349a8f4d66a13598067b2b9afb9a62145190d5726940a9",
+      "bytes": 3539620
+    },
+    {
+      "id": "band",
+      "name": "束夾",
+      "original": "束夾.jpg",
+      "src": "assets/fittings/band.jpg",
+      "sha256": "49e00f0c00b00b8c75f052f37e6d032eac4943a2231367a7595a28f96227b02a",
+      "bytes": 1140559
+    }
+  ]
+}

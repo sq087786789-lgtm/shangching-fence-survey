@@ -1,4 +1,11 @@
 # 接手規則
+配件圖以使用者2026-11-06指定的7張原檔為準，assets/fittings及manifest保留byte-for-byte來源與雜湊，不以舊cadFittingSymbol代替。勘查／工作室選填附圖預設空、每圖一頁、完整保留標示；不能改BOM或把3D安裝小符號替換成整張多視圖圖片。PDF所有附頁尺寸跟首張一致，手機分享先預載，保留原LINE剪貼簿／PDFnative。AI文字來源與binary assets分開索引。
+
+## 本機開發位置（2026-11-06 使用者要求）
+
+所有本機開發專案以 E:\GPT 為統一根目錄。不要因聊天預設工作目錄位於 Documents\Codex 或 OneDrive，就另建第二份開發副本；請明確指定 E 槽實際專案為工作目錄。先讀 E:\GPT\專案位置總表.md 及該專案 HANDOFF.md。歷史聊天、歷史報告及文件保留原位。
+圍籬勘查最新來源為 E:\GPT\shangching-fence-survey；名片 APP 為 E:\GPT\card-app。舊 Documents 來源路徑是轉向同一 E 槽來源的 Junction，不是另一份工作副本。不得把 .backups 或 .archives 的歷史版本當成最新版。每次任務仍需交接。
+
 
 下橫桿最新規則（2026-11-06）：studio與confirmation兩處railLevels保持同步，下橫桿圖面上移留離地空間（繪圖中心0.18m）。不在客戶圖／規格顯示固定離地數字，不新增欄位，現場判斷施工。網片繼續延伸到地面，0／1排與門框底緣不變，材料與報價不得連帶修改。
 
