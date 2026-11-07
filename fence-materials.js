@@ -1,7 +1,10 @@
 /* Shared physical quantities for the survey, studio and customer reports. */
 (function(root){
 'use strict';
-const names={through:'橫通管夾',tail:'尾管夾',ring:'環帽',link:'連結片',corner:'轉角配件'};
+const names={through:'橫通管夾',tail:'尾管夾',ring:'環帽',link:'結合片',corner:'轉角配件',band:'束夾',rubberCap:'橡膠管帽',galvanizedCap:'鍍鋅管帽'};
+const meshFixNames={wire:'白鐵線固定',band:'束夾固定',plate:'白鐵片固定'};
+const capNames={rubber:names.rubberCap,galvanized:names.galvanizedCap,ring:names.ring};
+const ringTop=e=>(e.postCap||e.topFix)==='ring';
 const length=(e,s)=>Math.hypot(s.nodes[e.b].x-s.nodes[e.a].x,s.nodes[e.b].z-s.nodes[e.a].z);
 const spans=(L,p)=>Math.max(1,Math.ceil((L-1e-8)/p));
 const stock=e=>e.railLength??3;
@@ -18,6 +21,29 @@ function railGroups(s,specs=s.edges){
  });
  return [...groups.values()];
 }
+function meshFittings(s,key,auto){
+ if(!s.edges.some(e=>!e.existing&&!e.meshOnly&&e.style!=='gate'&&(e.postCap||e.meshFix==='band')))return;
+ const capPosts=new Map(),bandPosts=new Map(),existingPosts=new Set();
+ for(const e of s.edges){
+  const a=s.nodes[e.a],b=s.nodes[e.b],L=length(e,s),n=e.style==='gate'?1:spans(L,e.spacing);
+  if(!e.existing&&!e.meshOnly&&e.style==='gate')continue;
+  if(!e.existing&&!e.meshOnly&&!(e.postCap||e.meshFix==='band'||active(e)&&ringTop(e)))continue;
+  for(let j=0;j<=n;j++){
+   const k=key({x:a.x+(b.x-a.x)*j/n,z:a.z+(b.z-a.z)*j/n});
+   if(e.existing||e.meshOnly){existingPosts.add(k);continue;}
+   const cap=e.postCap||(active(e)&&ringTop(e)?'ring':'');
+   if(cap&&(cap==='ring'||!capPosts.has(k)))capPosts.set(k,cap);
+   if(e.meshFix==='band')bandPosts.set(k,Math.max(bandPosts.get(k)||0,Math.ceil((e.postLength??2)*1.5-1e-8)));
+  }
+  if(e.meshFix==='band')auto.band+=n*(e.railCount??2)*Math.ceil(L/n-1e-8);
+ }
+ auto.ring=0;
+ for(const [k,cap] of capPosts){
+  if(existingPosts.has(k))continue;
+  auto[cap==='ring'?'ring':cap==='rubber'?'rubberCap':'galvanizedCap']++;
+ }
+ for(const count of bandPosts.values())auto.band+=count;
+}
 function accessoryCount(s){
  const edges=s.edges.filter(active),points=new Map(),endpoints=[],adj=new Map();
  for(const e of edges)for(const i of [e.a,e.b]){const p=s.nodes[i];if(!endpoints.some(q=>Math.hypot(p.x-q.x,p.z-q.z)<=.005+1e-9))endpoints.push(p)}
@@ -26,22 +52,23 @@ function accessoryCount(s){
  edges.forEach((e,j)=>{const a=s.nodes[e.a],b=s.nodes[e.b],n=spans(length(e,s),e.spacing);add(a,b,e,j);add(b,a,e,j);for(let i=1;i<n;i++){const p={x:a.x+(b.x-a.x)*i/n,z:a.z+(b.z-a.z)*i/n};add(p,a,e,j);add(p,b,e,j)}for(const p of [a,b]){const k=key(p);if(!adj.has(k))adj.set(k,[]);adj.get(k).push(j)}});
  const opposite=(a,b)=>Math.abs(a.x*b.x+a.z*b.z+1)<1e-6;
  const kind=arms=>arms.length===1?'end':arms.length===2?(opposite(arms[0],arms[1])?'middle':'corner'):'junction';
- const auto={through:0,tail:0,ring:0,link:0,corner:0};let middle=0,ends=0,corners=0,junctionArms=0;
+ const auto=Object.fromEntries(Object.keys(names).map(k=>[k,0]));let middle=0,ends=0,corners=0,junctionArms=0;
  for(const p of points.values()){
   const k=kind(p.arms);if(k==='middle')middle++;else if(k==='end')ends++;else if(k==='corner')corners++;else junctionArms+=p.arms.length;
-  if(p.arms.some(a=>a.e.topFix==='ring'))auto.ring++;
-  const rows=new Map();for(const arm of p.arms){const heights=levels(arm.e);heights.forEach((y,i)=>{const id=y.toFixed(5);if(!rows.has(id))rows.set(id,[]);rows.get(id).push({...arm,ring:arm.e.topFix==='ring'&&i===heights.length-1})})}
+  if(p.arms.some(a=>ringTop(a.e)))auto.ring++;
+  const rows=new Map();for(const arm of p.arms){const heights=levels(arm.e);heights.forEach((y,i)=>{const id=y.toFixed(5);if(!rows.has(id))rows.set(id,[]);rows.get(id).push({...arm,ring:ringTop(arm.e)&&i===heights.length-1})})}
   for(const arms of rows.values()){const type=kind(arms);if(type==='middle'){if(!arms.some(a=>a.ring))auto.through++}else if(type==='end')auto.tail++;else if(type==='corner')auto.corner++;else auto.tail+=arms.length}
  }
  // Each span is one installed rail. A straight shared top joint needs a link too.
  const visited=new Set(),runs=[];edges.forEach((edge,j)=>{
-  if(edge.topFix!=='ring'||visited.has(j))return;const queue=[j];let meters=0,pieces=0;
-  while(queue.length){const i=queue.pop();if(visited.has(i))continue;visited.add(i);const e=edges[i];meters+=length(e,s);pieces+=spans(length(e,s),e.spacing);for(const p of [s.nodes[e.a],s.nodes[e.b]]){const k=key(p),node=points.get(k);if(kind(node.arms)!=='middle')continue;for(const next of adj.get(k)||[])if(!visited.has(next)&&edges[next].topFix==='ring'&&Math.abs(edges[next].height-e.height)<1e-5)queue.push(next)}}
-  runs.push(meters);auto.link+=Math.max(0,pieces-1);
+  if(!ringTop(edge)||visited.has(j))return;const queue=[j];let meters=0,pieces=0;
+  while(queue.length){const i=queue.pop();if(visited.has(i))continue;visited.add(i);const e=edges[i];meters+=length(e,s);pieces+=spans(length(e,s),e.spacing);for(const p of [s.nodes[e.a],s.nodes[e.b]]){const k=key(p),node=points.get(k);if(kind(node.arms)!=='middle')continue;for(const next of adj.get(k)||[])if(!visited.has(next)&&ringTop(edges[next])&&Boolean(edges[next].postCap)===Boolean(edge.postCap)&&Math.abs(edges[next].height-e.height)<1e-5)queue.push(next)}}
+  runs.push(meters);auto.link+=edge.postCap==='ring'?Math.ceil((meters-1e-8)/6):Math.max(0,pieces-1);
  });
+ meshFittings(s,key,auto);
  const adjustment=s.accessoryAdjustments||{};
  const items=Object.entries(names).map(([key,name])=>({key,name,unit:key==='corner'?'組':key==='link'?'片':'個',automatic:auto[key],adjustment:adjustment[key]||0,total:Math.max(0,auto[key]+(adjustment[key]||0))}));
- return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(e=>e.topFix==='ring')?'環帽':edges.every(e=>e.topFix!=='ring')?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'橫桿依各段跨數×排數計支，管長只供採購參考；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽式頂排不計中間橫通，上橫桿每個管接頭1片連結片。門本體配件另計；只裝網、既有及無橫桿段排除。不同高度、分岔及混用固定方式請覆核。',items};
+ return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(ringTop)?'環帽':edges.every(e=>!ringTop(e))?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'橫桿依各段跨數×排數計支，管長只供採購參考；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽每柱1個，選環帽的直線頂排每6米估1片結合片，舊環帽設定仍按接頭。束夾依每2米立柱3個、每2米橫桿2個估算，逐件進位。門本體配件另計；只裝網及既有段不自動帶入新配件。',items};
 }
-const api={railGroups,accessoryCount,names};if(typeof module==='object'&&module.exports)module.exports=api;else root.sqFenceMaterials=api;
+const api={railGroups,accessoryCount,names,capNames,meshFixNames};if(typeof module==='object'&&module.exports)module.exports=api;else root.sqFenceMaterials=api;
 })(globalThis);

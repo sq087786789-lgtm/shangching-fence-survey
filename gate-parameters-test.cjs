@@ -84,3 +84,16 @@ for(const [heading,dx,dz]of [[90,0,-L],[-90,0,L],[180,-L,0],[0,L,0]]){choose(hea
 const box={dataset:{index:'1'},querySelector:()=>null};handlers.change({target:{dataset:{key:'heading'},value:'37.5',validity:{valid:true},closest:selector=>selector==='.segment'?box:null}});assert.ok(Math.abs(api.segmentHeading(1)-37.5)<1e-8);assert.ok(!Object.hasOwn(route.segments[1],'heading'));assert.ok(api.startDirectionField(route.segments[1],1).includes('其他第 2 段方向角度'));
 const gateIndex=api.insertSegment('gate',1);assert.equal(route.segments[gateIndex].turn,0);const d=api.design(),p=d.nodes[1],q=d.nodes[2],end=d.nodes[3],u={x:q.x-p.x,z:q.z-p.z},v={x:end.x-q.x,z:end.z-q.z};assert.ok(Math.abs(u.x*v.z-u.z*v.x)<1e-6);assert.ok(u.x*v.x+u.z*v.z>0);
 const converted={...route.segments[1],turn:135};api.setComponentStyle(converted,'gate-single');assert.equal(converted.turn,0);assert.equal(converted.angle,0);const legacy=structuredClone(route);legacy.segments[gateIndex].turn=-45;const restored=api.validate(api.migrate(JSON.parse(JSON.stringify(legacy))));assert.equal(restored.segments[gateIndex].turn,-45,'loading legacy geometry must not silently rotate it');console.log('PASS added-fence absolute direction clicks/custom input, relative JSON compatibility, gate alignment and legacy preservation');}
+
+
+{
+ const job=api.blankDesign();api.set(job);
+ Object.assign(job.segments[0],{meshFix:'plate',postCap:'galvanized'});
+ const plan=studio.validate(api.design()),row=studio.customerReport(plan).displayRows[0];
+ assert.ok(row.some(item=>item.key==='meshFix'&&item.value==='白鐵片固定'));
+ assert.ok(row.some(item=>item.key==='postCap'&&item.value==='鍍鋅管帽'));
+ assert.throws(()=>studio.validate({...plan,edges:[{...plan.edges[0],postCap:'unknown'}]}));
+ assert.match(html,/<select id="postCap">/);
+ assert.match(html,/<select id="meshFix">/);
+ console.log('PASS studio fitting method and cap controls, validation and output');
+}

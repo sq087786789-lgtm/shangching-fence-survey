@@ -73,8 +73,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13262,
-      "sha256": "6e02f14e51f97e4012bf30042ade29379bf7bc523926cc222de7c383aeca504b",
+      "bytes": 13525,
+      "sha256": "6dcde76a4d1041dc29152494beb242beffd2467cbd7d9cf314e76dd4128ab33f",
       "url": "index.html"
     },
     {
@@ -91,20 +91,20 @@
     },
     {
       "path": "fittings.html",
-      "bytes": 1168,
-      "sha256": "b2ef5a26d2a7077bd2aec6690bb4dc9dacb76babb0f937695725a1c460308850",
+      "bytes": 1165,
+      "sha256": "9ad3e0e6d56bf28968ab51991b3ba64f7e8081b7145a385f731aa651214b4ef3",
       "url": "fittings.html"
     },
     {
       "path": "fitting-library.js",
-      "bytes": 10521,
-      "sha256": "7c7177e64d7f09d64f61d2e8a3e99ef39259cec7b64d066b9d8a67faa1278fdb",
+      "bytes": 10670,
+      "sha256": "37e6776277c3d6aad24e634e0305005b2531b9ad3ac27507b5b279fb25877608",
       "url": "fitting-library.js"
     },
     {
       "path": "fitting-library-test.cjs",
-      "bytes": 4102,
-      "sha256": "bd404af556c399435e97c223f0481993a7969a758d9f09f759ed15a7af4f0453",
+      "bytes": 4312,
+      "sha256": "bb00ef24c27838bae15f2f4260476bdcf80a05a4332985d2842cff0f7496a4b7",
       "url": "fitting-library-test.cjs"
     },
     {
@@ -115,14 +115,14 @@
     },
     {
       "path": "fence-materials.js",
-      "bytes": 5205,
-      "sha256": "a3e7fdababc8160506568df2c1991d9779b7ad9051c3d0e55ca64830224a751b",
+      "bytes": 6829,
+      "sha256": "b7ceedbc6c8fb3fe10fcdb445220ed21d31a153ae78e9ab9e51f2b776e4a82d7",
       "url": "fence-materials.js"
     },
     {
       "path": "material-test.cjs",
-      "bytes": 6999,
-      "sha256": "a87ba65b95f47ab3b6aba0b8606e925f059873062d642ddbd16f38ca3664e8f6",
+      "bytes": 10250,
+      "sha256": "5d1f58be64e6b512bfe2e48f2feb4da70498cf0cad12df580b9e65e5550d4bf7",
       "url": "material-test.cjs"
     },
     {
@@ -151,8 +151,8 @@
     },
     {
       "path": "gate-parameters-test.cjs",
-      "bytes": 14525,
-      "sha256": "914bd7e5887b8bfb92a17d7051c50f98a78d849911db4a4464573206dbf57083",
+      "bytes": 15164,
+      "sha256": "b01c8911d0b473adf09f695fd74bc36cb04417804502b61e28cf383238970d2d",
       "url": "gate-parameters-test.cjs"
     },
     {
@@ -175,8 +175,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 49580,
-      "sha256": "6556283359661ef28b6abab46798b8360194a3a17497b8e0484fdc0c0225eef3",
+      "bytes": 51220,
+      "sha256": "44a35a49aad9becea008335acda7a2bb62ce31b87da42fdd8252ae07d962190a",
       "url": "app.js"
     },
     {
@@ -211,8 +211,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 30587,
-      "sha256": "a0966663068eea666f87b2fe78b70ebc607d516348912a676a357c58723f3d59",
+      "bytes": 30765,
+      "sha256": "674b4782c968981835547dbdd899cd9b02beec4c9854e0832903104a91d184bd",
       "url": "confirmation.js"
     },
     {
@@ -223,8 +223,8 @@
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 24986,
-      "sha256": "3fee1515ba3726d87dab0ff32cd141c4250a55b6946d3100bd784eb8f56432a3",
+      "bytes": 25191,
+      "sha256": "5a0109a245f9524acb571001a9d9690d698150834d3e7f319828c7893701c3c8",
       "url": "reference-drawing.js"
     },
     {
@@ -259,8 +259,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 137460,
-      "sha256": "1027a9b1eb2d46f80133a7a78e18ddac23c22ff8e2c903a6f7aa052e5c76060d",
+      "bytes": 139488,
+      "sha256": "b7f2fbdce110bc47d3b409f80e19ff9015ef694bdedeceaa8c6e03d2f9f48764",
       "url": "studio.html"
     },
     {
@@ -301,8 +301,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 116250,
-      "sha256": "f513d8c47cfbd82a7cb639d6fe8ea8757ace1d3c2f3e89ede8848c33fdea60dd",
+      "bytes": 117500,
+      "sha256": "bd72efd371fe2a38e78e0d54b59cec57f24365a41ee7543dbbba5829ce098a56",
       "url": "HANDOFF.md"
     },
     {
