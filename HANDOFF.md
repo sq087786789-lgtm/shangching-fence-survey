@@ -6,6 +6,9 @@
 - 新增大門原本turn=0持續沿前段；使用者把構件改為gate或切gate樣式時turn=0，從圍籬改gate初始angle=0。勘查門不顯示方向／自訂角度或門開啟角度，只留「沿前一段圍籬方向接續」；推拉百分比／推拉方向照常。舊案載入有非0 gate.turn仍保留，避免不經操作改圖，後續主動切gate樣式才對齊。
 - node test.cjs與app語法通過，gate-parameters-test補實際segment click與change事件：新增段四方向、37.5自訂轉換、relative JSON無heading欄、插門共線同向、切gate歸零、舊gate載入不默改；work/test-start-directions.cjs與HTML閉合／旁欄父層驗證同樣通過。
 - 工作目錄E:/GPT/shangching-fence-survey，快取all-directions-1。未改實際案件、雲端或LINE；發布與正式手機驗證補記如下。
+- **已上線，2026-11-07 補記：** 功能 bc48cad926fecfa01cadb513d676d91accb49ada，Pages 42213338555 成功。正式 index、app、style 與已測來源 SHA256 一致。
+- 正式 IAB 390×844 已看到第 1、3 段各有四向按鈕。第 3 段高度與柱距欄各 154.8px，其他角度可展開，重選原方向後收起。大門的 DOM 有沿前段接續提示，角度欄與方向按鈕數量均為 0。插門及切換大門的共線方向由本機事件測試驗證。續回合的本機瀏覽器存取關閉，以上採前一回合的正式頁驗證。正式入口 https://sq087786789-lgtm.github.io/shangching-fence-survey/?v=all-directions-1 。
+
 
 ## 2026-11-06：起始方向四小按鈕，其他欄位不縮（最新）
 
