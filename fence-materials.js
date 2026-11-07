@@ -11,8 +11,9 @@ function railGroups(s,specs=s.edges){
  const groups=new Map();
  s.edges.forEach((e,i)=>{
   if(!active(e))return;const spec=specs[i]||e,L=length(e,s),pipe=stock(e),dia=spec.railDia??null,wall=spec.railThickness??null;
-  const rateKey='railPiece_'+[pipe,dia??'u',wall??'u'].map(v=>String(v).replaceAll('.','p')).join('_');
-  if(!groups.has(rateKey))groups.set(rateKey,{rateKey,length:pipe,dia,thickness:wall,name:'橫桿（管長 '+pipe+'m）／Ø'+(dia??'待確認')+'mm／'+(wall==null?'厚度待確認':'厚'+wall+'mm'+(wall===1.4?' 亞管':wall===1.8?' 鍍鋅管':'')),qty:0,installedLength:0});
+  const material=spec.railMaterial,materialLabel=({zinc:'亞管',galv:'鍍鋅管',steel:'不鏽鋼'})[material];
+  const rateKey='railPiece_'+[pipe,dia??'u',wall??'u'].map(v=>String(v).replaceAll('.','p')).join('_')+(materialLabel?'_'+material:'');
+  if(!groups.has(rateKey))groups.set(rateKey,{rateKey,length:pipe,dia,thickness:wall,name:'橫桿（管長 '+pipe+'m）／Ø'+(dia??'待確認')+'mm／'+(wall==null?'厚度待確認':'厚'+wall+'mm')+(materialLabel?' '+materialLabel:wall===1.4?' 亞管':wall===1.8?' 鍍鋅管':''),qty:0,installedLength:0});
   const group=groups.get(rateKey);group.qty+=spans(L,e.spacing)*(e.railCount??2);group.installedLength+=L*(e.railCount??2);
  });
  return [...groups.values()];

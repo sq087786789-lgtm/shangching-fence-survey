@@ -73,8 +73,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13253,
-      "sha256": "864045a24b426a2a6a013405e4240a5b2821ae821eb6ddaf9193397bd0cf4224",
+      "bytes": 13262,
+      "sha256": "6e02f14e51f97e4012bf30042ade29379bf7bc523926cc222de7c383aeca504b",
       "url": "index.html"
     },
     {
@@ -115,8 +115,8 @@
     },
     {
       "path": "fence-materials.js",
-      "bytes": 5028,
-      "sha256": "b5bc616ce89de2466b7a3808dc6e5106c74b66d716d04741dbd106664045674b",
+      "bytes": 5205,
+      "sha256": "a3e7fdababc8160506568df2c1991d9779b7ad9051c3d0e55ca64830224a751b",
       "url": "fence-materials.js"
     },
     {
@@ -151,8 +151,8 @@
     },
     {
       "path": "gate-parameters-test.cjs",
-      "bytes": 12197,
-      "sha256": "1833584fb9b23fb3f9201604fcefce85d3909083f0f4ee1f39545720dec8ee0c",
+      "bytes": 14525,
+      "sha256": "914bd7e5887b8bfb92a17d7051c50f98a78d849911db4a4464573206dbf57083",
       "url": "gate-parameters-test.cjs"
     },
     {
@@ -175,8 +175,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 49060,
-      "sha256": "b16424f081aacbf48909ff1bb2928a9ff53eee4d3e3596570c2fed24c3a9c699",
+      "bytes": 49580,
+      "sha256": "6556283359661ef28b6abab46798b8360194a3a17497b8e0484fdc0c0225eef3",
       "url": "app.js"
     },
     {
@@ -211,8 +211,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 30520,
-      "sha256": "0d403b63218d95c1e12d4d6a50964f71b0d7b9b3cc7a7942b2bda08639765ca0",
+      "bytes": 30587,
+      "sha256": "a0966663068eea666f87b2fe78b70ebc607d516348912a676a357c58723f3d59",
       "url": "confirmation.js"
     },
     {
@@ -223,8 +223,8 @@
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 24971,
-      "sha256": "9c7db7bf7b1e3f88ccd81429c446289b161c540a4d0bd8be7eb8fe6c86ef0b1e",
+      "bytes": 24986,
+      "sha256": "3fee1515ba3726d87dab0ff32cd141c4250a55b6946d3100bd784eb8f56432a3",
       "url": "reference-drawing.js"
     },
     {
@@ -259,8 +259,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 136542,
-      "sha256": "9aa483f81921744cd2baf72b70f0602b80fdd351fa782034944b0cf1c535944e",
+      "bytes": 137460,
+      "sha256": "1027a9b1eb2d46f80133a7a78e18ddac23c22ff8e2c903a6f7aa052e5c76060d",
       "url": "studio.html"
     },
     {
@@ -301,8 +301,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 115364,
-      "sha256": "bb7e9db7862909d26e8a1cb031b40bfc3c52c6caafb1630b56e104fcadb1d56e",
+      "bytes": 116250,
+      "sha256": "f513d8c47cfbd82a7cb639d6fe8ea8757ace1d3c2f3e89ede8848c33fdea60dd",
       "url": "HANDOFF.md"
     },
     {

@@ -38,7 +38,7 @@ const studio=sc.api;studio.validate(d);const existingFence=JSON.stringify(d.edge
 for(const diameter of [101,114,119.2]){studio.setSegmentSpec(d,gateIndex,'postDia',diameter);studio.validate(d);assert.ok(Math.abs(studio.length(edge,d)-edge.postDia/1000-4)<1e-7);}
 studio.setGateKind(d,gateIndex,'post','galv-square');studio.setGateKind(d,gateIndex,'frame','zinc-square');assert.equal(edge.thickness,2.7);assert.equal(edge.railThickness,2.1);assert.equal(edge.railMaterial,'zinc');assert.equal(edge.postShape,'square');assert.equal(JSON.stringify(d.edges[0]),existingFence);
 const table=studio.customerReport(d),items=table.displayRows[1];assert.ok(items.some(i=>i.key==='gatePostKind'&&i.value==='鍍鋅方管'));assert.ok(items.some(i=>i.key==='gateFrameKind'&&i.value==='亞方管'));assert.ok(items.some(i=>i.key==='gateWidth'&&i.value==='4 m'));assert.ok(items.some(i=>i.key==='gateFoundationNote'&&i.value===gate.gateFoundationNote));
-const legacySteel=structuredClone(d);legacySteel.edges[1].material='steel';delete legacySteel.edges[1].railMaterial;studio.setGateKind(legacySteel,1,'frame','steel-square');assert.equal(legacySteel.edges[1].railMaterial,undefined);
+const legacySteel=structuredClone(d);legacySteel.edges[1].material='steel';delete legacySteel.edges[1].railMaterial;studio.setGateKind(legacySteel,1,'frame','steel-square');assert.equal(legacySteel.edges[1].railMaterial,'steel');assert.equal(legacySteel.edges[1].railShape,'square');
 const ref=require('./reference-drawing.js')({length:(e,s)=>studio.length(e,s),outputEnabled:()=>true,spanCount:()=>1,railLevels:()=>[],customerReport:s=>studio.customerReport(s),accessoryCount:()=>({items:[]})});
 const groups=ref.specGroups(d,edge,items);assert.equal(groups.find(g=>g.title==='門柱').items[0].key,'gatePostKind');assert.equal(groups.find(g=>g.title==='門框').items[0].key,'gateFrameKind');assert.ok(ref.cadSVG(d,1).includes('門柱 □119.2 mm'));assert.ok(ref.cadSVG(d,1).includes('&lt;保留&gt;'));
 const model=confirmation.model({...job,design:api.design()});assert.ok(model.materials.some(r=>r.name.startsWith('門柱 □114mm')&&r.name.includes('2.7mm 亞管')));assert.ok(model.materials.some(r=>r.name.startsWith('門框 Ø101mm')&&r.name.includes('2.1mm 鍍鋅管')));assert.ok(model.methods.some(r=>r.includes(gate.gateFoundationNote)));
@@ -47,6 +47,35 @@ const manualNotes=job.notes;gate.note='側門留通行';let notes=api.siteNoteRo
 edit('gateFinish','paint');handlers.input({target:{tagName:'INPUT',type:'text',dataset:{key:'gateFinishColor'},value:'#1e5631',validity:{valid:true},closest:()=>({dataset:{index:'1'}})}});assert.equal(api.design().edges[1].gateFinishColor,'#1e5631');assert.equal(studio.gatePaintColor(api.design().edges[1]),'#1e5631');edit('gateFinish','none');assert.equal(gate.gateFinishColor,'#1e5631');assert.equal(studio.gatePaintColor(api.design().edges[1]),null);assert.ok(api.gateFinishFields(gate).includes('data-gate-color hidden'));edit('gateFinish','baked');assert.ok(!api.gateFinishFields(gate).includes('data-gate-color hidden'));const finishModel=confirmation.model({...job,design:api.design()});assert.ok(finishModel.materials.some(row=>row.name.includes('烤漆／#1e5631')));assert.equal(api.validate(api.migrate(JSON.parse(JSON.stringify(job)))).segments[1].gateFinishColor,'#1e5631');const invalidFinish=structuredClone(job);invalidFinish.segments[1].gateFinish='invalid';assert.throws(()=>api.validate(invalidFinish));
 console.log('PASS gate-only styles, preset/custom visibility, derived note updates without mutation, coating modes/colors, 3D/report and JSON preservation');
 console.log('PASS 4m gate opening preserved across types, post diameters, pending edits, JSON and studio transfer; independent round/square post/frame materials and custom thickness, foundation choices/notes, legacy geometry and escaped customer specs');
+
+// Stainless can be specified independently and survives the survey-to-studio transfer.
+{
+ const stainless=api.blankDesign();api.set(stainless);api.insertSegment('gate');
+ const fence=stainless.segments[0],wall=fence.postThickness;
+ const editFence=(key,value)=>handlers.change({target:{dataset:{key},value,validity:{valid:true},closest:selector=>selector==='.segment'?{dataset:{index:'0'},querySelector:()=>null}:null}});
+ editFence('meshMat','steel');editFence('postMaterialPreset','steel');editFence('railMaterial','steel');editFence('railThickness','1.8');
+ assert.equal(fence.meshMat,'steel');assert.equal(fence.postMaterial,'steel');assert.equal(fence.postThickness,wall);assert.equal(fence.railMaterial,'steel');
+ assert.ok(!api.segmentSpecs(fence).includes('1.8 mm 鍍鋅管</option></select>'));
+ const door=stainless.segments[1];api.setGateKind(door,'post','steel-square');api.setGateKind(door,'frame','steel-round');
+ door.gateFinish='none';
+ assert.ok(api.segmentSpecs(door).includes('表面塗層'));
+ api.insertSegment('fence');
+ const ordinary=stainless.segments[2];assert.equal(ordinary.railMaterial,'steel');
+ ordinary.railMaterial='galv';
+ const design=api.design();studio.validate(design);api.validate(api.migrate(JSON.parse(JSON.stringify(stainless))));
+ const report=studio.customerReport(design);
+ for(const [i,key,value]of [[0,'railMaterial','不鏽鋼'],[1,'gatePostKind','不鏽鋼方管'],[1,'gateFrameKind','不鏽鋼圓管']]){
+  assert.ok(report.displayRows[i].some(item=>item.key===key&&item.value===value),key);
+ }
+ const parts=materials.railGroups(design,stainless.segments);
+ assert.equal(parts.length,2);assert.ok(parts.some(p=>p.name.includes('1.8mm 不鏽鋼')&&p.rateKey.endsWith('_steel')));
+ assert.ok(parts.some(p=>p.name.includes('1.8mm 鍍鋅管')&&p.rateKey.endsWith('_galv')));
+ const customer=confirmation.model({...stainless,design});
+ assert.ok(customer.materials.some(row=>row.name.startsWith('不鏽鋼菱形網')));
+ assert.ok(customer.materials.some(row=>row.name.startsWith('大門表面塗層')));
+ assert.ok(customer.materials.some(row=>row.name.startsWith('門框 ')&&row.name.includes('不鏽鋼')));
+ console.log('PASS stainless survey selection, thickness, 3D transfer, independent rail rates and customer specs');
+}
 
 // Every added fence uses screen directions while JSON continues to store relative turns.
 {const route=api.blankDesign();route.segments[0].turn=90;api.set(route);api.insertSegment('fence',0);const idx=1,L=route.segments[idx].length;
