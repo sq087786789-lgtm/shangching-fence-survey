@@ -74,7 +74,7 @@
     {
       "path": "index.html",
       "bytes": 13253,
-      "sha256": "102124669390c66e1d81dd04e2711234907b9659571ca8c84c484adebced2969",
+      "sha256": "864045a24b426a2a6a013405e4240a5b2821ae821eb6ddaf9193397bd0cf4224",
       "url": "index.html"
     },
     {
@@ -176,7 +176,7 @@
     {
       "path": "app.js",
       "bytes": 49060,
-      "sha256": "5c903cf2c1d5603be56b8bba416ea0ffb10dc0751f15dddc3f629f64c40b88de",
+      "sha256": "b16424f081aacbf48909ff1bb2928a9ff53eee4d3e3596570c2fed24c3a9c699",
       "url": "app.js"
     },
     {
@@ -259,8 +259,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 136435,
-      "sha256": "6c37b4ec6357e700824964972e1cb66d9d2d63826467fb3efc34bb1ea66a4c5e",
+      "bytes": 136542,
+      "sha256": "9aa483f81921744cd2baf72b70f0602b80fdd351fa782034944b0cf1c535944e",
       "url": "studio.html"
     },
     {
@@ -301,8 +301,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 115187,
-      "sha256": "d69974a7f9117f54fc58639798c3d71d429e15594b02f83cfeb30c5b40380604",
+      "bytes": 115364,
+      "sha256": "bb7e9db7862909d26e8a1cb031b40bfc3c52c6caafb1630b56e104fcadb1d56e",
       "url": "HANDOFF.md"
     },
     {
