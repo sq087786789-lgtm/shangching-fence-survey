@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert');let src=fs.read
 require('./quote-photo-test.cjs');require('./material-test.cjs');require('./quote-units-test.cjs');require('./mesh-presets-test.cjs');require('./height-scale-test.cjs');require('./gate-frame-test.cjs');require('./studio-output-test.cjs');require('./confirmation-share-test.cjs');require('./fitting-library-test.cjs');require('./output-compression-test.cjs');require('./gate-parameters-test.cjs');
 let byLength=a.fresh();byLength.segments[0].length=150;byLength.segments[1].length=20;a.set(byLength);assert.equal(a.estimate().mesh,170);byLength.segments[0].height=3;byLength.segments[1].height=1.2;assert.equal(a.estimate().mesh,170);console.log('PASS: mesh counts 170m, excludes gate, unchanged when heights differ');
 
-const machine=a.fresh();a.set(machine);const initial=a.quote().total;machine.pricing.excavatorShifts=1.5;machine.pricing.excavatorRate=8000;machine.pricing.excavatorTransport=3000;machine.segments[0].excavator='需要怪手';machine.segments[1].excavator='需要怪手';assert.equal(a.quote().excavatorSubtotal,15000);assert.equal(a.quote().total-initial,15750);assert.equal(a.lines().filter(l=>l.key==='excavatorWork')[0].qty,1.5);const legacy=a.fresh();delete legacy.pricing.excavatorShifts;delete legacy.pricing.excavatorRate;delete legacy.pricing.excavatorTransport;legacy.pricing.extra=900;assert.equal(a.migrate(legacy).pricing.extra,900);assert.equal(legacy.pricing.excavatorShifts,0);const loaded=JSON.parse(JSON.stringify(machine));a.set(a.validate(a.migrate(loaded)));assert.equal(a.quote().excavatorSubtotal,15000);machine.pricing.excavatorRate=-1;assert.throws(()=>a.validate(machine));console.log('PASS excavator half shift, transport, tax, no duplicate segment charging, old file migration and round trip');
+const machine=a.fresh();a.set(machine);const initial=a.quote().total;assert.ok(!a.lines().some(line=>line.key==='excavatorTransport'));machine.pricing.excavatorShifts=1.5;machine.pricing.excavatorRate=8000;machine.pricing.excavatorTransport=3000;machine.segments[0].excavator='需要怪手';machine.segments[1].excavator='需要怪手';assert.equal(a.quote().excavatorSubtotal,15000);assert.equal(a.lines().find(line=>line.key==='excavatorTransport').rate,3000);assert.equal(a.quote().total-initial,15750);assert.equal(a.lines().filter(l=>l.key==='excavatorWork')[0].qty,1.5);const legacy=a.fresh();delete legacy.pricing.excavatorShifts;delete legacy.pricing.excavatorRate;delete legacy.pricing.excavatorTransport;legacy.pricing.extra=900;assert.equal(a.migrate(legacy).pricing.extra,900);assert.equal(legacy.pricing.excavatorShifts,0);const loaded=JSON.parse(JSON.stringify(machine));a.set(a.validate(a.migrate(loaded)));assert.equal(a.quote().excavatorSubtotal,15000);machine.pricing.excavatorRate=-1;assert.throws(()=>a.validate(machine));console.log('PASS excavator half shift, transport, tax, no duplicate segment charging, old file migration and round trip');
 
 const route=a.blankDesign();a.set(route);assert.equal(route.segments.length,1);assert.equal(a.estimate().gates,0);const gateIndex=a.insertSegment('gate',0);assert.equal(gateIndex,1);assert.equal(a.estimate().gates,1);route.segments[1].turn=-135;route.segments[1].note='保留此門';a.removeSegment(1);route.project.client='刪除後的修改';assert.equal(a.estimate().gates,0);assert.equal(a.restoreSegment(),true);assert.equal(a.estimate().gates,1);assert.equal(route.segments[1].turn,-135);assert.equal(route.segments[1].note,'保留此門');assert.equal(route.project.client,'刪除後的修改');assert.equal(a.restoreSegment(),false);for(const angle of [15,30,45,60,90,120,135,150,180,-15,-30,-45,-60,-90,-120,-135,-150,22.5]){route.segments[1].turn=angle;a.validate(route)}assert.equal(a.design().edges.length,2);console.log('PASS: new design, insert gate, undo deletion without losing edits, preset and custom angles');
 
@@ -154,6 +154,23 @@ const pdfFlowSource=fs.readFileSync(root+'/confirmation.js','utf8'),pdfFlowButto
  }
  reset('three',1);vm.runInContext('setSlidingOpening(100)',scene);assert.equal(snapshot().state.edges[index].slideOpen,100);vm.runInContext('setSlidingOpening(0)',scene);assert.equal(snapshot().state.edges[index].slideOpen,0);vm.runInContext('undo()',scene);assert.equal(snapshot().state.edges[index].slideOpen,100);
  reset('plan',1);const end=target();for(const point of [end.a,end.b]){handlers.pointerdown(event(point));assert.equal(snapshot().dragType,'camera');handlers.pointerup();}vm.runInContext('interactionMode="edit"',scene);for(const point of [end.a,end.b]){handlers.pointerdown(event(point));assert.equal(snapshot().dragType,'node');handlers.pointercancel();assert.equal(snapshot().history,0);}
+ // A short tap selects a segment in either camera mode, while a drag or cancel leaves selection alone.
+ for(const mode of ['pan','orbit']){
+  reset('three',1);
+  vm.runInContext("interactionMode="+JSON.stringify(mode)+";hits=[{j:0,a:{x:5,y:5},b:{x:35,y:5},topa:{x:5,y:5},topb:{x:35,y:5}}]",scene);
+  handlers.pointerdown(event({x:20,y:5}));handlers.pointermove(event({x:22,y:5}));handlers.pointerup();
+  assert.equal(vm.runInContext('selected',scene),0);assert.equal(snapshot().history,0);
+  vm.runInContext('selected='+index,scene);
+  handlers.pointerdown(event({x:20,y:5}));handlers.pointermove(event({x:40,y:12}));handlers.pointerup();
+  assert.equal(vm.runInContext('selected',scene),index);
+  handlers.pointerdown(event({x:20,y:5}));handlers.pointercancel();assert.equal(vm.runInContext('selected',scene),index);
+ }
+ scene.fit=()=>{};fields.three={classList:{toggle(){}}};fields.plan={classList:{toggle(){}}};
+ vm.runInContext(actual(['setView']).split("}$('sceneZoomIn')")[0]+'}\n'+actual(['setInteraction'])+'\n'+studioScript.match(/^\$\('panMode'\)\.onclick[^\n]+/m)[0],scene);
+ reset('plan',1);fields.orbitMode.onclick();
+ assert.equal(vm.runInContext('view',scene),'three');assert.equal(snapshot().mode,'orbit');
+ reset('three',1);
+ console.log('PASS camera tap selection, drag and cancel separation, and explicit rotation from plan view');
  vm.runInContext('drawSlidingHandle()',scene);assert.equal(calls.painted,1);vm.runInContext('showControls=false;drawSlidingHandle()',scene);assert.equal(calls.painted,1);assert.equal(vm.runInContext('slidingGateAt(slidingHandlePoint(state.edges[selected]),true)',scene),-1);assert.equal(vm.runInContext('slidePercentageFromDrag({axis:{x:0,y:0},initial:30}, {x:0,y:0})',scene),30);
  vm.runInContext(studioScript.match(/^const lift=[^\n]+/m)[0],studioContext);
  const standalone={...input,nodes:[{x:-2,z:0},{x:2,z:0}],edges:[{...input.edges[index],a:0,b:1}]};for(const direction of [1,-1])for(const mode of ['three','plan']){
@@ -239,6 +256,23 @@ const pdfFlowSource=fs.readFileSync(root+'/confirmation.js','utf8'),pdfFlowButto
  let headings=nodes.segments.innerHTML.match(/<details class="segment"[^>]*>/g);assert.equal(headings.length,3);assert.ok(headings[0].includes('open'));assert.ok(!headings[1].includes('open'));assert.ok(nodes.segments.innerHTML.includes('柱距 2 m'));
  const job=JSON.parse(vm.runInContext('JSON.stringify(job)',c));for(const [i,s]of job.segments.entries())panels.push({dataset:{index:String(i),segmentId:s.id},open:i===0,scrollIntoView(){calls.scroll++}});
  vm.runInContext(['setSegmentsOpen','showSegment'].map(name=>full.match(new RegExp('^function '+name+'\\([^\\n]+','m'))[0]).join('\n')+'\n'+full.match(/^\$\('segments'\)\.addEventListener\('toggle'[^\n]+/m)[0],c);
+ const bridgeMessages=[];
+ nodes.studio={contentWindow:{postMessage(message){bridgeMessages.push(message)}}};
+ c.location={origin:'https://example.test'};
+ c.window.addEventListener=(name,fn)=>events[name]=fn;
+ vm.runInContext('studioLoaded=true;refreshSurveySegmentChoices();selectSurveySegment(2)',c);
+ assert.equal(nodes.surveySegment.value,job.segments[2].id);
+ assert.equal(bridgeMessages.at(-1).id,job.segments[2].id);
+ vm.runInContext(full.slice(full.indexOf("window.addEventListener('message',event=>"),full.indexOf('function download(')),c);
+ events.message({origin:c.location.origin,source:{},data:{type:'sq-studio-selected',id:job.segments[0].id}});
+ assert.equal(nodes.surveySegment.value,job.segments[2].id);
+ events.message({origin:c.location.origin,source:nodes.studio.contentWindow,data:{type:'sq-studio-selected',id:job.segments[1].id}});
+ assert.equal(nodes.surveySegment.value,job.segments[1].id);
+ assert.equal(bridgeMessages.length,1,'studio selections must not echo back');
+ vm.runInContext("insertSegment('fence',0);refreshSurveySegmentChoices();removeSegment(1);refreshSurveySegmentChoices()",c);
+ assert.equal(nodes.surveySegment.value,job.segments[1].id);
+ vm.runInContext('studioLoaded=false',c);
+ console.log('PASS survey selection follows segment IDs across reordering and iframe messages');
  const unchanged=vm.runInContext('JSON.stringify({data,quote:quote()})',c);vm.runInContext('setSegmentsOpen(false);render()',c);assert.ok(panels.every(p=>!p.open));assert.ok(!(nodes.segments.innerHTML.match(/<details class="segment"[^>]*>/g)).some(x=>x.includes('open')));
  vm.runInContext('showSegment(1);render()',c);assert.equal(panels[1].open,true);headings=nodes.segments.innerHTML.match(/<details class="segment"[^>]*>/g);assert.ok(headings[1].includes('open'));assert.equal(calls.scroll,1);
  panels[1].open=false;events.toggle({target:{...panels[1],matches:()=>true}});vm.runInContext('render()',c);assert.ok(!nodes.segments.innerHTML.match(/<details class="segment"[^>]*>/g)[1].includes('open'));
