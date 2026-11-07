@@ -97,3 +97,30 @@ const converted={...route.segments[1],turn:135};api.setComponentStyle(converted,
  assert.match(html,/<select id="meshFix">/);
  console.log('PASS studio fitting method and cap controls, validation and output');
 }
+
+
+{
+ const job=api.blankDesign();api.set(job);const fence=job.segments[0];
+ const box={dataset:{index:'0'},querySelector:()=>null};
+ const editFence=(key,value)=>handlers.change({target:{dataset:{key},value,validity:{valid:true},closest:selector=>selector==='.segment'?box:null}});
+ assert.equal(fence.railLength,fence.spacing);
+ let markup=api.segmentSpecs(fence);
+ assert.match(markup,/菱形網規格[\s\S]*菱形網高度 m[\s\S]*立柱與工法[\s\S]*最大柱距 m[\s\S]*橫桿/);
+ editFence('spacing','2.5');
+ assert.equal(fence.spacing,2.5);
+ assert.equal(fence.railLength,2.5);
+ assert.equal(api.design().edges[0].railLength,2.5);
+ assert.match(api.segmentSpecs(fence),/data-key="railLength" value="2.5"/);
+ editFence('railLength','3');
+ const loaded=api.validate(api.migrate(JSON.parse(JSON.stringify(job))));
+ assert.equal(loaded.segments[0].spacing,2.5);
+ assert.equal(loaded.segments[0].railLength,3);
+ assert.equal(job.segments[api.insertSegment('fence')].railLength,3);
+ editFence('height','2');assert.equal(fence.height,2);assert.equal(fence.railLength,3);
+ fence.meshOnly=true;
+ markup=api.segmentSpecs(fence);
+ assert.match(markup,/菱形網高度 m[\s\S]*既有立柱間距 m（示意）/);
+ editFence('spacing','1.5');assert.equal(fence.railLength,3);
+ assert.ok(!api.segmentSpecs({...fence,type:'gate',meshOnly:false}).includes('最大柱距 m'));
+ console.log('PASS survey field grouping, spacing-to-rail defaults, manual rail override, old files and gate/mesh-only isolation');
+}
