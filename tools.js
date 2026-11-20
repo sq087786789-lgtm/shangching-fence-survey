@@ -7,7 +7,8 @@
     return url.href;
   };
   function card(tool) {
-    if (!tool || typeof tool.name !== 'string' || typeof tool.summary !== 'string' || typeof tool.url !== 'string' || !/^[A-Za-z0-9_.-]+$/.test(tool.repository || '') || !['current','legacy'].includes(tool.group)) throw Error('Invalid tool entry');
+    if (!tool || typeof tool.name !== 'string' || typeof tool.summary !== 'string' || typeof tool.url !== 'string' || !['current','legacy'].includes(tool.group)) throw Error('Invalid tool entry');
+    if (tool.repository !== undefined && (typeof tool.repository !== 'string' || !/^[A-Za-z0-9_.-]+$/.test(tool.repository))) throw Error('Invalid repository');
     const article = document.createElement('article'); article.className = 'card';
     const open = document.createElement('a'); open.className = 'open'; open.href = safeUrl(tool.url);
     const head = document.createElement('div'); head.className = 'cardHead';
@@ -18,8 +19,12 @@
     const summary = document.createElement('p'); summary.textContent = tool.summary;
     const go = document.createElement('span'); go.className = 'go'; go.textContent = '開啟工具 →';
     open.append(head,title,summary,go);
-    const repo = document.createElement('a'); repo.className = 'repo'; repo.href = 'https://github.com/sq087786789-lgtm/' + tool.repository; repo.textContent = 'GitHub 專案 ↗'; repo.setAttribute('aria-label',tool.name + '的 GitHub 專案');
-    article.append(open,repo); return article;
+    article.append(open);
+    if (tool.repository) {
+      const repo = document.createElement('a'); repo.className = 'repo'; repo.href = 'https://github.com/sq087786789-lgtm/' + tool.repository; repo.textContent = 'GitHub 專案 ↗'; repo.setAttribute('aria-label',tool.name + '的 GitHub 專案');
+      article.append(repo);
+    }
+    return article;
   }
   async function load() {
     try {
