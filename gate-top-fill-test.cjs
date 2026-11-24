@@ -189,6 +189,8 @@ assert.ok(studioHtml.includes("e.gateType==='sliding'?'往 A 端推開':'內開'
 const fullAppSrc=fs.readFileSync(path.join(root,'app.js'),'utf8');
 assert.ok(fullAppSrc.includes("field('開啟方式','direction',s.direction??1,[[1,'外開'],[-1,'內開']])"));
 const cadDialogHtml=studioHtml.match(/<dialog id="cadDialog">[\s\S]*?<\/dialog>/)[0];
-assert.ok(cadDialogHtml.includes('data-fitting-picker'),'CAD dialog should include the fitting diagram toggle');
+assert.ok(cadDialogHtml.includes('id="cadFittings"'),'CAD dialog should include compact #cadFittings toggle');
+assert.ok(!cadDialogHtml.includes('id="cadRailDia"'),'CAD dialog should replace #cadRailDia with #cadFittings');
+assert.ok(!cadDialogHtml.includes('data-fitting-picker'),'CAD dialog should not render oversized standalone picker block');
 
 console.log('PASS gate overhead flush fill (auto/none/custom, CAD/3D/confirmation/BOM preservation), top blank-design button, inward/outward gate labels and CAD fitting toggle');

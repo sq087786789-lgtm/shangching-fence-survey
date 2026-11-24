@@ -97,8 +97,8 @@
     },
     {
       "path": "fitting-library.js",
-      "bytes": 10670,
-      "sha256": "37e6776277c3d6aad24e634e0305005b2531b9ad3ac27507b5b279fb25877608",
+      "bytes": 10692,
+      "sha256": "8deb29bf7cdd44a1b359dfb4974339b8169814e53efd7e696b30b67a90a6d69f",
       "url": "fitting-library.js"
     },
     {
@@ -157,8 +157,8 @@
     },
     {
       "path": "gate-top-fill-test.cjs",
-      "bytes": 10214,
-      "sha256": "9cc2ea0b7407452dcf106717d3863da7e28bcc6c584c36c7055c3d39e02873fc",
+      "bytes": 10449,
+      "sha256": "608adba987721e8ff481a2d91fcdf0f925764cb199c4c9eb460abb3375f17632",
       "url": "gate-top-fill-test.cjs"
     },
     {
@@ -265,8 +265,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 145203,
-      "sha256": "593221f0470f90d3e4bffe81e11d6ed840976d557a5ecc1d96d980c4916440b8",
+      "bytes": 144823,
+      "sha256": "4ae406060c21dcf91eac8670507a9d6aa820672cea6d32349bc4625eb98a886f",
       "url": "studio.html"
     },
     {
@@ -307,8 +307,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 121255,
-      "sha256": "6681d641f153a89076a9bcebdabef8696458ef6c46ac72a641543f88d46c688e",
+      "bytes": 121415,
+      "sha256": "7f24672b6272fa65680bf67329136125c486ecb7b4d810152a8bbf33385d67e7",
       "url": "HANDOFF.md"
     },
     {
