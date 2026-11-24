@@ -5,6 +5,7 @@
 - **圖面與輸出同步**：3D 配置工作室（`drawGateTopFill`）固定在門柱正上方繪製補網、橫桿與視覺門柱延伸，不隨開門／推拉移動；2D 參照線稿（`cadSVG`）正面圖繪製補網、橫桿、延伸虛線與「門上補網 X m（平高 Y m）」標註，規格卡加入 `gateTopFill`；勘查表（`app.js`）與客戶確認單（`confirmation.js`）同步顯示補高說明與門柱地上高度不足提醒。**不改變既有 BOM、菱形網計米、橫桿支數與報價金額**，JSON `version: 1` 完全相容。
 - **3D 工作室頂部「＋ 空白設計」按鈕**：將 `#new`（「＋ 空白設計」）從左側欄移至頁首 `<header><div class="actions">`（刪除本段旁），並在手機頂列 `.mobileStudioBar` 新增 `#mobileNewDesign`；調整 `mobile-view.css` 按鈕間距以容納 4 顆頂列按鈕。兩顆按鈕共用 `createBlankDesign()`，確認後清空節點與線段並支援復原（Undo）。
 - **大門開啟方式（外開／內開）**：3D 工作室（`studio.html`）單／雙開大門的選項由「朝配置左側開／朝配置右側開」改為「開啟方式：外開（`direction=1`）／內開（`direction=-1`）」；推拉門維持「推拉方向：往 B 端推開／往 A 端推開」。勘查表（`app.js`）單／雙開大門同步新增「開啟方式：外開／內開」，沿用既有 `direction` 欄位與 3D 傳遞，不改舊案幾何。
+- **CAD 參照線稿內直接顯示「顯示配件圖」開關**：在 `studio.html` 的 `#cadDialog` 內（`.cadShareBar` 下方）補上 `<div data-fitting-picker></div>`，由 `fitting-library.js` 自動與右側輸出欄同步，開啟線稿時可直接勾選／取消配件附頁並即時重建線稿分享圖與 PDF。
 - **驗證與索引**：新增回歸測試 `gate-top-fill-test.cjs` 並納入 `test.cjs` 與 `build-handoff.cjs`（AI 來源共 45 檔）。`node --check app.js`、`node test.cjs`、`node build-handoff.cjs` 全部通過。版本快取參數升為 `gate-swing-2`。未進行實機瀏覽器操作，發布後將以 GitHub Pages 工作流程與正式網址資源雜湊核對。
 
 ## 2026-11-07 勘查表柱距、橫桿管長與網高欄位
