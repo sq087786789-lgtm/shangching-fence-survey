@@ -73,8 +73,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13521,
-      "sha256": "fde03c291f023138a026adb3308715bea623bfe2b4774d07f0443dcefc2e093e",
+      "bytes": 13509,
+      "sha256": "9d5bc068996e805209494dc6983210ec1215ff8a6fa64668a9c4a8bd3f34d9a7",
       "url": "index.html"
     },
     {
@@ -157,8 +157,8 @@
     },
     {
       "path": "gate-top-fill-test.cjs",
-      "bytes": 9197,
-      "sha256": "df7e8ad0797bb718dec1e84d76745ef052f535c1a7e1e72004c574688ec7dfac",
+      "bytes": 9994,
+      "sha256": "482f012fe0f20d681dafb137a72109d5e2a0510919fceed98fe347d1d8da68a2",
       "url": "gate-top-fill-test.cjs"
     },
     {
@@ -181,8 +181,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 53348,
-      "sha256": "4a3644b20dd6bcb573afe522a9d6f48ab35f26b3074bb1e51f0b91895c1810f3",
+      "bytes": 53417,
+      "sha256": "6202d16f2298dda335aee2bdb96d5ee803764095fd285fc1ff43867b65d5d98c",
       "url": "app.js"
     },
     {
@@ -265,8 +265,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 145092,
-      "sha256": "0c1c3cb56584213ad0c1569e8eddce1508b56f5ef54106c01c3a536b4fabd5ab",
+      "bytes": 145172,
+      "sha256": "a56bd07c923dfe41a70d2111316f33e012ee855c36ce91664ecb27a57533ca38",
       "url": "studio.html"
     },
     {
@@ -307,8 +307,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 120462,
-      "sha256": "cbf9516516e586e2c561dbc588da02bdabf4e86cde4f9576f6f6216d54f34a76",
+      "bytes": 120930,
+      "sha256": "13a885d136b1600b5c54f92b4bc1757e8e286618a592e862233b121858b2bc13",
       "url": "HANDOFF.md"
     },
     {
