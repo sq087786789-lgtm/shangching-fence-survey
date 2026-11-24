@@ -4,9 +4,9 @@
 - **門上方補圍籬（平高）**：新增共用 `gateTopFillInfo(s, e)`（`fence-materials.js`、`reference-drawing.js`、`studio.html`）。預設 `gateTopFill='auto'`：非既有大門高度低於鄰近（或全案）圍籬高度時（例如 3m 圍籬配 2m 門），自動在門上方補畫缺口高度（1m）的菱形網與橫桿使其平高；同高案件不顯示，既有門不補。亦可手動切換「不補（門上留空）」(`none`) 或「自訂補平總高」(`custom` + `gateTopHeight`)。
 - **圖面與輸出同步**：3D 配置工作室（`drawGateTopFill`）固定在門柱正上方繪製補網、橫桿與視覺門柱延伸，不隨開門／推拉移動；2D 參照線稿（`cadSVG`）正面圖繪製補網、橫桿、延伸虛線與「門上補網 X m（平高 Y m）」標註，規格卡加入 `gateTopFill`；勘查表（`app.js`）與客戶確認單（`confirmation.js`）同步顯示補高說明與門柱地上高度不足提醒。**不改變既有 BOM、菱形網計米、橫桿支數與報價金額**，JSON `version: 1` 完全相容。
 - **3D 工作室頂部「＋ 空白設計」按鈕**：將 `#new`（「＋ 空白設計」）從左側欄移至頁首 `<header><div class="actions">`（刪除本段旁），並在手機頂列 `.mobileStudioBar` 新增 `#mobileNewDesign`；調整 `mobile-view.css` 按鈕間距以容納 4 顆頂列按鈕。兩顆按鈕共用 `createBlankDesign()`，確認後清空節點與線段並支援復原（Undo）。
-- **大門開啟方式（外開／內開）**：3D 工作室（`studio.html`）單／雙開大門的選項由「朝配置左側開／朝配置右側開」改為「開啟方式：外開（`direction=1`）／內開（`direction=-1`）」；推拉門維持「推拉方向：往 B 端推開／往 A 端推開」。勘查表（`app.js`）單／雙開大門同步新增「開啟方式：外開／內開」，沿用既有 `direction` 欄位與 3D 傳遞，不改舊案幾何。
+- **大門開啟方式（外開／內開）與單開門左開／右開**：3D 工作室（`studio.html`）單／雙開大門的選項改為「開啟方式：外開（`direction=1`）／內開（`direction=-1`）」，推拉門維持「推拉方向：往 B 端推開／往 A 端推開」；**單開門**額外顯示「單開方向：左開（`hingeSide='left'`）／右開（`hingeSide='right'`）」（雙開門與推拉門隱藏），3D `drawGate` 與 2D CAD 平面圖同步依鉸鏈側旋轉，且內外開方向一致。勘查表（`app.js`）同步提供「開啟方式」與單開門「單開方向」，沿用 JSON `version: 1`，舊案預設 `left` 不改原幾何。
 - **CAD 參照線稿內直接顯示「顯示配件圖」精簡開關**：將 `studio.html` 的 `#cadDialog` 選項列中原本的「標示橫桿尺寸」（`#cadRailDia`）位置改為精簡的「顯示配件圖」（`#cadFittings`）勾選欄（預設開啟，與右側欄 `sqFittingLibrary` 雙向同步，勾選即於分享圖片／PDF 末頁附本案使用配件參照，不額外佔整行版面）；`fitting-library.js` 匯出唯讀 `isVisible()` 供同步。
-- **驗證與索引**：新增回歸測試 `gate-top-fill-test.cjs` 並納入 `test.cjs` 與 `build-handoff.cjs`（AI 來源共 45 檔）。`node --check app.js`、`node test.cjs`、`node build-handoff.cjs` 全部通過。版本快取參數升為 `cad-fittings-1`／`gate-swing-2`。未進行實機瀏覽器操作，發布後將以 GitHub Pages 工作流程與正式網址資源雜湊核對。
+- **驗證與索引**：新增回歸測試 `gate-top-fill-test.cjs` 並納入 `test.cjs` 與 `build-handoff.cjs`（AI 來源共 45 檔）。`node --check app.js`、`node test.cjs`、`node build-handoff.cjs` 全部通過。版本快取參數升為 `gate-hinge-1`。未進行實機瀏覽器操作，發布後將以 GitHub Pages 工作流程與正式網址資源雜湊核對。
 
 ## 2026-11-07 勘查表柱距、橫桿管長與網高欄位
 

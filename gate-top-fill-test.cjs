@@ -193,4 +193,40 @@ assert.ok(cadDialogHtml.includes('id="cadFittings"'),'CAD dialog should include 
 assert.ok(!cadDialogHtml.includes('id="cadRailDia"'),'CAD dialog should replace #cadRailDia with #cadFittings');
 assert.ok(!cadDialogHtml.includes('data-fitting-picker'),'CAD dialog should not render oversized standalone picker block');
 
-console.log('PASS gate overhead flush fill (auto/none/custom, CAD/3D/confirmation/BOM preservation), top blank-design button, inward/outward gate labels and CAD fitting toggle');
+// 5. Single gate left/right opening (hingeSide) in studio, CAD plan and survey
+assert.ok(studioHtml.includes('id="hingeSideField"')&&studioHtml.includes('<option value="left">左開</option><option value="right">右開</option>'));
+assert.ok(fullAppSrc.includes("s.gate==='single'?field('單開方向','hingeSide',s.hingeSide??'left',[['left','左開'],['right','右開']]):''"));
+const singleSurvey=app.fresh();
+singleSurvey.segments[gateIndex].gate='single';
+singleSurvey.segments[gateIndex].hingeSide='right';
+app.validate(singleSurvey);
+assert.throws(()=>app.validate({...singleSurvey,segments:singleSurvey.segments.map((s,i)=>i===gateIndex?{...s,hingeSide:'middle'}:s)}));
+app.set(singleSurvey);
+const singleDesign=app.design();
+assert.equal(singleDesign.edges[gateIndex].hingeSide,'right');
+const panelsDrawn=[];
+const swingCtx={
+ sqFenceMaterials:materials,
+ document:{getElementById:()=>({getContext:()=>({})})},
+ console,
+ panel:(a,b)=>panelsDrawn.push({a,b}),
+ tube(){}
+};
+vm.createContext(swingCtx);
+vm.runInContext(
+ studioScript.slice(0,studioScript.indexOf('try{const s=localStorage'))
+ +'\n'+studioScript.match(/^function length\([^\n]+/m)[0]
+ +'\n'+studioScript.match(/^const lift=[^\n]+/m)[0]
+ +'\n'+studioScript.match(/^function drawGate\([^\n]+/m)[0]
+ +'\nstate='+JSON.stringify(singleDesign)+';state.edges['+gateIndex+'].angle=90;state.edges['+gateIndex+'].hingeSide="left";drawGate(state.edges['+gateIndex+']);state.edges['+gateIndex+'].hingeSide="right";drawGate(state.edges['+gateIndex+']);',
+ swingCtx
+);
+assert.equal(panelsDrawn.length,2);
+const ga=singleDesign.nodes[singleDesign.edges[gateIndex].a],gb=singleDesign.nodes[singleDesign.edges[gateIndex].b];
+assert.ok(Math.hypot(panelsDrawn[0].a.x-ga.x,panelsDrawn[0].a.z-ga.z)<0.2,'left-hinged single gate pivots near node a');
+assert.ok(Math.hypot(panelsDrawn[1].a.x-gb.x,panelsDrawn[1].a.z-gb.z)<0.2,'right-hinged single gate pivots near node b');
+const v0={x:panelsDrawn[0].b.x-panelsDrawn[0].a.x,z:panelsDrawn[0].b.z-panelsDrawn[0].a.z};
+const v1={x:panelsDrawn[1].b.x-panelsDrawn[1].a.x,z:panelsDrawn[1].b.z-panelsDrawn[1].a.z};
+assert.ok(v0.x*v1.x+v0.z*v1.z>0,'both left and right hinges swing to same outward/inward side');
+
+console.log('PASS gate overhead flush fill, top blank-design button, inward/outward & single-gate left/right opening, and compact CAD fitting toggle');
