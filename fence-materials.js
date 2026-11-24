@@ -70,5 +70,22 @@ function accessoryCount(s){
  const items=Object.entries(names).map(([key,name])=>({key,name,unit:key==='corner'?'組':key==='link'?'片':'個',automatic:auto[key],adjustment:adjustment[key]||0,total:Math.max(0,auto[key]+(adjustment[key]||0))}));
  return{railCount:edges[0]?.railCount??0,topFix:edges.length?(edges.every(ringTop)?'環帽':edges.every(e=>!ringTop(e))?'橫通管夾':'逐段設定'):'不適用',stockLength:edges.length&&edges.every(e=>stock(e)===stock(edges[0]))?stock(edges[0]):null,geometry:{posts:points.size,middle,ends,corners,junctionArms,straightRuns:runs},rules:'橫桿依各段跨數×排數計支，管長只供採購參考；中間柱每排1個橫通，起迄每排1個尾管夾，轉角每排1組取代管夾。環帽每柱1個，選環帽的直線頂排每6米估1片結合片，舊環帽設定仍按接頭。束夾依每2米立柱3個、每2米橫桿2個估算，逐件進位。門本體配件另計；只裝網及既有段不自動帶入新配件。',items};
 }
-const api={railGroups,accessoryCount,names,capNames,meshFixNames};if(typeof module==='object'&&module.exports)module.exports=api;else root.sqFenceMaterials=api;
+function gateTopFillInfo(s,e){
+ if(!e||e.style!=='gate')return null;
+ const mode=e.gateTopFill??'auto';
+ if(mode==='none')return null;
+ const a=s?.nodes?.[e.a],b=s?.nodes?.[e.b],near=(p,q)=>p&&q&&Math.hypot(p.x-q.x,p.z-q.z)<=.005+1e-9;
+ const fences=Array.isArray(s?.edges)?s.edges.filter(other=>other&&other!==e&&other.style!=='gate'):[];
+ const connected=a&&b?fences.filter(other=>{const oa=s.nodes?.[other.a],ob=s.nodes?.[other.b];return near(a,oa)||near(a,ob)||near(b,oa)||near(b,ob);}):[];
+ const pool=connected.length?connected:fences;
+ const ref=pool.reduce((best,cur)=>!best||cur.height>best.height?cur:best,null);
+ if(mode==='custom'){
+  const top=e.gateTopHeight;
+  if(!Number.isFinite(top)||top<=e.height+.005)return null;
+  return {mode:'custom',bottom:e.height,top,fillHeight:Number((top-e.height).toFixed(3)),ref};
+ }
+ if(e.existing||!ref||ref.height<=e.height+.005)return null;
+ return {mode:'auto',bottom:e.height,top:ref.height,fillHeight:Number((ref.height-e.height).toFixed(3)),ref};
+}
+const api={railGroups,accessoryCount,names,capNames,meshFixNames,gateTopFillInfo};if(typeof module==='object'&&module.exports)module.exports=api;else root.sqFenceMaterials=api;
 })(globalThis);

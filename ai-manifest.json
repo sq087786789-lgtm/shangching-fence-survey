@@ -73,8 +73,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 13523,
-      "sha256": "bc041cd0089e08c7c6d4c1c4925fe7eaf8041eb38ad56948255083eadb618dbc",
+      "bytes": 13521,
+      "sha256": "fde03c291f023138a026adb3308715bea623bfe2b4774d07f0443dcefc2e093e",
       "url": "index.html"
     },
     {
@@ -115,8 +115,8 @@
     },
     {
       "path": "fence-materials.js",
-      "bytes": 6829,
-      "sha256": "b7ceedbc6c8fb3fe10fcdb445220ed21d31a153ae78e9ab9e51f2b776e4a82d7",
+      "bytes": 7850,
+      "sha256": "b9edaa9a5a6fa92d4c9e1b4241c6fad8721411e46ca941b37cc749f687c8fed8",
       "url": "fence-materials.js"
     },
     {
@@ -156,6 +156,12 @@
       "url": "gate-parameters-test.cjs"
     },
     {
+      "path": "gate-top-fill-test.cjs",
+      "bytes": 9197,
+      "sha256": "df7e8ad0797bb718dec1e84d76745ef052f535c1a7e1e72004c574688ec7dfac",
+      "url": "gate-top-fill-test.cjs"
+    },
+    {
       "path": "studio-output.js",
       "bytes": 11421,
       "sha256": "793b7809e8bba3527288be27701affdad76322d7e844f8e1bef78b007c50f3d9",
@@ -175,8 +181,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 51557,
-      "sha256": "03180fdaef359b050c93dac0548c32c3e5bd28fab5ed5bdf5d2e130528f92db7",
+      "bytes": 53348,
+      "sha256": "4a3644b20dd6bcb573afe522a9d6f48ab35f26b3074bb1e51f0b91895c1810f3",
       "url": "app.js"
     },
     {
@@ -199,8 +205,8 @@
     },
     {
       "path": "mobile-view.css",
-      "bytes": 3873,
-      "sha256": "104282ae913e8d6ca4585d0191977340c7df17fe1c99a16e55230a6d9e1e0e9e",
+      "bytes": 3900,
+      "sha256": "303cfc3c35828677ac687b8ec87da0e20d6e3a6a847c94e1a408e99b14d03eed",
       "url": "mobile-view.css"
     },
     {
@@ -211,8 +217,8 @@
     },
     {
       "path": "confirmation.js",
-      "bytes": 30765,
-      "sha256": "674b4782c968981835547dbdd899cd9b02beec4c9854e0832903104a91d184bd",
+      "bytes": 31215,
+      "sha256": "b868b7ef853dc425629927f3ce96f99ee6df6d6ccf9fdcaa8c2fbca4e03ebc67",
       "url": "confirmation.js"
     },
     {
@@ -223,8 +229,8 @@
     },
     {
       "path": "reference-drawing.js",
-      "bytes": 25191,
-      "sha256": "5a0109a245f9524acb571001a9d9690d698150834d3e7f319828c7893701c3c8",
+      "bytes": 27596,
+      "sha256": "9529dd043f74720bb114233c7b43ea093ca5923e086a7c145e74af7bc04a6341",
       "url": "reference-drawing.js"
     },
     {
@@ -259,8 +265,8 @@
     },
     {
       "path": "studio.html",
-      "bytes": 139488,
-      "sha256": "b7f2fbdce110bc47d3b409f80e19ff9015ef694bdedeceaa8c6e03d2f9f48764",
+      "bytes": 145092,
+      "sha256": "0c1c3cb56584213ad0c1569e8eddce1508b56f5ef54106c01c3a536b4fabd5ab",
       "url": "studio.html"
     },
     {
@@ -271,14 +277,14 @@
     },
     {
       "path": "tools.js",
-      "bytes": 2695,
-      "sha256": "2e70819902a3062b607b8cb0ec8b81527050cd15b98a06527465b5d024d1bf34",
+      "bytes": 2866,
+      "sha256": "e500e9112f0be80671d8cd4a13cda6cdbcc6db4c1a389bd5420bad5842ac70e4",
       "url": "tools.js"
     },
     {
       "path": "tools.json",
-      "bytes": 2100,
-      "sha256": "44c30af6053b7e73c7e63e5c4c975d8f32d8a7f580d983d8e2ddeebabeffe062",
+      "bytes": 2362,
+      "sha256": "fc062d7786f01218db235938c381324ad2408b70e6f490f8a4b46a06bd9ca032",
       "url": "tools.json"
     },
     {
@@ -301,20 +307,20 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 118526,
-      "sha256": "a17c742e780d251e6d1f44485fe041b6df2f78276aa9fc675f6818284a63b360",
+      "bytes": 120462,
+      "sha256": "cbf9516516e586e2c561dbc588da02bdabf4e86cde4f9576f6f6216d54f34a76",
       "url": "HANDOFF.md"
     },
     {
       "path": "test.cjs",
-      "bytes": 74050,
-      "sha256": "72ae94870f4306a84e9871f706bcd494c3d9b30baae20e857e1b02f829f7a75f",
+      "bytes": 74086,
+      "sha256": "544b830701581194f5f2460adabe3339ee7a4dd5511eb4e4a3e0dcf96bc5713d",
       "url": "test.cjs"
     },
     {
       "path": "build-handoff.cjs",
-      "bytes": 2382,
-      "sha256": "ef78db74b881b7226661e8e651c58544d5bff2b0db9bcbff80a2db3b31bd15f3",
+      "bytes": 2407,
+      "sha256": "1cb31f0dac6e2807ff56ca012bdba62c4d3ba273524d0ab81a246f362427011a",
       "url": "build-handoff.cjs"
     },
     {

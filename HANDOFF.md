@@ -1,4 +1,11 @@
 # 圍籬工作室交接紀錄
+## 2026-11-23 門上方補圍籬平高與 3D 工作室頂部空白設計按鈕
+
+- **門上方補圍籬（平高）**：新增共用 `gateTopFillInfo(s, e)`（`fence-materials.js`、`reference-drawing.js`、`studio.html`）。預設 `gateTopFill='auto'`：非既有大門高度低於鄰近（或全案）圍籬高度時（例如 3m 圍籬配 2m 門），自動在門上方補畫缺口高度（1m）的菱形網與橫桿使其平高；同高案件不顯示，既有門不補。亦可手動切換「不補（門上留空）」(`none`) 或「自訂補平總高」(`custom` + `gateTopHeight`)。
+- **圖面與輸出同步**：3D 配置工作室（`drawGateTopFill`）固定在門柱正上方繪製補網、橫桿與視覺門柱延伸，不隨開門／推拉移動；2D 參照線稿（`cadSVG`）正面圖繪製補網、橫桿、延伸虛線與「門上補網 X m（平高 Y m）」標註，規格卡加入 `gateTopFill`；勘查表（`app.js`）與客戶確認單（`confirmation.js`）同步顯示補高說明與門柱地上高度不足提醒。**不改變既有 BOM、菱形網計米、橫桿支數與報價金額**，JSON `version: 1` 完全相容。
+- **3D 工作室頂部「＋ 空白設計」按鈕**：將 `#new`（「＋ 空白設計」）從左側欄移至頁首 `<header><div class="actions">`（刪除本段旁），並在手機頂列 `.mobileStudioBar` 新增 `#mobileNewDesign`；調整 `mobile-view.css` 按鈕間距以容納 4 顆頂列按鈕。兩顆按鈕共用 `createBlankDesign()`，確認後清空節點與線段並支援復原（Undo）。
+- **驗證與索引**：新增回歸測試 `gate-top-fill-test.cjs` 並納入 `test.cjs` 與 `build-handoff.cjs`（AI 來源共 45 檔）。`node --check app.js`、`node test.cjs`、`node build-handoff.cjs` 全部通過。版本快取參數升為 `gate-top-fill-1`。未進行實機瀏覽器操作，發布後將以 GitHub Pages 工作流程與正式網址資源雜湊核對。
+
 ## 2026-11-07 勘查表柱距、橫桿管長與網高欄位
 
 - 勘查表一般及簡易圍籬的「最大柱距 m」移至「立柱與工法」，「菱形網高度 m」移至「菱形網規格」。只裝網在「既有立柱」顯示示意間距，大門保留獨立門片高度。
