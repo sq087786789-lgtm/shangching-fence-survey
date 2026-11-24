@@ -180,13 +180,13 @@ assert.equal(drawnMesh[0].top,3);
 assert.ok(drawnTubes.some(t=>t.a.y>=2&&t.a.y<=3&&Math.abs(t.a.y-t.b.y)<1e-6),'overhead rails should be drawn horizontally between 2m and 3m');
 assert.ok(drawnTubes.some(t=>Math.abs(t.a.y-2)<0.01&&Math.abs(t.b.y-3)<0.01),'gate post visual extension should reach 3m when postAbove < 3m');
 
-// 4. Verify swing gate opening mode uses 內開 / 外開 (not 左側開 / 右側開) while preserving sliding labels & direction values
+// 4. Verify swing gate opening mode uses 外開 (1) / 內開 (-1) (not 左側開 / 右側開) while preserving sliding labels & direction values
 assert.ok(studioHtml.includes('<span id="directionLabel">開啟方式</span>'));
-assert.ok(studioHtml.includes('<option value="1">內開</option><option value="-1">外開</option>'));
+assert.ok(studioHtml.includes('<option value="1">外開</option><option value="-1">內開</option>'));
 assert.ok(!studioHtml.includes('朝配置左側開')&&!studioHtml.includes('朝配置右側開'));
-assert.ok(studioHtml.includes("e.gateType==='sliding'?'往 B 端推開':'內開'"));
-assert.ok(studioHtml.includes("e.gateType==='sliding'?'往 A 端推開':'外開'"));
+assert.ok(studioHtml.includes("e.gateType==='sliding'?'往 B 端推開':'外開'"));
+assert.ok(studioHtml.includes("e.gateType==='sliding'?'往 A 端推開':'內開'"));
 const fullAppSrc=fs.readFileSync(path.join(root,'app.js'),'utf8');
-assert.ok(fullAppSrc.includes("field('開啟方式','direction',s.direction??1,[[1,'內開'],[-1,'外開']])"));
+assert.ok(fullAppSrc.includes("field('開啟方式','direction',s.direction??1,[[1,'外開'],[-1,'內開']])"));
 
 console.log('PASS gate overhead flush fill (auto/none/custom, CAD/3D/confirmation/BOM preservation), top blank-design button and inward/outward gate opening labels');
