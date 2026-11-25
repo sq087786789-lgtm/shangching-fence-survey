@@ -301,14 +301,14 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 15872,
-      "sha256": "2015782099555c85ee62e55b278c717e71643508b16a954da601d431676ac400",
+      "bytes": 17640,
+      "sha256": "79ad75ea711df4ee940c5195f851b8c185f942cfaf6f7e9e8e1db1c34ff67b4e",
       "url": "AGENTS.md"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 121600,
-      "sha256": "57082091b15ef048e503ec723135db44ac132c59ea29f4ad4738a9f4b726a0cc",
+      "bytes": 125362,
+      "sha256": "721e3aaf0105be7ef549469fd663e932c54c5327740b5a565db41fd1d9d8feeb",
       "url": "HANDOFF.md"
     },
     {

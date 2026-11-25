@@ -579,3 +579,25 @@
 - 接點分開時先保留原位；重疊接點在柱數／配件計算仍可能按既有5mm幾何容差視為同一處，拖開後才成為不同位置。這與編輯時各段是否共用節點是兩個不同概念。
 - 推拉門目前是構造與行程參照。軌道、滑輪、導輪、止擋、馬達及安裝空間等不擅自套用數量或報價，仍需業主確認實際構造。
 - `work/`與真實案件、聯絡資料、照片、localStorage、憑證都不公開。本交接文件只記程式、測試與發布狀態。
+
+## 本次自主開發配置完成
+
+已整合「自行分析、本機修改、隔離驗證與修正；正式操作保留審核」。E根及本專案AGENTS已保留原規則並加入流程。客服另有僅本機的Git來源基準，未設定remote；核准價格、案件、JSON設定、DPAPI、LINE與狀態資料不追蹤。原始設定及文件備份見 E:\GPT\.backups\autonomous-development-20261120-075005。
+
+本機一鍵檢查：執行本專案 Run-LocalChecks.cmd。中央入口 E:\GPT\.tools\autonomous-development\Verify-Project.ps1；失敗回傳非零代碼並留下log／JSON。客服已實跑12項回歸全部成功，含暫存案件、隨機本機埠、模擬LINE及本機模型推理；Windows PowerShell入口亦已成功。圍籬已實跑完整node test.cjs成功。這不等於實體手機、真LINE實收或正式上線驗收；本次沒有部署、push、服務重啟或真實客戶資料修改。
+
+程式理解：以Repomix compress=true的五支現有測試結構圖（6c947945521996c3）定位，再局部讀碼確認測試的暫存資料／模擬外部服務邊界；沒有打包案件、憑證或價表。CodeGraph保留，.mjs/.cjs仍依先前實測限制使用替代方法。
+
+## 2026-11-20 工具入口新增客服後台捷徑，待確認公開發佈
+
+使用者回報公開上慶工具入口沒有客服後台。公開 tools.json 唯讀核對為 7 個工具，未列客服。正式本機來源只修改 tools.json 和 tools.js 的入口相關程式，加入「AI 客服後台」卡片，標記「工作電腦專用」，指向 127.0.0.1:8687/staff。工具清單維持同一份。卡片支援選填 GitHub 欄位，其他原有 7 個工具的內容和專案連結保持相同。原始兩檔備份在 E:\GPT\.backups\tools-staff-link-20261120。
+
+在正式專案目錄執行 node test.cjs 全過。以 Node VM 執行實際 tools.js 模擬 DOM，核對產出 8 張卡、其他 7 張專案連結及本機網址。正式本機 /staff 回登入頁，未登入讀 /api/leads 回 401。瀏覽器工具本輪中途不可用，未聲稱實機點擊。曾以錯誤工作目錄呼叫自動檢查遭自動覆核拒絕，已改從真正的 E:\GPT\shangching-fence-survey 執行同等既有測試。程式以 rg、局部讀碼及兩檔 Git 差異核對。
+
+等待使用者對工具入口 GitHub Pages 明確同意。發佈前核對遠端 main、Pages 設定，以及既有髒檔 AGENTS.md、HANDOFF.md、ai-manifest.json、ai-source.json、Run-LocalChecks.cmd；以原部署分支只提交 tools.js、tools.json 並驗證 Pages 工作流程與公開清單。別把未提交的其他改動帶上線。回復時逐檔與備份核對，保留後續使用者修改。此次沒有改客戶後台程式、帳密或現行 8687 服務。
+
+## 2026-11-20 工具入口的 AI 客服後台已公開發布
+
+業主已明確同意發布。正式來源本機、遠端 main 原皆為 2572955，兩個工具檔提交 6967748d373b46b7b11a2b4025166eb30a156d21 已推送並核對遠端。GitHub Pages 執行 44688843585 成功（https://github.com/sq087786789-lgtm/shangching-fence-survey/actions/runs/44688843585）。這次提交只有 tools.json、tools.js，其他本機未提交內容原位保留。
+
+公開 https://sq087786789-lgtm.github.io/shangching-fence-survey/tools.html 回 200。重新取得發布後的兩個資源，用 Node VM 執行真正的 tools.js，確認顯示 8 張卡及「AI 客服後台」「工作電腦專用」和 127.0.0.1:8687/staff。工作電腦的連結回登入頁 HTTP 200，匿名案件讀取回 401。既有 node test.cjs 全過。本輪以既有入口結構、精確指定檔案的 git diff、GitHub Pages 工作流程和發布資源驗證。回復只撤回本提交並驗證公開清單，不覆蓋其他未提交修改。
